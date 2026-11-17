@@ -1,18 +1,48 @@
 ---
 interface Props {
   title: string;
+  icon?: 'computer' | 'folder' | 'doc' | 'help' | 'globe';
+  controls?: boolean;
+  drag?: boolean;
   class?: string;
+  bodyClass?: string;
 }
 
-const { title, class: className } = Astro.props;
+const {
+  title,
+  icon = 'computer',
+  controls = false,
+  drag = false,
+  class: className,
+  bodyClass,
+} = Astro.props;
 ---
 
-<section class:list={['window', className]}>
+<section
+  class:list={['window', className]}
+  data-drag={drag ? '' : undefined}
+  aria-label={title}
+>
   <header class="window__bar">
-    <span>{title}</span>
-    <span class="window__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+    <svg class="window__icon" aria-hidden="true" focusable="false"><use href={`#i-${icon}`} /></svg>
+    <span class="window__title">{title}</span>
+    {
+      controls && (
+        <span class="window__controls">
+          <button class="winbtn" type="button" data-win="min" aria-label="Minimizar ventana">
+            –
+          </button>
+          <button class="winbtn" type="button" data-win="max" aria-label="Maximizar ventana">
+            □
+          </button>
+          <button class="winbtn" type="button" data-win="close" aria-label="Cerrar ventana">
+            ×
+          </button>
+        </span>
+      )
+    }
   </header>
-  <div class="window__body">
+  <div class:list={['window__body', bodyClass]}>
     <slot />
   </div>
 </section>

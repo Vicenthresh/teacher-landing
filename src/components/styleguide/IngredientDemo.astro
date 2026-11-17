@@ -1,0 +1,200 @@
+---
+import Window from '../Window.astro';
+import Sky from '../Sky.astro';
+import Taskbar from '../Taskbar.astro';
+import Ticker from '../Ticker.astro';
+import VisitorCounter from '../VisitorCounter.astro';
+import BootPanel from '../BootPanel.astro';
+import site from '../../data/site.es.json';
+import data from '../../data/styleguide.es.json';
+
+interface Props {
+  id: string;
+  nav: { label: string; href: string }[];
+}
+
+const { id, nav } = Astro.props;
+const { sample, demos } = data;
+---
+
+{
+  id === 'window' && (
+    <div class="plinth plinth--demo">
+      <Window title={`${sample.windowTitle} · ${sample.windowSub}`} controls>
+        <p class="small muted mb-0">{demos.windowLine}</p>
+      </Window>
+    </div>
+  )
+}
+
+{
+  id === 'glass' && (
+    <div class="plinth plinth--demo">
+      <Sky uid="d-glass" parts="plate" />
+      <div class="glass">
+        <div class="glass__body">
+          <p class="display" style="font-size:0.7rem; color: var(--glass-ink)">
+            {sample.glassTitle}
+          </p>
+          <p class="small mb-0">{demos.glassLine}</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+{
+  id === 'button' && (
+    <div class="demo-grid">
+      <div class="plinth plinth--flat">
+        <div class="btn-row">
+          <button class="btn" type="button">
+            {demos.buttonPrimary}
+          </button>
+          <button class="btn btn--ghost" type="button">
+            {demos.buttonGhost}
+          </button>
+          <button class="btn" type="button" disabled>
+            {demos.buttonDisabled}
+          </button>
+        </div>
+      </div>
+      <div class="plinth">
+        <div class="btn-row">
+          <button class="btn" type="button">
+            {demos.buttonPrimary}
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+{
+  id === 'chrome-heading' && (
+    <div class="plinth plinth--flat">
+      <p class="chrome-text" style="font-size: clamp(1.7rem, 7vw, 2.8rem)">
+        {demos.headingSample}
+      </p>
+    </div>
+  )
+}
+
+{
+  id === 'pixel-font' && (
+    <div class="plinth plinth--flat">
+      <p class="display mb-0" style="font-size: 1.25rem; line-height: 1.3">
+        {demos.alphabet}
+      </p>
+      <p class="display mb-0" style="font-size: 0.8rem; letter-spacing: 0.1em">
+        {demos.numerals}
+      </p>
+      <p class="display mb-0" style="font-size: 0.6rem">
+        {sample.eyebrow}
+      </p>
+    </div>
+  )
+}
+
+{
+  id === 'plate' && (
+    <div class="plinth plinth--tall plinth--demo">
+      <Sky uid="d-plate" parts="plate" />
+    </div>
+  )
+}
+
+{
+  id === 'bubbles' && (
+    <div class="plinth plinth--tall">
+      <Sky uid="d-bub" parts="bubbles" />
+    </div>
+  )
+}
+
+{
+  id === 'taskbar' && (
+    <div class="plinth plinth--desk">
+      <Sky uid="d-bar" parts="plate" />
+      <Taskbar idSuffix="demo" nav={nav} startOpen demo />
+    </div>
+  )
+}
+
+{
+  id === 'drag' && (
+    <div class="plinth plinth--desk plinth--drag">
+      <Sky uid="d-drag" parts="plate" />
+      <Window title={sample.windowTitle} drag controls class="demo-window">
+        <p class="small mb-0">{demos.dragHint}</p>
+      </Window>
+    </div>
+  )
+}
+
+{
+  id === 'boot' && (
+    <div class="plinth plinth--dark plinth--center">
+      <BootPanel />
+      <button class="btn btn--ghost" type="button" data-boot-trigger>
+        {demos.bootTrigger}
+      </button>
+    </div>
+  )
+}
+
+{
+  id === 'counter' && (
+    <div class="plinth plinth--dark plinth--flush">
+      <div class="counter-demo">
+        <VisitorCounter base={site.counter.base} demo />
+      </div>
+      <Ticker items={[sample.ticker]} label={site.ticker.label} />
+    </div>
+  )
+}
+
+{
+  id === 'cursors' && (
+    <div class="plinth plinth--flat">
+      <div class="cursor-row">
+        <button class="cursor-demo cursor-arrow" type="button">
+          {demos.cursorArrow}
+        </button>
+        <button class="cursor-demo cursor-hand" type="button">
+          {demos.cursorHand}
+        </button>
+        <button class="cursor-demo cursor-move" type="button">
+          {demos.cursorMove}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+{
+  id === 'sound' && (
+    <div class="plinth plinth--flat">
+      <div class="btn-row">
+        <button
+          class="btn"
+        type="button"
+          data-sound
+          data-on="false"
+          data-label-on={site.taskbar.soundOn}
+          data-label-off={site.taskbar.soundOff}
+          aria-pressed="false"
+          aria-label={site.taskbar.soundOff}
+        >
+          <svg width="17" height="17" aria-hidden="true" focusable="false">
+            <use href="#i-sound" />
+          </svg>
+          <span class="sound-label">
+            <span class="sound-label__on">{site.taskbar.soundOn}</span>
+            <span class="sound-label__off">{site.taskbar.soundOff}</span>
+          </span>
+        </button>
+      </div>
+    </div>
+  )
+}

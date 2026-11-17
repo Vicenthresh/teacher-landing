@@ -1,43 +1,665 @@
 ---
 import Base from '../layouts/Base.astro';
-import Window from '../components/Window.astro';
+import Plate from '../components/styleguide/Plate.astro';
+import IngredientDemo from '../components/styleguide/IngredientDemo.astro';
+import BootScreen from '../components/BootScreen.astro';
+import site from '../data/site.es.json';
+import data from '../data/styleguide.es.json';
+import m from '../data/measurements.json';
+import weight from '../data/weight.json';
+import contrast from '../data/contrast.json';
 
-// Phase 0 lives here: every retro ingredient is built and judged on this page
-// before it is allowed into a real section. See the vault hub, §4 and §9.
-const ingredients = [
-  'window chrome (7.css / XP.css frame, restyled)',
-  'glass panel (layered gradient + backdrop-filter + inner highlight)',
-  'glossy button (bevel + top highlight)',
-  'chrome heading (background-clip: text)',
-  'pixel display font (one OFL face, Latin subset)',
-  'sky / grass plate (CSS gradients first, one AVIF max)',
-  'bubbles and orbs (inline SVG)',
-  'taskbar + Start-menu nav',
-  'draggable windows (~1.5 KB vanilla JS)',
-  'boot / loading screen',
-  'visitor counter + CSS ticker',
-  'cursors (16–32 px, CSS url())',
-  'click / beep sounds (off by default, taskbar toggle)',
-];
+const { meta, plates, ingredients, measure, verdict, sample } = data;
+const nav = site.taskbar.nav;
+const wide = new Set(['bubbles', 'taskbar', 'drag']);
 ---
 
-<Base title="Style guide — Teacher Landing">
-  <main class="shell" data-skin="y2k">
-    <Window title="STYLEGUIDE.EXE">
-      <h1 class="chrome-text">Style guide</h1>
-      <p class="muted">
-        The design gate. Nothing goes into a section until it looks right here, at phone width,
-        at AA contrast.
+<Base title="Style guide — Teacher Landing" description="Puerta de diseño de la Fase 0: ingredientes, dos skins, contraste y peso." doc>
+  <main id="main" class="doc__wrap">
+    <header class="doc-head">
+      <div class="doc-head__top">
+        <div>
+          <p class="doc-kicker">{meta.kicker}</p>
+          <h1 class="doc-title">{meta.title}</h1>
+        </div>
+        <nav class="doc-jump" aria-label="Saltar a">
+          <a href="#placas">Placas</a>
+          <a href="#ingredientes">Ingredientes</a>
+          <a href="#medidas">Medidas</a>
+          <a href="#veredicto">Veredicto</a>
+        </nav>
+      </div>
+      <p class="doc-lede">{meta.lede}</p>
+      <div class="chip-row">
+        {meta.chips.map((chip) => <span class="chip">{chip}</span>)}
+      </div>
+    </header>
+
+    {/* ------------------------------------------------ 01 · the two plates */}
+    <section class="doc-section" id="placas" aria-labelledby="h-placas">
+      <h2 class="doc-h2" id="h-placas">
+        <span>{plates.kicker}</span>
+        {plates.title}
+      </h2>
+      <p class="doc-note">{plates.lede}</p>
+
+      <div class="plates">
+        <Plate skin="aero" label={plates.aero.label} tag={plates.aero.tag} sub={plates.aero.sub} />
+        <Plate skin="y2k" label={plates.y2k.label} tag={plates.y2k.tag} sub={plates.y2k.sub} />
+      </div>
+      <p class="sg-footnote">{plates.note}</p>
+    </section>
+
+    {/* ------------------------------------------------------- 02 · audit */}
+    <section class="doc-section" id="ingredientes" aria-labelledby="h-ingredientes">
+      <h2 class="doc-h2" id="h-ingredientes">
+        <span>{ingredients.kicker}</span>
+        {ingredients.title}
+      </h2>
+      <p class="doc-note">{ingredients.lede}</p>
+
+      <div class="audit-toolbar">
+        <span class="eyebrow" style="color: var(--doc-mute)">{ingredients.toggleLabel}</span>
+        <div class="segmented" role="group" aria-label={ingredients.toggleLabel}>
+          <button type="button" data-skin-set="aero" aria-controls="audit" aria-pressed="true">
+            Aero
+          </button>
+          <button type="button" data-skin-set="y2k" aria-controls="audit" aria-pressed="false">
+            Y2K
+          </button>
+        </div>
+      </div>
+
+      <div class="audit" id="audit" data-skin="aero" data-audit>
+        <div class="specs">
+          {
+            data.items.map((item) => (
+              <article class:list={['spec', wide.has(item.id) && 'spec--wide']} id={`ing-${item.id}`}>
+                <header class="spec__head">
+                  <span class="spec__num">{item.n}</span>
+                  <h3 class="spec__name">{item.name}</h3>
+                  <span class:list={['badge', `badge--${item.badge}`]}>{item.badgeLabel}</span>
+                  <span class="spec__cost">{item.cost}</span>
+                </header>
+                <div class="spec__demo">
+                  <IngredientDemo id={item.id} nav={nav} />
+                </div>
+                <ul class="spec__notes">
+                  {item.notes.map((note) => <li>{note}</li>)}
+                </ul>
+                <p class="spec__a11y">
+                  <b>{item.a11y.strong}</b> {item.a11y.text}
+                </p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    {/* ---------------------------------------------------- 03 · measures */}
+    <section class="doc-section" id="medidas" aria-labelledby="h-medidas">
+      <h2 class="doc-h2" id="h-medidas">
+        <span>{measure.kicker}</span>
+        {measure.title}
+      </h2>
+      <p class="doc-note">{measure.lede}</p>
+
+      <h3 class="doc-h3">{measure.weightTitle}</h3>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">{measure.cols.item}</th>
+              <th scope="col" class="num">{measure.cols.raw}</th>
+              <th scope="col" class="num">{measure.cols.gzip}</th>
+              <th scope="col">{measure.cols.budget}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              weight.rows.map((row) => (
+                <tr>
+                  <td>{row.item}</td>
+                  <td class="num">{row.raw}</td>
+                  <td class="num">{row.gzip}</td>
+                  <td class="pair">{row.budget}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="doc-h3">{measure.contrastTitle}</h3>
+      <p class="doc-note">{measure.contrastNote}</p>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">{measure.cols.pair}</th>
+              <th scope="col" class="num">{measure.cols.ratio}</th>
+              <th scope="col">{measure.cols.aa}</th>
+              <th scope="col">Nota</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              contrast.rows.map((row) => (
+                <tr>
+                  <td>{row.pair}</td>
+                  <td class="num">{row.ratio}</td>
+                  <td class={row.aa === 'pass' ? 'ok' : 'bad'}>{row.aa === 'pass' ? 'Pasa' : 'Falla'}</td>
+                  <td class="small">{row.note}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="doc-h3">{measure.lighthouseTitle}</h3>
+      <p class="doc-note">{measure.lighthouseNote}</p>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Página</th>
+              <th scope="col" class="num">Perf</th>
+              <th scope="col" class="num">A11y</th>
+              <th scope="col" class="num">Best practices</th>
+              <th scope="col" class="num">SEO</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              m.lighthouse.map((row) => (
+                <tr>
+                  <td class="pair">{row.page}</td>
+                  <td class="num">{row.perf}</td>
+                  <td class="num">{row.a11y}</td>
+                  <td class="num">{row.bp}</td>
+                  <td class="num">{row.seo}</td>
+                </tr>
+              ))
+            }
+            <tr>
+              <td class="pair">LCP</td>
+              <td class="num">{m.lcp}</td>
+              <td class="small" colspan="3">
+                {m.lcpNote}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="sg-footnote">Medido el {m.date} sobre el build de producción.</p>
+    </section>
+
+    {/* ----------------------------------------------------- 04 · verdict */}
+    <section class="doc-section" id="veredicto" aria-labelledby="h-veredicto">
+      <h2 class="doc-h2" id="h-veredicto">
+        <span>{verdict.kicker}</span>
+        {verdict.title}
+      </h2>
+
+      <div class="verdict">
+        <div>
+          <p class="eyebrow" style="color: var(--doc-mute)">{verdict.ratioLabel}</p>
+          <p class="verdict__num">{verdict.ratio}</p>
+        </div>
+        <p class="verdict__summary">{verdict.summary}</p>
+      </div>
+
+      <div class="verdict__cols">
+        <div class="verdict__col">
+          <h3 class="ok">{verdict.keepLabel}</h3>
+          <ul>
+            {verdict.keep.map((text) => <li>{text}</li>)}
+          </ul>
+        </div>
+        <div class="verdict__col">
+          <h3 class="warn">{verdict.condLabel}</h3>
+          <ul>
+            {verdict.conditional.map((text) => <li>{text}</li>)}
+          </ul>
+        </div>
+        <div class="verdict__col">
+          <h3 class="bad">{verdict.dropLabel}</h3>
+          <ul>
+            {verdict.drop.map((text) => <li>{text}</li>)}
+          </ul>
+        </div>
+      </div>
+
+      <section class="callout callout--warn sg-blocked" aria-labelledby="h-blocked">
+        <h3 id="h-blocked">{verdict.blockedTitle}</h3>
+        <p>{verdict.blockedNote}</p>
+        <dl class="blocked">
+          {
+            verdict.blocked.map((item) => (
+              <>
+                <dt>{item.q}</dt>
+                <dd>{item.why}</dd>
+              </>
+            ))
+          }
+        </dl>
+      </section>
+    </section>
+
+    <footer class="sg-footer">
+      <p>
+        {sample.heading} · {meta.kicker} · <a href="/">volver al inicio</a>
       </p>
-
-      <h2>Ingredients</h2>
-      <ul>
-        {ingredients.map((item) => <li>{item}</li>)}
-      </ul>
-
-      <h2>Sample</h2>
-      <p><a class="btn" href="#">Sample glossy button</a></p>
-      <p class="muted">Chrome heading above, glass window around, sky behind.</p>
-    </Window>
+    </footer>
   </main>
+
+  <BootScreen mode="manual" />
 </Base>
+
+<style is:global>
+  /* Page layout for the design gate. Not part of the site system. */
+
+  .doc-head__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .doc-jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .doc-jump a {
+    padding: 5px 10px;
+    border: 1px solid #2b414e;
+    border-radius: 999px;
+    font-family: var(--font-display);
+    font-size: 0.55rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--doc-soft);
+  }
+
+  .doc-jump a:hover {
+    border-color: var(--doc-link);
+    color: var(--doc-link);
+  }
+
+  .plates {
+    display: grid;
+    gap: var(--space-6);
+    align-items: start;
+  }
+
+  @media (min-width: 1060px) {
+    .plates {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .plate {
+    display: grid;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .plate__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .plate__label {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #eaf7fd;
+  }
+
+  .plate__tag {
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--ok);
+    color: #08121a;
+    font-family: var(--font-display);
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .plate__sub {
+    margin: 0 0 6px;
+    max-width: 48ch;
+    color: var(--doc-soft);
+    font-size: 0.82rem;
+  }
+
+  .plate__stage {
+    min-height: 700px;
+  }
+
+  .stage__window {
+    width: min(28rem, 100%);
+    margin-top: clamp(0.5rem, 3vh, 1.5rem);
+  }
+
+  .stage__window .window__body {
+    padding: var(--space-5);
+  }
+
+  @media (max-width: 420px) {
+    .stage__window .window__body {
+      padding: var(--space-4);
+    }
+  }
+
+  .stage__heading {
+    font-size: clamp(1.7rem, 8.5vw, 3rem);
+    margin-block: 2px var(--space-2);
+  }
+
+  .stage__promise {
+    margin-bottom: var(--space-2);
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+
+  .stage__facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: var(--space-3) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .stage__facts li {
+    padding: 3px 8px;
+    border: 1px solid var(--panel-edge);
+    border-radius: 999px;
+    font-family: var(--font-display);
+    font-size: 0.54rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+
+  .stage__glass {
+    width: min(23rem, 100%);
+    margin-top: auto;
+    margin-left: auto;
+  }
+
+  .stage__glassTitle {
+    margin-bottom: 6px;
+    font-size: 0.72rem;
+    color: var(--glass-ink);
+  }
+
+  .stage__glassFoot {
+    margin: var(--space-3) 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    opacity: 0.8;
+  }
+
+  .demo-frame {
+    display: grid;
+    gap: var(--space-2);
+    justify-items: start;
+  }
+
+  .sg-footnote {
+    margin-top: var(--space-3);
+    color: var(--doc-mute);
+    font-size: 0.76rem;
+  }
+
+  /* audit toolbar */
+
+  .audit-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .segmented {
+    display: inline-flex;
+    padding: 2px;
+    border: 1px solid #2b414e;
+    border-radius: 999px;
+    background: #0b161e;
+  }
+
+  .segmented button {
+    padding: 6px 14px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--doc-soft);
+    font: 700 0.72rem/1 var(--font-ui);
+    cursor: pointer;
+  }
+
+  .segmented button[aria-pressed='true'] {
+    background: var(--ok);
+    color: #08121a;
+  }
+
+  /* spec demos */
+
+  .demo-grid {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 520px) {
+    .demo-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .plinth--demo {
+    min-height: 190px;
+    align-content: center;
+  }
+
+  .plinth--tall {
+    min-height: 220px;
+  }
+
+  .plinth--desk {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 440px;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .plinth--drag {
+    align-items: center;
+    justify-content: center;
+    min-height: 270px;
+  }
+
+  .plinth--center {
+    place-items: center;
+    min-height: 240px;
+    text-align: center;
+  }
+
+  .plinth--flush {
+    padding: 0;
+    min-height: 0;
+  }
+
+  .demo-window {
+    width: min(24rem, 100%);
+    margin-inline: auto;
+  }
+
+  .counter-demo {
+    display: flex;
+    justify-content: flex-start;
+    padding: var(--space-4);
+  }
+
+  .cursor-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .cursor-demo {
+    display: grid;
+    place-items: center;
+    gap: 4px;
+    min-width: 84px;
+    min-height: 64px;
+    padding: 8px;
+    border: 1px dashed var(--panel-edge);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.5);
+    color: var(--ink);
+    font: 700 0.7rem/1.2 var(--font-ui);
+  }
+
+  [data-skin='y2k'] .cursor-demo {
+    background: rgba(6, 36, 54, 0.55);
+  }
+
+  /* measurements + verdict */
+
+  .verdict {
+    display: grid;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    border: 1px solid #25404e;
+    border-radius: 14px;
+    background: linear-gradient(180deg, #0e1f29, #0a151d);
+  }
+
+  @media (min-width: 820px) {
+    .verdict {
+      grid-template-columns: 15rem 1fr;
+      align-items: center;
+    }
+  }
+
+  .verdict__num {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 4vw, 1.6rem);
+    line-height: 1.1;
+    color: var(--ok);
+  }
+
+  .verdict__summary {
+    margin: 0;
+    color: var(--doc-soft);
+  }
+
+  .verdict__cols {
+    display: grid;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+
+  @media (min-width: 820px) {
+    .verdict__cols {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .verdict__col {
+    padding: var(--space-4);
+    border: 1px solid var(--doc-line);
+    border-radius: 10px;
+    background: var(--doc-card);
+  }
+
+  .verdict__col h3 {
+    margin-bottom: var(--space-2);
+    font-family: var(--font-display);
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .verdict__col ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    color: var(--doc-soft);
+    font-size: 0.86rem;
+  }
+
+  .verdict__col li + li {
+    margin-top: 6px;
+  }
+
+  .sg-blocked {
+    margin-top: var(--space-6);
+  }
+
+  .sg-blocked h3 {
+    margin-bottom: var(--space-2);
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #ffe6a8;
+  }
+
+  .blocked {
+    display: grid;
+    gap: var(--space-2);
+    margin: var(--space-4) 0 0;
+    padding: 0;
+  }
+
+  @media (min-width: 760px) {
+    .blocked {
+      grid-template-columns: 11rem 1fr;
+      align-items: baseline;
+    }
+  }
+
+  .blocked dt {
+    font-weight: 700;
+    color: #f2fbff;
+  }
+
+  .blocked dd {
+    margin: 0;
+    color: var(--doc-soft);
+    font-size: 0.9rem;
+  }
+
+  .sg-footer {
+    margin-top: var(--space-16);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--doc-line);
+    color: var(--doc-mute);
+    font-size: 0.78rem;
+  }
+
+  .sg-footer p {
+    margin: 0;
+  }
+</style>

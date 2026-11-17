@@ -1,0 +1,36 @@
+---
+interface Props {
+  items: string[];
+  label?: string;
+}
+
+const { items, label = 'Avisos' } = Astro.props;
+const run = [...items, ...items];
+---
+
+<div class="ticker" role="group" aria-label={label}>
+  <div class="ticker__track">
+    <span class="ticker__run">
+      {
+        run.map((text) => (
+          <>
+            <span class="ticker__item">{text}</span>
+            <span class="ticker__sep" aria-hidden="true">
+              ·
+            </span>
+          </>
+        ))
+      }
+    </span>
+    <span class="ticker__run" aria-hidden="true">
+      {
+        run.map((text) => (
+          <>
+            <span class="ticker__item">{text}</span>
+            <span class="ticker__sep">·</span>
+          </>
+        ))
+      }
+    </span>
+  </div>
+</div>

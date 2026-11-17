@@ -1,0 +1,47 @@
+{
+  "locale": "es",
+  "brand": "Teacher Landing",
+  "taskbar": {
+    "start": "Inicio",
+    "navLabel": "Secciones del sitio",
+    "nav": [
+      { "label": "Inicio", "href": "#inicio" },
+      { "label": "Clases", "href": "#clases" },
+      { "label": "Precios", "href": "#precios" },
+      { "label": "Método", "href": "#metodo" },
+      { "label": "FAQ", "href": "#faq" },
+      { "label": "Contacto", "href": "#contacto" }
+    ],
+    "soundOn": "Sonidos: activados",
+    "soundOff": "Sonidos: desactivados",
+    "langOff": "English: fase 3",
+    "menuHead": "Profesora · Santiago de Chile",
+    "menuStyleguide": "Style guide (fase 0)",
+    "menuFoot": "Fase 0 · demo"
+  },
+  "boot": {
+    "title": "TEACHER.EXE",
+    "line": "Iniciando escritorio…",
+    "foot": "Fase 0 · puerta de diseño"
+  },
+  "ticker": {
+    "label": "Avisos del sitio",
+    "items": [
+      "Fase 0 · puerta de diseño",
+      "Aero vs Y2K",
+      "Sin nombre, sin precios, sin fotos todavía",
+      "Nada entra en una sección sin pasar por acá"
+    ]
+  },
+  "counter": {
+    "base": 41,
+    "demo": true
+  },
+  "shell": {
+    "windowTitle": "TEACHER.EXE",
+    "kicker": "Fase 0 · puerta de diseño",
+    "heading": "TEACHER",
+    "body": "El escritorio todavía es un esqueleto. Los ingredientes se juzgan en el style guide antes de escribir contenido real.",
+    "cta": "Ver style guide"
+  }
+}

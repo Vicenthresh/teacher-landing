@@ -1,0 +1,16 @@
+---
+import BootPanel from './BootPanel.astro';
+
+interface Props {
+  mode?: 'auto' | 'manual';
+}
+
+// Hidden by default so it costs nothing in LCP/CLS and works without JS.
+// `auto` plays once per session on the real site; the styleguide only plays
+// it when asked, so the design gate stays fast.
+const { mode = 'manual' } = Astro.props;
+---
+
+<div class="boot" data-boot data-boot-mode={mode} hidden>
+  <BootPanel />
+</div>

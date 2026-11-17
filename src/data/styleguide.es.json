@@ -1,0 +1,346 @@
+{
+  "meta": {
+    "kicker": "Fase 0 · puerta de diseño",
+    "title": "Style guide",
+    "lede": "Los trece ingredientes del sistema visual, en contexto y aislados, en las dos skins. Nada pasa a una sección real sin sobrevivir esta página: se mira a 360 px y a 1280 px, se mide el contraste y se pesa.",
+    "chips": ["2 skins", "13 ingredientes", "360 → 1280 px", "≤ 100 KB gzip", "AA en cada par"],
+    "jump": "Ir a"
+  },
+  "plates": {
+    "kicker": "01",
+    "title": "Las dos placas",
+    "lede": "Mismo marcado, mismas clases, mismos componentes. Solo cambian los tokens: cielo, cromo, radios y biseles. Arrastrá una ventana, abrí el menú Inicio, prendé el sonido.",
+    "note": "Contenido de muestra. No hay nombre, precios, fotos ni testimonios reales todavía: eso es Fase 2.",
+    "aero": {
+      "label": "Placa A · Aero base",
+      "tag": "propuesta",
+      "sub": "Cielo, vidrio y gloss. Paneles casi blancos, ventanas redondeadas, cromo suave."
+    },
+    "y2k": {
+      "label": "Placa B · Y2K navy",
+      "tag": "alternativa",
+      "sub": "Azul marino, cromo duro, biseles rectos, neón. Más carácter, más riesgo de sitio-broma."
+    }
+  },
+  "sample": {
+    "eyebrow": "Muestra · Inglés · Santiago",
+    "heading": "CLASES",
+    "promise": "Clases de inglés que no se sienten como clases.",
+    "body": "Este párrafo está acá para juzgar el cuerpo del texto sobre un panel claro. Si no se lee de un vistazo, no va al sitio.",
+    "ctaPrimary": "Reservar por WhatsApp",
+    "ctaSecondary": "Ver clases",
+    "facts": ["A1–C1", "Online", "Santiago"],
+    "windowTitle": "Mi PC",
+    "windowSub": "teacher.exe",
+    "reopen": "Reabrir ventana",
+    "deskIcons": ["Mi PC", "Clases"],
+    "glassTitle": "Sobre mí",
+    "glassBody": "Texto de muestra sobre vidrio, encima del cielo y del pasto. El blur solo existe acá: una ventana, un panel de vidrio.",
+    "glassFoot": "blur(14px) · un panel por viewport",
+    "ticker": "Fase 0 · puerta de diseño · Aero vs Y2K · sin datos reales"
+  },
+  "demos": {
+    "windowLine": "Una línea de contenido adentro de la ventana, para ver el padding y el corte del título.",
+    "glassLine": "Vidrio sobre cielo y pasto. El texto va sobre el panel, nunca directo sobre el degradado.",
+    "buttonPrimary": "Reservar",
+    "buttonGhost": "Ver clases",
+    "buttonDisabled": "No disponible",
+    "headingSample": "CLASES",
+    "alphabet": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    "numerals": "0123456789 · A1–C1 · CLP",
+    "dragHint": "Arrastrá la barra de título. Doble clic para recentrar.",
+    "bootTrigger": "Reproducir arranque",
+    "bootHint": "Una vez por sesión en el sitio real, saltable con Escape. Acá se dispara a mano.",
+    "cursorArrow": "Flecha",
+    "cursorHand": "Mano",
+    "cursorMove": "Mover",
+    "cursorHint": "Pasá el mouse por cada caja: el cursor cambia solo ahí adentro.",
+    "soundHint": "Apagado por defecto. El botón de la bandeja lo prende y lo recuerda; sin archivos, es WebAudio.",
+    "counterHint": "Contador de demostración: el número no significa nada.",
+    "tickerHint": "Una línea, se pausa al pasar el mouse, se congela con reduced-motion."
+  },
+  "ingredients": {
+    "kicker": "02",
+    "title": "Auditoría de ingredientes",
+    "lede": "Cada tarjeta muestra el ingrediente aislado, su costo medido y la regla que lo mantiene a raya. El botón de la derecha cambia la skin de toda la auditoría: si algo se rompe al cambiar de tokens, es un one-off disfrazado.",
+    "toggleLabel": "Skin de la auditoría"
+  },
+  "items": [
+    {
+      "id": "window",
+      "n": "01",
+      "name": "Window chrome",
+      "badge": "keep",
+      "badgeLabel": "Mantener",
+      "cost": "CSS propio",
+      "notes": [
+        "Un solo marco para todas las secciones. El título trunca con puntos suspensivos antes de romper el layout a 360 px.",
+        "Los tres botones son reales: minimizar colapsa, maximizar ocupa la pantalla, cerrar deja un botón de reapertura."
+      ],
+      "a11y": {
+        "strong": "Texto de barra sobre cromo.",
+        "text": "Los tres botones son <button> con aria-label y foco visible; los glifos van con aria-hidden."
+      }
+    },
+    {
+      "id": "glass",
+      "n": "02",
+      "name": "Glass panel",
+      "badge": "cond",
+      "badgeLabel": "Condicional",
+      "cost": "0 KB",
+      "notes": [
+        "Un panel con backdrop-filter por viewport, no más: en un Android barato el blur es lo primero que tartamudea.",
+        "Con @supports se cae a un color plano y el texto sigue igual de legible."
+      ],
+      "a11y": {
+        "strong": "Texto sobre vidrio.",
+        "text": "Se mide sobre el peor fondo compuesto (vidrio sobre pasto), no sobre el cielo lindo."
+      }
+    },
+    {
+      "id": "button",
+      "n": "03",
+      "name": "Glossy button",
+      "badge": "keep",
+      "badgeLabel": "Mantener",
+      "cost": "0 KB",
+      "notes": [
+        "Gloss = gradiente vertical + inset blanco + borde de 1 px. Cero imágenes y cero JS.",
+        "Hover, active invertido y disabled a mano; 40 px de alto mínimo para el pulgar."
+      ],
+      "a11y": {
+        "strong": "Texto oscuro sobre el gradiente.",
+        "text": "El peor stop sigue pasando AA; el foco es un outline de 3 px, no un cambio de color."
+      }
+    },
+    {
+      "id": "chrome-heading",
+      "n": "04",
+      "name": "Chrome heading",
+      "badge": "cond",
+      "badgeLabel": "Condicional",
+      "cost": "0 KB",
+      "notes": [
+        "El degradado plateado es decorativo: el contraste lo carga un trazo real de 2 px (--head-stroke). Sin trazo, esto es texto invisible sobre cielo.",
+        "Solo palabras cortas y de 1,6 rem para arriba. A 360 px entra 'CLASES'; una frase entera, no."
+      ],
+      "a11y": {
+        "strong": "Trazo de 2 px sobre el panel.",
+        "text": "El par que se mide es trazo/fondo, no el brillo del degradado. Nunca es el único texto de una sección."
+      }
+    },
+    {
+      "id": "pixel-font",
+      "n": "05",
+      "name": "Pixel display font",
+      "badge": "keep",
+      "badgeLabel": "Mantener",
+      "cost": "2 woff2",
+      "notes": [
+        "Silkscreen 400 y 700, subset latino, self-hosted, font-display: swap. El cuerpo sigue en Tahoma/Verdana: 0 KB.",
+        "Etiquetas chicas y títulos cortos. Los textos largos en pixel se vuelven ilegibles y anchos."
+      ],
+      "a11y": {
+        "strong": "Nunca debajo de 11 px.",
+        "text": "Con tracking de 0,06–0,12 em; el texto de párrafo nunca usa la display."
+      }
+    },
+    {
+      "id": "plate",
+      "n": "06",
+      "name": "Sky / grass plate",
+      "badge": "keep",
+      "badgeLabel": "Mantener",
+      "cost": "0 KB",
+      "notes": [
+        "Cielo y pasto 100 % CSS: tres gradientes y una curva. Cero peticiones, cero peso de imagen, cero licencias de wallpaper.",
+        "El horizonte se curva con border-radius; en Y2K es recto, como corresponde."
+      ],
+      "a11y": {
+        "strong": "Nada de texto directo sobre el cielo.",
+        "text": "Todo texto vive en ventana, vidrio o banda sólida; el degradado es fondo, no superficie de lectura."
+      }
+    },
+    {
+      "id": "bubbles",
+      "n": "07",
+      "name": "Bubbles & orbs",
+      "badge": "keep",
+      "badgeLabel": "Mantener",
+      "cost": "SVG inline",
+      "notes": [
+        "Tres burbujas de borde y un orbe con gradiente radial, todo inline. La animación mueve solo transform.",
+        "prefers-reduced-motion las congela. No aportan información: si desaparecen, no se pierde nada."
+      ],
+      "a11y": {
+        "strong": "aria-hidden en todo el SVG.",
+        "text": "Opacidades de 0,4 a 0,5 para que no ensucien el texto que tienen cerca."
+      }
+    },
+    {
+      "id": "taskbar",
+      "n": "08",
+      "name": "Taskbar + Start menu",
+      "badge": "keep",
+      "badgeLabel": "Mantener",
+      "cost": "CSS + ~1 KB JS",
+      "notes": [
+        "Nav de escritorio y menú Inicio en móvil: debajo de 560 px la barra deja el botón Inicio, el sonido, el idioma y el contador.",
+        "El menú es un botón con aria-expanded; cierra con Escape, con clic afuera y devuelve el foco al botón."
+      ],
+      "a11y": {
+        "strong": "Texto claro sobre bandeja oscura.",
+        "text": "Foco cian de 3 px sobre la bandeja; el botón Inicio es el primer tab stop del bloque."
+      }
+    },
+    {
+      "id": "drag",
+      "n": "09",
+      "name": "Draggable windows",
+      "badge": "cond",
+      "badgeLabel": "Condicional",
+      "cost": "~1,3 KB JS",
+      "notes": [
+        "pointerdown/move/up con setPointerCapture. La ventana se limita a los bordes de la placa: no se puede perder.",
+        "Solo la barra de título arrastra, con touch-action: none ahí. El resto de la página sigue scrolleando normal."
+      ],
+      "a11y": {
+        "strong": "Arrastrar es un extra.",
+        "text": "Ninguna acción depende de la posición de la ventana. Doble clic recentra; con teclado no hace falta arrastrar."
+      }
+    },
+    {
+      "id": "boot",
+      "n": "10",
+      "name": "Boot screen",
+      "badge": "cond",
+      "badgeLabel": "Condicional",
+      "cost": "~0,5 KB JS",
+      "notes": [
+        "Una vez por sesión, saltable con clic o Escape, y no se reproduce con reduced-motion.",
+        "Oculto por defecto: no entra en el LCP, no mueve nada y no existe si el JS falla."
+      ],
+      "a11y": {
+        "strong": "Decorativo y saltable.",
+        "text": "No atrapa el foco, no secuestra el scroll y tiene salida explícita."
+      }
+    },
+    {
+      "id": "counter",
+      "n": "11",
+      "name": "Counter + ticker",
+      "badge": "cond",
+      "badgeLabel": "Parcial",
+      "cost": "~0,3 KB JS",
+      "notes": [
+        "Ticker: una línea de información real, se pausa al hover y se congela con reduced-motion. Se queda.",
+        "Contador: se construyó y se descarta. Un número inventado es prueba social falsa, y en un sitio estático no hay forma honesta de que sea real."
+      ],
+      "a11y": {
+        "strong": "El ticker no se lee dos veces.",
+        "text": "La copia del bucle va con aria-hidden; el contador queda fuera del árbol accesible si se descarta."
+      }
+    },
+    {
+      "id": "cursors",
+      "n": "12",
+      "name": "Cursors",
+      "badge": "cond",
+      "badgeLabel": "Condicional",
+      "cost": "3 PNG",
+      "notes": [
+        "Tres PNG de 32 px con hotspot, servidos desde /cursors. Si el archivo falla, cae al cursor del sistema.",
+        "Se aplican solo en la placa y en los controles; el cursor de texto y el de scroll no se tocan."
+      ],
+      "a11y": {
+        "strong": "Nunca reemplazan al sistema.",
+        "text": "Siempre con fallback `auto`/`pointer`; ninguna acción depende del cursor custom."
+      }
+    },
+    {
+      "id": "sound",
+      "n": "13",
+      "name": "Click / beep sounds",
+      "badge": "keep",
+      "badgeLabel": "Mantener · off",
+      "cost": "0 KB",
+      "notes": [
+        "WebAudio en vez de OGG: 0 KB de assets y nada se descarga hasta que la persona prende el sonido.",
+        "Apagado por defecto y recordado en localStorage. El contexto de audio se crea en el primer gesto, nunca al cargar."
+      ],
+      "a11y": {
+        "strong": "Nunca suena solo.",
+        "text": "Toggle real con aria-pressed, estado visible y etiqueta que cambia con el estado."
+      }
+    }
+  ],
+  "measure": {
+    "kicker": "03",
+    "title": "Mediciones",
+    "lede": "Números tomados del build de producción y del navegador, no estimaciones. Fecha y commit quedan en docs/phase-0.md.",
+    "weightTitle": "Peso",
+    "contrastTitle": "Contraste AA",
+    "contrastNote": "Los fondos translúcidos se componen antes de medir: vidrio sobre cielo, vidrio sobre pasto, bandeja sobre cielo. El texto de párrafo, los botones y las etiquetas de la bandeja tienen que pasar 4,5:1; los títulos grandes, 3:1.",
+    "lighthouseTitle": "Lighthouse y LCP",
+    "lighthouseNote": "Lighthouse no simula un Android de gama media: mide el escenario del navegador, sin throttling de 4G.",
+    "cols": {
+      "item": "Ítem",
+      "gzip": "gzip",
+      "raw": "sin comprimir",
+      "budget": "Presupuesto",
+      "pair": "Par",
+      "ratio": "Ratio",
+      "aa": "AA",
+      "score": "Score"
+    }
+  },
+  "verdict": {
+    "kicker": "04",
+    "title": "Veredicto",
+    "ratioLabel": "Ratio recomendado",
+    "ratio": "Aero 75 / Y2K 25",
+    "summary": "El Aero lleva el sitio: cielo, ventanas claras y vidrio son amables y legibles, y no le quitan seriedad al contenido. El Y2K entra como acento, no como piel: cromo en las barras, pixel en etiquetas, biseles en botones y una sola sección navy para cortar el ritmo.",
+    "keepLabel": "Se queda",
+    "condLabel": "Condicional",
+    "dropLabel": "Se cae",
+    "keep": [
+      "Window chrome con los tres botones funcionando",
+      "Glossy buttons y sky/grass plate en CSS puro",
+      "Pixel font solo para etiquetas y títulos cortos",
+      "Taskbar con menú Inicio, sonido y ticker",
+      "Bubbles discretas y sonidos apagados por defecto"
+    ],
+    "conditional": [
+      "Glass panel: uno por viewport, con fallback plano",
+      "Chrome heading: solo ≥1,6 rem, con trazo que cargue el contraste",
+      "Draggable windows: solo en la portada, sin depender de la posición",
+      "Boot screen: una vez por sesión y saltable",
+      "Cursors: solo si no suman peticiones ni rompen expectativas"
+    ],
+    "drop": [
+      "Visitor counter: prueba social inventada, sin fuente honesta",
+      "Cualquier imagen de wallpaper: el cielo es CSS"
+    ],
+    "blockedTitle": "Decisiones bloqueadas",
+    "blockedNote": "Estas cuatro no se adivinan. Hasta que estén, la Fase 1 puede avanzar con el shell, pero la Fase 2 no arranca.",
+    "blocked": [
+      {
+        "q": "Nombre y dominio",
+        "why": "Hero, <title>, OG y correo. Sin esto el contenido no se puede escribir."
+      },
+      {
+        "q": "Ratio de mood",
+        "why": "La recomendación es 75/25 Aero/Y2K; es tu llamada, no mía."
+      },
+      {
+        "q": "Una página o cinco",
+        "why": "Cambia la nav, las anclas y el peso por página. Propuesta: una página con ventanas ancladas."
+      },
+      {
+        "q": "¿Precios públicos?",
+        "why": "Define si hay tabla de precios o 'consultar'. No se inventa ningún monto."
+      }
+    ]
+  }
+}

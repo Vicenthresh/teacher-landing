@@ -1,0 +1,239 @@
+{
+  "generated": "2026-11-17",
+  "rows": [
+    {
+      "pair": "Aero · Texto · panel",
+      "fg": "#0a2b3d",
+      "bg": "#f7fcff",
+      "ratio": "14.25",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "párrafo y títulos sólidos"
+    },
+    {
+      "pair": "Aero · Texto suave · panel",
+      "fg": "#2a4a5f",
+      "bg": "#f7fcff",
+      "ratio": "9.06",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "texto secundario"
+    },
+    {
+      "pair": "Aero · Enlace · panel",
+      "fg": "#0b5e8f",
+      "bg": "#f7fcff",
+      "ratio": "6.75",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "links dentro de ventanas"
+    },
+    {
+      "pair": "Aero · Barra de ventana",
+      "fg": "#0d2b3c",
+      "bg": "#c6d9e5",
+      "ratio": "10.13",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "peor stop del cromo"
+    },
+    {
+      "pair": "Aero · Botón",
+      "fg": "#062b3d",
+      "bg": "#8fd2f7",
+      "ratio": "8.96",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "peor stop del gloss"
+    },
+    {
+      "pair": "Aero · Vidrio · texto",
+      "fg": "#08283a",
+      "bg": "#a0d77e",
+      "ratio": "9.08",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "vidrio compuesto sobre cielo y pasto"
+    },
+    {
+      "pair": "Aero · Bandeja",
+      "fg": "#eaf7ff",
+      "bg": "#153b52",
+      "ratio": "10.78",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "bandeja compuesta sobre cielo"
+    },
+    {
+      "pair": "Aero · Bandeja · suave",
+      "fg": "#a9cfe3",
+      "bg": "#153b52",
+      "ratio": "7.13",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "idioma y etiquetas de la bandeja"
+    },
+    {
+      "pair": "Aero · Ticker",
+      "fg": "#cfeaf7",
+      "bg": "#0b3348",
+      "ratio": "10.60",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "línea de avisos"
+    },
+    {
+      "pair": "Aero · Chrome heading · cara",
+      "fg": "#5b7383",
+      "bg": "#f7fcff",
+      "ratio": "4.81",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "metal oscuro sobre panel claro; el trazo solo afina el borde"
+    },
+    {
+      "pair": "Aero · Menú Inicio",
+      "fg": "#0a2b3d",
+      "bg": "#f4fbff",
+      "ratio": "14.09",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "ítems del menú"
+    },
+    {
+      "pair": "Aero · Botón Inicio",
+      "fg": "#0b2a12",
+      "bg": "#4aa61f",
+      "ratio": "5.00",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "peor stop del botón"
+    },
+    {
+      "pair": "Y2K · Texto · panel",
+      "fg": "#e8f6ff",
+      "bg": "#071e2c",
+      "ratio": "15.48",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "párrafo y títulos sólidos"
+    },
+    {
+      "pair": "Y2K · Texto suave · panel",
+      "fg": "#a9d6ea",
+      "bg": "#071e2c",
+      "ratio": "10.96",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "texto secundario"
+    },
+    {
+      "pair": "Y2K · Enlace · panel",
+      "fg": "#8fe6ff",
+      "bg": "#071e2c",
+      "ratio": "12.13",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "links dentro de ventanas"
+    },
+    {
+      "pair": "Y2K · Barra de ventana",
+      "fg": "#04141d",
+      "bg": "#8fabbb",
+      "ratio": "7.76",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "peor stop del cromo"
+    },
+    {
+      "pair": "Y2K · Botón",
+      "fg": "#001018",
+      "bg": "#45bfe7",
+      "ratio": "9.07",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "peor stop del gloss"
+    },
+    {
+      "pair": "Y2K · Vidrio · texto",
+      "fg": "#e9f8ff",
+      "bg": "#08292d",
+      "ratio": "14.17",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "vidrio compuesto sobre cielo y pasto"
+    },
+    {
+      "pair": "Y2K · Bandeja",
+      "fg": "#e9f8ff",
+      "bg": "#12384c",
+      "ratio": "11.40",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "bandeja compuesta sobre cielo"
+    },
+    {
+      "pair": "Y2K · Bandeja · suave",
+      "fg": "#9fd4e8",
+      "bg": "#12384c",
+      "ratio": "7.70",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "idioma y etiquetas de la bandeja"
+    },
+    {
+      "pair": "Y2K · Ticker",
+      "fg": "#bfeaff",
+      "bg": "#0a2231",
+      "ratio": "12.77",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "línea de avisos"
+    },
+    {
+      "pair": "Y2K · Chrome heading · cara",
+      "fg": "#9fd0e6",
+      "bg": "#071e2c",
+      "ratio": "10.27",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "plata clara sobre navy; el trazo solo afina el borde"
+    },
+    {
+      "pair": "Y2K · Menú Inicio",
+      "fg": "#e8f6ff",
+      "bg": "#061b28",
+      "ratio": "15.95",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "ítems del menú"
+    },
+    {
+      "pair": "Y2K · Botón Inicio",
+      "fg": "#04141d",
+      "bg": "#89a9bb",
+      "ratio": "7.53",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "peor stop del botón"
+    },
+    {
+      "pair": "Ambas · dígitos del contador",
+      "fg": "#7bedb0",
+      "bg": "#02131c",
+      "min": "4.5:1",
+      "note": "si el contador sobrevive",
+      "ratio": "13.11",
+      "aa": "pass"
+    },
+    {
+      "pair": "Ambas · anillo de foco",
+      "fg": "#0b4a6b",
+      "bg": "#f7fcff",
+      "min": "3:1",
+      "note": "contraste no textual, 3:1",
+      "ratio": "9.21",
+      "aa": "pass"
+    }
+  ]
+}

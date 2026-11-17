@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-17",
+  "note": "Lighthouse 13.6 sobre el build de producción (astro preview).",
+  "lighthouse": [
+    {
+      "page": "/",
+      "perf": "99",
+      "a11y": "100",
+      "bp": "100",
+      "seo": "100"
+    },
+    {
+      "page": "/styleguide/",
+      "perf": "99",
+      "a11y": "100",
+      "bp": "100",
+      "seo": "100"
+    }
+  ],
+  "lcp": "0,8 s / 0,9 s",
+  "lcpNote": "Lighthouse mobile: 4G simulado y CPU 4× · / y /styleguide/ · perf 96–100 en 4 corridas · TBT 0–245 ms"
+}

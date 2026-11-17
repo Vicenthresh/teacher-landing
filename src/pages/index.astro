@@ -1,19 +1,23 @@
 ---
 import Base from '../layouts/Base.astro';
 import Window from '../components/Window.astro';
+import BootScreen from '../components/BootScreen.astro';
+import site from '../data/site.es.json';
 ---
 
-<Base title="Teacher Landing — scaffold">
-  <main class="shell">
-    <Window title="TEACHER.EXE">
-      <h1 class="chrome-text">NAME GOES HERE</h1>
-      <p class="muted">
-        English teacher · Santiago, CL — <strong>scaffold</strong>, copy not written yet.
-      </p>
-      <p>
-        <a class="btn" href="#">Reservar por WhatsApp</a>
-        <a class="btn" href="/styleguide/">Style guide →</a>
+<Base title="Teacher Landing — Fase 0" description="Clases de inglés online y presenciales · English teacher, Chile">
+  <main id="main" class="shell">
+    <Window title={site.shell.windowTitle}>
+      <p class="eyebrow">{site.shell.kicker}</p>
+      <h1 class="chrome-text" style="font-size: clamp(1.6rem, 8vw, 2.6rem)">
+        {site.shell.heading}
+      </h1>
+      <p class="muted">{site.shell.body}</p>
+      <p class="mb-0">
+        <a class="btn" href="/styleguide/">{site.shell.cta}</a>
       </p>
     </Window>
   </main>
+
+  <BootScreen mode="auto" />
 </Base>

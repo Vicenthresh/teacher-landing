@@ -1,0 +1,106 @@
+---
+import VisitorCounter from './VisitorCounter.astro';
+import site from '../data/site.es.json';
+
+interface Props {
+  idSuffix: string;
+  nav: { label: string; href: string }[];
+  base?: number;
+  startOpen?: boolean;
+  demo?: boolean;
+  langEnabled?: boolean;
+  soundOn?: boolean;
+}
+
+const {
+  idSuffix,
+  nav,
+  base = site.counter.base,
+  startOpen = false,
+  demo = false,
+  langEnabled = false,
+  soundOn = false,
+} = Astro.props;
+
+const menuId = `startmenu-${idSuffix}`;
+const link = (item: { label: string; href: string }) => ({
+  href: demo ? '#' : item.href,
+  demo: demo ? '' : undefined,
+});
+---
+
+<div class="taskbar" data-taskbar>
+  <button
+    class="taskbar__start"
+    type="button"
+    aria-expanded={startOpen ? 'true' : 'false'}
+    aria-controls={menuId}
+    data-start
+  >
+    <span class="start-orb" aria-hidden="true"></span>
+    <span>{site.taskbar.start}</span>
+  </button>
+
+  <nav class="taskbar__nav" aria-label={site.taskbar.navLabel}>
+    {
+      nav.map((item) => (
+        <a href={link(item).href} data-demo={link(item).demo}>
+          {item.label}
+        </a>
+      ))
+    }
+  </nav>
+
+  <div class="taskbar__tray">
+    <button
+      class="traybtn"
+      type="button"
+      data-sound
+      data-on={soundOn ? 'true' : 'false'}
+      data-label-on={site.taskbar.soundOn}
+      data-label-off={site.taskbar.soundOff}
+      aria-pressed={soundOn ? 'true' : 'false'}
+      aria-label={soundOn ? site.taskbar.soundOn : site.taskbar.soundOff}
+      title={soundOn ? site.taskbar.soundOn : site.taskbar.soundOff}
+    >
+      <svg aria-hidden="true" focusable="false"><use href="#i-sound" /></svg>
+      <span class="traybtn__led" aria-hidden="true"></span>
+    </button>
+
+    <span class="taskbar__lang">
+      <a href="/" aria-current="page">ES</a>
+      <span aria-hidden="true">/</span>
+      {
+        langEnabled ? (
+          <a href="/en/">EN</a>
+        ) : (
+          <span aria-disabled="true" title={site.taskbar.langOff}>
+            EN
+          </span>
+        )
+      }
+    </span>
+
+    <VisitorCounter base={base} demo={demo} />
+  </div>
+
+  <div class="startmenu" id={menuId} data-menu hidden={!startOpen}>
+    <p class="startmenu__head">{site.taskbar.menuHead}</p>
+    {
+      nav.map((item) => (
+        <a href={link(item).href} data-demo={link(item).demo}>
+          <svg aria-hidden="true" focusable="false"><use href="#i-folder" /></svg>
+          {item.label}
+        </a>
+      ))
+    }
+    <a href="/styleguide/" data-demo={demo ? '' : undefined}>
+      <svg aria-hidden="true" focusable="false"><use href="#i-doc" /></svg>
+      {site.taskbar.menuStyleguide}
+    </a>
+    <p class="startmenu__foot">
+      <span>{site.taskbar.menuFoot}</span>
+      <span aria-hidden="true">▸</span>
+    </p>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+---
+interface Props {
+  base: number;
+  label?: string;
+  demo?: boolean;
+}
+
+const { base, label = 'visitantes', demo = false } = Astro.props;
+const digits = String(base).padStart(6, '0');
+---
+
+<span class="counter" data-counter data-base={base}>
+  <span class="counter__label">{label}</span>
+  <span class="counter__digits" data-digits>{digits}</span>
+  {demo && <span class="visually-hidden">(contador de demostración)</span>}
+</span>

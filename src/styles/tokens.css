@@ -1,56 +1,239 @@
 /* Design tokens — one family, several skins.
-   Every component reads these; no component hard-codes a colour or gradient. */
+ *
+ * Contract: components read these variables and never hard-code a colour.
+ * Two complete skins ship here:
+ *   aero  (default, `:root`) — sky, glass, gloss, near-white panels.
+ *   y2k   (`[data-skin="y2k"]`) — navy, chrome, hard bevels, neon accents.
+ *
+ * A skin can be applied to <body> (whole page) or to a single subtree
+ * (`.stage`, `.audit`), which is how /styleguide compares both side by side.
+ * Anything a skin does not override is inherited from aero on purpose.
+ */
 
-:root {
-  /* Aero base */
-  --sky-1: #cfefff;
+:root,
+[data-skin='aero'] {
+  color-scheme: light;
+
+  /* --- surface: sky, ground, plate --- */
+  --sky-1: #a3dbf8;
   --sky-2: #7cc8f5;
-  --grass: #93d94e;
+  --sky-3: #e6f8ff;
+  --grass-1: #b7ee71;
+  --grass-2: #4f9d2c;
+  --plate:
+    radial-gradient(44% 30% at 82% 4%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0) 70%),
+    radial-gradient(110% 60% at 12% -22%, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 52%),
+    linear-gradient(180deg, #a6dcf8 0%, #7cc8f5 36%, #c9ecff 68%, #e8f9ff 100%);
+  --ground: linear-gradient(180deg, #b7ee71 0%, #6fc23c 46%, #4f9d2c 100%);
+  --ground-curve: 50% 50% 0 0 / 18% 18% 0 0;
+  --ground-hi: rgba(255, 255, 255, 0.55);
+  --sun: rgba(255, 255, 255, 0.9);
+  --scanline: none;
+  --stage-edge: rgba(255, 255, 255, 0.45);
+  --stage-shadow: 0 28px 60px rgba(0, 0, 0, 0.45);
 
-  --glass: rgba(255, 255, 255, 0.42);
-  --glass-edge: rgba(255, 255, 255, 0.8);
+  /* --- ink on light panels --- */
   --ink: #0a2b3d;
   --ink-soft: #2a4a5f;
+  --ink-mute: #476a7d;
 
-  --chrome: linear-gradient(180deg, #fff 0%, #c9d4dd 42%, #7d8b96 50%, #eef4f8 100%);
-  --gloss: inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  --win-shadow: 0 12px 28px rgba(8, 38, 58, 0.28);
+  /* --- panels and windows --- */
+  --panel: #f7fcff;
+  --panel-2: #e7f3fb;
+  --panel-edge: #9dbecd;
+  --radius-win: 10px;
+  --radius-btn: 7px;
+  --radius-panel: 14px;
+  --win-shadow: 0 18px 44px rgba(5, 28, 43, 0.32), 0 2px 6px rgba(5, 28, 43, 0.18);
+  --chrome: linear-gradient(180deg, #ffffff 0%, #eaf4fa 36%, #c6d9e5 52%, #f4fbff 74%, #dbeaf3 100%);
+  --chrome-edge: #7f9db0;
+  --bar-ink: #0d2b3c;
+  --winbtn-bg: linear-gradient(180deg, #ffffff, #dcebf4 52%, #b9cfdd);
+  --winbtn-ink: #0b2b3c;
+  --winbtn-edge: #7496a9;
 
-  --accent: #1f8fd4;
-  --accent-2: #93d94e;
+  /* --- glass (the one expensive effect) --- */
+  --glass: rgba(255, 255, 255, 0.34);
+  --glass-solid: #e8f5fc;
+  --glass-edge: rgba(255, 255, 255, 0.78);
+  --glass-ink: #08283a;
+  --glass-blur: 14px;
 
-  /* type */
-  --font-ui: Tahoma, Verdana, "Trebuchet MS", sans-serif;
-  --font-display: "Silkscreen", "Courier New", monospace;
+  /* --- glossy buttons --- */
+  --btn-bg: linear-gradient(180deg, #ffffff 0%, #dcf3ff 45%, #8fd2f7 52%, #c9edfd 100%);
+  --btn-bg-on: linear-gradient(180deg, #a9dcf5 0%, #7cc8f5 48%, #e6f8ff 100%);
+  --btn-ink: #062b3d;
+  --btn-edge: #3f7ea6;
+  --btn-hi: rgba(255, 255, 255, 0.95);
 
-  /* layout */
+  /* --- chrome display type --- */
+  --head-face: linear-gradient(180deg, #3b515f 0%, #5b7383 42%, #425968 56%, #2c3f4a 100%);
+  --head-stroke: #0b2b3d;
+  --head-stroke-w: 1px;
+  --head-edge: rgba(255, 255, 255, 0.95);
+  --head-shadow: rgba(4, 28, 42, 0.4);
+
+  /* --- taskbar --- */
+  --tray-bg: linear-gradient(180deg, rgba(12, 47, 68, 0.92) 0%, rgba(5, 26, 40, 0.96) 100%);
+  --tray-ink: #eaf7ff;
+  --tray-soft: #a9cfe3;
+  --tray-edge: rgba(255, 255, 255, 0.24);
+  --tray-hover: rgba(255, 255, 255, 0.16);
+  --start-bg: linear-gradient(180deg, #b6f57c 0%, #79d33f 46%, #4aa61f 52%, #6fc93a 100%);
+  --start-ink: #0b2a12;
+  --start-edge: #2f6f18;
+  --start-orb: radial-gradient(circle at 34% 26%, #ffffff 0%, #d8f6ff 24%, #56b8e8 58%, #0d6fa4 100%);
+  --ticker-bg: linear-gradient(180deg, #0b3348, #06202f);
+  --ticker-ink: #cfeaf7;
+  --ticker-edge: rgba(255, 255, 255, 0.18);
+
+  /* --- start menu --- */
+  --menu-bg: #f4fbff;
+  --menu-edge: #8fb3c6;
+  --menu-ink: #0a2b3d;
+  --menu-hover: #1673ad;
+  --menu-hover-ink: #ffffff;
+
+  /* --- accents, links, focus --- */
+  --accent: #1673ad;
+  --accent-ink: #ffffff;
+  --accent-2: #4f9d2c;
+  --link: #0b5e8f;
+  --focus: #0b4a6b;
+
+  /* --- decoration --- */
+  --bubble: #63b9e8;
+  --orb-hi: #f2fbff;
+  --orb-lo: #2f9ed2;
+  --deskicon-a: #ffd873;
+  --deskicon-b: #e0a92c;
+
+  /* --- cursors (32 px PNG, hotspot after the url) --- */
+  --cursor-arrow: url('/cursors/arrow.png') 4 2;
+  --cursor-hand: url('/cursors/hand.png') 15 3;
+  --cursor-move: url('/cursors/move.png') 16 16;
+}
+
+[data-skin='y2k'] {
+  color-scheme: dark;
+
+  --sky-1: #001322;
+  --sky-2: #04283f;
+  --sky-3: #0a3a55;
+  --grass-1: #0d3f2c;
+  --grass-2: #03150e;
+  --plate:
+    radial-gradient(70% 50% at 18% 0%, rgba(55, 214, 255, 0.18), rgba(55, 214, 255, 0) 62%),
+    radial-gradient(90% 60% at 88% 8%, rgba(0, 229, 255, 0.14), rgba(0, 229, 255, 0) 66%),
+    linear-gradient(180deg, #00101c 0%, #04263c 46%, #0a3a55 76%, #0c3c4a 100%);
+  --ground: linear-gradient(180deg, #0d3f2c 0%, #07271c 60%, #03150e 100%);
+  --ground-curve: 0;
+  --ground-hi: rgba(127, 233, 255, 0.35);
+  --sun: rgba(127, 233, 255, 0.16);
+  --scanline: repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.28) 0 1px, rgba(0, 0, 0, 0) 1px 3px);
+  --stage-edge: rgba(127, 233, 255, 0.28);
+  --stage-shadow: 0 28px 60px rgba(0, 0, 0, 0.6);
+
+  --ink: #e8f6ff;
+  --ink-soft: #a9d6ea;
+  --ink-mute: #7fb3c9;
+
+  --panel: #071e2c;
+  --panel-2: #0a2a3c;
+  --panel-edge: #1c5b78;
+  --radius-win: 2px;
+  --radius-btn: 2px;
+  --radius-panel: 2px;
+  --win-shadow: 0 0 0 1px #000, 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 40px rgba(55, 214, 255, 0.1);
+  --chrome: linear-gradient(180deg, #f4fbff 0%, #cfe2ee 28%, #8fabbb 50%, #dcecf6 68%, #a4bccb 100%);
+  --chrome-edge: #031018;
+  --bar-ink: #04141d;
+  --winbtn-bg: linear-gradient(180deg, #f4fbff 0%, #c2d9e6 46%, #89a9bb 54%, #d9ebf5 100%);
+  --winbtn-ink: #04141d;
+  --winbtn-edge: #031018;
+
+  --glass: rgba(6, 36, 54, 0.55);
+  --glass-solid: #06263a;
+  --glass-edge: rgba(120, 220, 255, 0.55);
+  --glass-ink: #e9f8ff;
+  --glass-blur: 10px;
+
+  --btn-bg: linear-gradient(180deg, #dcf9ff 0%, #86ddf7 44%, #45bfe7 54%, #8fe6ff 100%);
+  --btn-bg-on: linear-gradient(180deg, #8fdcf5 0%, #5fc4e6 52%, #c9f2ff 100%);
+  --btn-ink: #001018;
+  --btn-edge: #8fe6ff;
+  --btn-hi: rgba(255, 255, 255, 0.85);
+
+  --head-face: linear-gradient(180deg, #ffffff 0%, #dff3fc 32%, #9fd0e6 54%, #eafaff 78%, #b6dcee 100%);
+  --head-stroke: #02101a;
+  --head-stroke-w: 1px;
+  --head-edge: rgba(200, 245, 255, 0.9);
+  --head-shadow: rgba(0, 0, 0, 0.75);
+
+  --tray-bg: linear-gradient(180deg, #12384c 0%, #082231 52%, #04141f 100%);
+  --tray-ink: #e9f8ff;
+  --tray-soft: #9fd4e8;
+  --tray-edge: #7fe9ff;
+  --tray-hover: rgba(127, 233, 255, 0.18);
+  --start-bg: linear-gradient(180deg, #f4fbff 0%, #c2d9e6 46%, #89a9bb 54%, #d9ebf5 100%);
+  --start-ink: #04141d;
+  --start-edge: #031018;
+  --start-orb: conic-gradient(#37d6ff 0 25%, #b6ff3d 0 50%, #b6ff3d 0 75%, #37d6ff 0);
+  --ticker-bg: linear-gradient(180deg, #0a2231, #03141f);
+  --ticker-ink: #bfeaff;
+  --ticker-edge: rgba(127, 233, 255, 0.3);
+
+  --menu-bg: #061b28;
+  --menu-edge: #7fe9ff;
+  --menu-ink: #e8f6ff;
+  --menu-hover: #37d6ff;
+  --menu-hover-ink: #001018;
+
+  --accent: #37d6ff;
+  --accent-ink: #001018;
+  --accent-2: #b6ff3d;
+  --link: #8fe6ff;
+  --focus: #9fe6ff;
+
+  --bubble: #7fe9ff;
+  --orb-hi: #d6f8ff;
+  --orb-lo: #0a5a7a;
+  --deskicon-a: #7fe9ff;
+  --deskicon-b: #2f8fae;
+}
+
+/* Shared scale. Not per-skin: spacing is the 4/8 px grid. */
+:root {
+  --font-ui: Tahoma, Verdana, 'Trebuchet MS', system-ui, sans-serif;
+  --font-display: 'Silkscreen', 'Courier New', monospace;
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
+  --space-5: 20px;
   --space-6: 24px;
   --space-8: 32px;
-  --radius-win: 8px;
-  --radius-btn: 6px;
-  --content: 62rem;
-}
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
 
-[data-skin='y2k'] {
-  --sky-1: #001b2e;
-  --sky-2: #05304f;
-  --glass: rgba(10, 40, 60, 0.5);
-  --glass-edge: rgba(120, 220, 255, 0.6);
-  --ink: #e8f6ff;
-  --ink-soft: #a9d6ea;
-  --accent: #00e5ff;
-  --accent-2: #b6ff3d;
-}
+  --content: 72rem;
+  --stage-radius: 18px;
+  --ease: cubic-bezier(0.2, 0.7, 0.25, 1);
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-skin]) {
-    --sky-1: #02243a;
-    --sky-2: #063a5c;
-    --ink: #e8f6ff;
-    --ink-soft: #a9d6ea;
-  }
+  /* document surface (styleguide, not the site) */
+  --doc-bg: #08121a;
+  --doc-bg-2: #050c12;
+  --doc-ink: #dbe7ee;
+  --doc-soft: #a9c3d2;
+  --doc-mute: #7f9bac;
+  --doc-line: #223642;
+  --doc-card: #101d26;
+  --doc-card-2: #0b161e;
+  --doc-link: #7fd3ff;
+  --ok: #b6ff3d;
+  --warn: #ffd166;
+  --bad: #ff9db0;
 }

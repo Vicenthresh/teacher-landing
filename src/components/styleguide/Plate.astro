@@ -1,0 +1,78 @@
+---
+import Window from '../../components/Window.astro';
+import Sky from '../../components/Sky.astro';
+import Taskbar from '../../components/Taskbar.astro';
+import Ticker from '../../components/Ticker.astro';
+import site from '../../data/site.es.json';
+import data from '../../data/styleguide.es.json';
+
+interface Props {
+  skin: 'aero' | 'y2k';
+  label: string;
+  tag: string;
+  sub: string;
+}
+
+const { skin, label, tag, sub } = Astro.props;
+const { sample } = data;
+---
+
+<article class="plate">
+  <header class="plate__head">
+    <h3 class="plate__label">{label}</h3>
+    <span class="plate__tag">{tag}</span>
+  </header>
+  <p class="plate__sub">{sub}</p>
+
+  <div class="stage plate__stage" data-skin={skin}>
+    <Sky uid={skin} />
+
+    <div class="stage__icons" aria-hidden="true">
+      {
+        sample.deskIcons.map((label) => (
+          <span class="deskicon">
+            <span class="deskicon__art"></span>
+            {label}
+          </span>
+        ))
+      }
+    </div>
+
+    <div class="stage__content">
+      <div class="demo-frame" data-windows>
+        <Window
+          title={`${sample.windowTitle} · ${sample.windowSub}`}
+          controls
+          drag
+          class="stage__window"
+        >
+          <p class="eyebrow">{sample.eyebrow}</p>
+          <p class="chrome-text stage__heading">{sample.heading}</p>
+          <p class="stage__promise">{sample.promise}</p>
+          <p class="small muted">{sample.body}</p>
+          <div class="btn-row">
+            <button class="btn" type="button">{sample.ctaPrimary}</button>
+            <button class="btn btn--ghost" type="button">{sample.ctaSecondary}</button>
+          </div>
+          <ul class="stage__facts">
+            {sample.facts.map((fact) => <li>{fact}</li>)}
+          </ul>
+        </Window>
+        <button class="btn window-reopen" type="button" data-reopen>
+          {sample.reopen}
+        </button>
+      </div>
+
+      <div class="glass stage__glass">
+        <div class="glass__body">
+          <p class="display stage__glassTitle">{sample.glassTitle}</p>
+          <p class="small mb-0">{sample.glassBody}</p>
+          <p class="stage__glassFoot">{sample.glassFoot}</p>
+        </div>
+      </div>
+    </div>
+
+    <Ticker items={site.ticker.items} label={site.ticker.label} />
+    <Taskbar idSuffix={`placa-${skin}`} nav={site.taskbar.nav} demo />
+  </div>
+</article>
