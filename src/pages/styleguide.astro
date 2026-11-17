@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import Window from '../components/Window.astro';
+
+// Phase 0 lives here: every retro ingredient is built and judged on this page
+// before it is allowed into a real section. See the vault hub, §4 and §9.
+const ingredients = [
+  'window chrome (7.css / XP.css frame, restyled)',
+  'glass panel (layered gradient + backdrop-filter + inner highlight)',
+  'glossy button (bevel + top highlight)',
+  'chrome heading (background-clip: text)',
+  'pixel display font (one OFL face, Latin subset)',
+  'sky / grass plate (CSS gradients first, one AVIF max)',
+  'bubbles and orbs (inline SVG)',
+  'taskbar + Start-menu nav',
+  'draggable windows (~1.5 KB vanilla JS)',
+  'boot / loading screen',
+  'visitor counter + CSS ticker',
+  'cursors (16–32 px, CSS url())',
+  'click / beep sounds (off by default, taskbar toggle)',
+];
+---
+
+<Base title="Style guide — Teacher Landing">
+  <main class="shell" data-skin="y2k">
+    <Window title="STYLEGUIDE.EXE">
+      <h1 class="chrome-text">Style guide</h1>
+      <p class="muted">
+        The design gate. Nothing goes into a section until it looks right here, at phone width,
+        at AA contrast.
+      </p>
+
+      <h2>Ingredients</h2>
+      <ul>
+        {ingredients.map((item) => <li>{item}</li>)}
+      </ul>
+
+      <h2>Sample</h2>
+      <p><a class="btn" href="#">Sample glossy button</a></p>
+      <p class="muted">Chrome heading above, glass window around, sky behind.</p>
+    </Window>
+  </main>
+</Base>

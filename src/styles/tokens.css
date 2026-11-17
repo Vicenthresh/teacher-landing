@@ -1,0 +1,56 @@
+/* Design tokens — one family, several skins.
+   Every component reads these; no component hard-codes a colour or gradient. */
+
+:root {
+  /* Aero base */
+  --sky-1: #cfefff;
+  --sky-2: #7cc8f5;
+  --grass: #93d94e;
+
+  --glass: rgba(255, 255, 255, 0.42);
+  --glass-edge: rgba(255, 255, 255, 0.8);
+  --ink: #0a2b3d;
+  --ink-soft: #2a4a5f;
+
+  --chrome: linear-gradient(180deg, #fff 0%, #c9d4dd 42%, #7d8b96 50%, #eef4f8 100%);
+  --gloss: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --win-shadow: 0 12px 28px rgba(8, 38, 58, 0.28);
+
+  --accent: #1f8fd4;
+  --accent-2: #93d94e;
+
+  /* type */
+  --font-ui: Tahoma, Verdana, "Trebuchet MS", sans-serif;
+  --font-display: "Silkscreen", "Courier New", monospace;
+
+  /* layout */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --radius-win: 8px;
+  --radius-btn: 6px;
+  --content: 62rem;
+}
+
+[data-skin='y2k'] {
+  --sky-1: #001b2e;
+  --sky-2: #05304f;
+  --glass: rgba(10, 40, 60, 0.5);
+  --glass-edge: rgba(120, 220, 255, 0.6);
+  --ink: #e8f6ff;
+  --ink-soft: #a9d6ea;
+  --accent: #00e5ff;
+  --accent-2: #b6ff3d;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-skin]) {
+    --sky-1: #02243a;
+    --sky-2: #063a5c;
+    --ink: #e8f6ff;
+    --ink-soft: #a9d6ea;
+  }
+}
