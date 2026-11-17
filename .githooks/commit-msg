@@ -1,0 +1,3 @@
+#!/bin/sh
+# commit-msg shim: git runs hooks as plain executables; hand off to python.
+exec python3 "$(dirname "$0")/commit_msg.py" "$1"
