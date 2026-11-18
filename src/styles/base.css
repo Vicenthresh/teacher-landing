@@ -2364,3 +2364,93 @@ strong {
   font-size: 0.74rem;
   letter-spacing: 0.02em;
 }
+
+/* ------------------------------------------------------ home: projects */
+/* Explorer-style folder: native details/summary, so icons open their
+   project window with JS off and from the keyboard. Card text uses the
+   audited --card-* pair; tag chips sit on --panel-2. */
+
+.projects .window__body {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.projgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  gap: var(--space-3);
+}
+
+.proj {
+  min-width: 0;
+}
+
+.proj__icon {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-2);
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: var(--radius-panel);
+  user-select: none;
+}
+
+.proj__icon::-webkit-details-marker {
+  display: none;
+}
+
+.proj__icon:hover {
+  border-color: var(--panel-edge);
+  background: var(--panel-2);
+}
+
+.proj__icon:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.proj__name {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.proj__card {
+  margin-top: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  color: var(--card-ink);
+  background: var(--card-bg);
+  border: 1px solid var(--panel-edge);
+  border-radius: var(--radius-panel);
+}
+
+.proj__blurb {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.proj__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.proj__tags li {
+  padding: 2px 8px;
+  border: 1px solid var(--panel-edge);
+  border-radius: 999px;
+  background: var(--panel-2);
+  color: var(--ink-mute);
+  font-family: var(--font-display);
+  font-size: 0.54rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}

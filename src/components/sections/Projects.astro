@@ -6,5 +6,27 @@ const { projects } = home;
 ---
 
 <Window id={projects.id} title={projects.windowTitle} icon="px-folder" class="projects">
-  <p class="muted">{projects.listLabel}</p>
+  <p class="eyebrow">{projects.listLabel}</p>
+  <div class="projgrid">
+    {
+      projects.items.map((item) => (
+        <details class="proj">
+          <summary class="proj__icon">
+            <svg class="px-icon" aria-hidden="true" focusable="false">
+              <use href={`#px-${item.icon}`} />
+            </svg>
+            <span class="proj__name">{item.title}</span>
+          </summary>
+          <div class="proj__card">
+            <p class="proj__blurb">{item.blurb}</p>
+            <ul class="proj__tags">
+              {item.tags.map((tag) => (
+                <li>{tag}</li>
+              ))}
+            </ul>
+          </div>
+        </details>
+      ))
+    }
+  </div>
 </Window>
