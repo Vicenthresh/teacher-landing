@@ -2185,3 +2185,75 @@ strong {
     animation: none !important;
   }
 }
+
+/* --------------------------------------------------------- home: hero */
+/* The hero window body stays on --panel (audited pairs); the glass panel
+   inside is the page's single blurred surface. No new animations here. */
+
+.hero .window__body {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.hero__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.hero__avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 84px;
+  padding: var(--space-2);
+  background: var(--panel-2);
+  border: 1px solid var(--panel-edge);
+  border-radius: var(--radius-panel);
+}
+
+.hero__avatar svg {
+  width: 48px;
+  height: 48px;
+  image-rendering: pixelated;
+}
+
+.hero__who {
+  min-width: 0;
+}
+
+.hero__who .eyebrow {
+  margin: 0 0 var(--space-1);
+}
+
+.hero__name {
+  margin: 0;
+  font-size: clamp(1.6rem, 7vw, 2.4rem);
+  text-transform: uppercase;
+}
+
+.hero__label {
+  margin: 0;
+  font-size: 0.76rem;
+  color: var(--ink-mute);
+}
+
+.hero__glass {
+  margin-top: var(--space-1);
+}
+
+.hero__tagline {
+  margin: 0 0 var(--space-2);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.hero__intro {
+  margin: 0 0 var(--space-3);
+}
+
+.hero__ctas {
+  margin: 0;
+}

@@ -1,13 +1,50 @@
 ---
 import Window from '../Window.astro';
+import Garnish from '../Garnish.astro';
 import home from '../../data/home.es.json';
 
 const { hero } = home;
+
+/* Original pixel-art placeholder portrait: no photo until the real one
+   exists. Decorative (aria-hidden) with the label from JSON below it. */
+const AVATAR = `<svg viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true" focusable="false">
+  <rect x="3" y="2" width="10" height="1" fill="#4a2f1e"/>
+  <rect x="2" y="3" width="12" height="1" fill="#4a2f1e"/>
+  <rect x="2" y="4" width="1" height="6" fill="#4a2f1e"/>
+  <rect x="13" y="4" width="1" height="6" fill="#4a2f1e"/>
+  <rect x="4" y="4" width="8" height="7" fill="#f2c59a"/>
+  <rect x="4" y="6" width="3" height="2" fill="#26221f"/>
+  <rect x="9" y="6" width="3" height="2" fill="#26221f"/>
+  <rect x="7" y="6" width="2" height="1" fill="#26221f"/>
+  <rect x="6" y="9" width="4" height="1" fill="#b3563f"/>
+  <rect x="6" y="11" width="4" height="1" fill="#f2c59a"/>
+  <rect x="2" y="12" width="12" height="1" fill="#7cc8f5"/>
+  <rect x="3" y="13" width="10" height="2" fill="#7cc8f5"/>
+  <rect x="6" y="12" width="4" height="1" fill="#f7fcff"/>
+</svg>`;
 ---
 
 <Window id={hero.id} title={hero.windowTitle} icon="computer" class="hero">
-  <div class="stack">
-    <p class="eyebrow">{hero.kicker}</p>
-    <p>{hero.tagline}</p>
+  <div class="hero__head">
+    <div class="hero__avatar">
+      <Fragment set:html={AVATAR} />
+    </div>
+    <div class="hero__who">
+      <p class="eyebrow">{hero.kicker}</p>
+      <h2 class="chrome-text hero__name">{hero.name}</h2>
+      <Garnish variant="glitter" />
+    </div>
+  </div>
+  <p class="hero__label">{hero.avatarLabel}</p>
+
+  <div class="glass hero__glass">
+    <div class="glass__body">
+      <p class="hero__tagline">{hero.tagline}</p>
+      <p class="hero__intro">{hero.intro}</p>
+      <p class="cluster hero__ctas">
+        <a class="btn btn--mega" href="#contacto">{hero.ctaPrimary}</a>
+        <a class="btn btn--mega" href="#proyectos">{hero.ctaSecondary}</a>
+      </p>
+    </div>
   </div>
 </Window>
