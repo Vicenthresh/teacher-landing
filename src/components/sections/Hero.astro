@@ -1,0 +1,13 @@
+---
+import Window from '../Window.astro';
+import home from '../../data/home.es.json';
+
+const { hero } = home;
+---
+
+<Window id={hero.id} title={hero.windowTitle} icon="computer" class="hero">
+  <div class="stack">
+    <p class="eyebrow">{hero.kicker}</p>
+    <p>{hero.tagline}</p>
+  </div>
+</Window>

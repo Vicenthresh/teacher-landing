@@ -1,0 +1,10 @@
+---
+import Window from '../Window.astro';
+import home from '../../data/home.es.json';
+
+const { contact } = home;
+---
+
+<Window id={contact.id} title={contact.windowTitle} icon="px-envelope" class="contact">
+  <p class="muted">{contact.chatLabel}</p>
+</Window>

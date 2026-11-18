@@ -1,0 +1,10 @@
+---
+import Window from '../Window.astro';
+import home from '../../data/home.es.json';
+
+const { projects } = home;
+---
+
+<Window id={projects.id} title={projects.windowTitle} icon="px-folder" class="projects">
+  <p class="muted">{projects.listLabel}</p>
+</Window>

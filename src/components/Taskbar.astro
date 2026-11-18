@@ -10,6 +10,8 @@ interface Props {
   demo?: boolean;
   langEnabled?: boolean;
   soundOn?: boolean;
+  /** pin to the viewport bottom on a real page (plates keep it in flow) */
+  fixed?: boolean;
 }
 
 const {
@@ -20,6 +22,7 @@ const {
   demo = false,
   langEnabled = false,
   soundOn = false,
+  fixed = false,
 } = Astro.props;
 
 const menuId = `startmenu-${idSuffix}`;
@@ -29,7 +32,7 @@ const link = (item: { label: string; href: string }) => ({
 });
 ---
 
-<div class="taskbar" data-taskbar>
+<div class:list={['taskbar', fixed && 'taskbar--fixed']} data-taskbar>
   <button
     class="taskbar__start"
     type="button"
@@ -52,6 +55,7 @@ const link = (item: { label: string; href: string }) => ({
   </nav>
 
   <div class="taskbar__tray">
+    <slot name="tray" />
     <button
       class="traybtn"
       type="button"

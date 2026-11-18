@@ -1,0 +1,10 @@
+---
+import Window from '../Window.astro';
+import home from '../../data/home.es.json';
+
+const { cv } = home;
+---
+
+<Window id={cv.id} title={cv.windowTitle} icon="px-floppy" class="cv">
+  <p>{cv.heading}</p>
+</Window>
