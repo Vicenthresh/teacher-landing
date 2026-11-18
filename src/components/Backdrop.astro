@@ -1,0 +1,49 @@
+---
+interface Props {
+  /** unique per instance: the koi symbol id must not repeat in one document */
+  uid?: string;
+  /** fill the nearest positioned parent instead of the viewport (styleguide demos) */
+  contained?: boolean;
+  /** freeze every animation (only one live backdrop per page) */
+  still?: boolean;
+}
+
+// Decoration only: three layers, CSS shows the one for the active skin and
+// `display:none`s the rest so their animations never run. No bitmaps.
+const { uid = 'bd', contained = false, still = false } = Astro.props;
+---
+
+<div class:list={['backdrop', contained && 'backdrop--contained', still && 'backdrop--still']} aria-hidden="true">
+  <div class="backdrop__layer backdrop__aero">
+    <svg class="sprite" focusable="false">
+      <symbol id={`koi-${uid}`} viewBox="0 0 100 40">
+        <path d="M14 20C8 14 4 8 0 4c3 10 3 22 0 32 4-4 8-10 14-16z" fill="currentColor" opacity=".8"></path>
+        <path d="M10 20C24 6 62 3 90 17c4 2 4 4 0 6-28 14-66 11-80-3z" fill="currentColor"></path>
+        <path d="M36 11c10-3 20-1 26 4-10 2-20 2-26-4zM50 28c8 1 16-1 22-5-6-1-14-1-22 5z" fill="#fff" opacity=".8"></path>
+        <path d="M52 10c-2-8 6-10 10-4zM66 24c-2 8 6 10 10 4z" fill="currentColor" opacity=".7"></path>
+        <circle cx="84" cy="17" r="1.6" fill="#0a2b3d"></circle>
+      </symbol>
+    </svg>
+    <span class="ripple ripple--1"></span>
+    <span class="ripple ripple--2"></span>
+    <span class="ripple ripple--3"></span>
+    <svg class="koi koi--1" viewBox="0 0 100 40" focusable="false"><use href={`#koi-${uid}`}></use></svg>
+    <svg class="koi koi--2" viewBox="0 0 100 40" focusable="false"><use href={`#koi-${uid}`}></use></svg>
+    <svg class="koi koi--3" viewBox="0 0 100 40" focusable="false"><use href={`#koi-${uid}`}></use></svg>
+    <svg class="koi koi--4" viewBox="0 0 100 40" focusable="false"><use href={`#koi-${uid}`}></use></svg>
+    <span class="dotmatrix"></span>
+  </div>
+
+  <div class="backdrop__layer backdrop__xp">
+    <span class="cloud cloud--1"></span>
+    <span class="cloud cloud--2"></span>
+    <span class="cloud cloud--3"></span>
+    <span class="hill hill--back"></span>
+    <span class="hill hill--front"></span>
+  </div>
+
+  <div class="backdrop__layer backdrop__90s">
+    <span class="stars stars--a"></span>
+    <span class="stars stars--b"></span>
+  </div>
+</div>

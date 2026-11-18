@@ -1,13 +1,17 @@
 /* Design tokens — one family, several skins.
  *
  * Contract: components read these variables and never hard-code a colour.
- * Two complete skins ship here:
+ * Four complete skins ship here, all with the same token names:
  *   aero  (default, `:root`) — sky, glass, gloss, near-white panels.
+ *   xp    (`[data-skin="xp"]`) — blue title bars, cream panels, green hill.
+ *   90s   (`[data-skin="90s"]`) — grey bevels, navy title bars, starfield.
  *   y2k   (`[data-skin="y2k"]`) — navy, chrome, hard bevels, neon accents.
+ *                                  Styleguide-only: never a page theme.
  *
- * A skin can be applied to <body> (whole page) or to a single subtree
- * (`.stage`, `.audit`), which is how /styleguide compares both side by side.
- * Anything a skin does not override is inherited from aero on purpose.
+ * A skin can be applied to <html>/<body> (whole page) or to a single subtree
+ * (`.stage`, `.audit`), which is how /styleguide compares skins side by side.
+ * xp and 90s define every aero token on purpose (scripts/contrast.mjs fails
+ * if one is missing); y2k keeps inheriting what it does not override.
  */
 
 :root,
@@ -100,6 +104,22 @@
   --accent-2: #4f9d2c;
   --link: #0b5e8f;
   --focus: #0b4a6b;
+
+  /* --- chat bubbles, badge, cards (home sections) --- */
+  --chat-in-bg: #ffffff;
+  --chat-in-ink: #0a2b3d;
+  --chat-out-bg: #d9f7be;
+  --chat-out-ink: #0b2a12;
+  --badge-bg: #c2410c;
+  --badge-ink: #ffffff;
+  --card-bg: #ffffff;
+  --card-ink: #0a2b3d;
+
+  /* --- backdrop: the colours panels can sit on (audit composites over these) ---
+     base also mirrors Base.astro's skinScript theme colours, one per page skin. */
+  --backdrop-base: #2f9fcf;
+  --backdrop-lo: #17759f;
+  --backdrop-hi: #8fdcf0;
 
   /* --- decoration --- */
   --bubble: #63b9e8;
@@ -195,11 +215,235 @@
   --link: #8fe6ff;
   --focus: #9fe6ff;
 
+  --chat-in-bg: #0a2a3c;
+  --chat-in-ink: #e8f6ff;
+  --chat-out-bg: #0f5a74;
+  --chat-out-ink: #ffffff;
+  --badge-bg: #b6ff3d;
+  --badge-ink: #001018;
+  --card-bg: #0a2a3c;
+  --card-ink: #e8f6ff;
+
+  --backdrop-base: #04263f;
+  --backdrop-lo: #001322;
+  --backdrop-hi: #0a3a55;
+
   --bubble: #7fe9ff;
   --orb-hi: #d6f8ff;
   --orb-lo: #0a5a7a;
   --deskicon-a: #7fe9ff;
   --deskicon-b: #2f8fae;
+}
+
+[data-skin='xp'] {
+  color-scheme: light;
+
+  --sky-1: #5aa9ec;
+  --sky-2: #3d8fe0;
+  --sky-3: #cfe9fb;
+  --grass-1: #8fd14f;
+  --grass-2: #3f8f1f;
+  --plate:
+    radial-gradient(40% 22% at 24% 18%, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0) 70%),
+    radial-gradient(34% 18% at 78% 30%, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 70%),
+    linear-gradient(180deg, #2f7fd6 0%, #5aa9ec 50%, #bfe0fb 100%);
+  --ground: linear-gradient(180deg, #8fd14f 0%, #58b030 50%, #3f8f1f 100%);
+  --ground-curve: 60% 40% 0 0 / 30% 20% 0 0;
+  --ground-hi: rgba(255, 255, 255, 0.4);
+  --sun: rgba(255, 255, 200, 0.7);
+  --scanline: none;
+  --stage-edge: rgba(255, 255, 255, 0.4);
+  --stage-shadow: 0 24px 50px rgba(4, 28, 80, 0.4);
+
+  --ink: #10233f;
+  --ink-soft: #2c3f5e;
+  --ink-mute: #46597a;
+
+  --panel: #f6f4e6;
+  --panel-2: #ebe7d0;
+  --panel-edge: #0a3fa8;
+  --radius-win: 8px;
+  --radius-btn: 3px;
+  --radius-panel: 8px;
+  --win-shadow: 0 14px 34px rgba(4, 28, 80, 0.38), 0 2px 5px rgba(4, 28, 80, 0.25);
+  --chrome: linear-gradient(180deg, #2a68d6 0%, #1f5bd0 14%, #0a4fc8 56%, #0a46bd 86%, #0a3ca0 100%);
+  --chrome-edge: #0a2f8f;
+  --bar-ink: #ffffff;
+  --winbtn-bg: linear-gradient(180deg, #2f6cd8, #2058cc 55%, #1a49b8);
+  --winbtn-ink: #ffffff;
+  --winbtn-edge: #ffffff;
+
+  --glass: rgba(255, 255, 255, 0.4);
+  --glass-solid: #e4f0fc;
+  --glass-edge: rgba(255, 255, 255, 0.8);
+  --glass-ink: #0b2447;
+  --glass-blur: 12px;
+
+  --btn-bg: linear-gradient(180deg, #fdfdf8 0%, #ece9d8 55%, #d6d0b4 100%);
+  --btn-bg-on: linear-gradient(180deg, #d6d0b4 0%, #ece9d8 100%);
+  --btn-ink: #10233f;
+  --btn-edge: #003c74;
+  --btn-hi: rgba(255, 255, 255, 0.95);
+
+  --head-face: linear-gradient(180deg, #1d56c4 0%, #2a68d0 45%, #1a4db8 56%, #123b9a 100%);
+  --head-stroke: #0a2a6e;
+  --head-stroke-w: 1px;
+  --head-edge: rgba(255, 255, 255, 0.9);
+  --head-shadow: rgba(0, 20, 80, 0.4);
+
+  --tray-bg: linear-gradient(180deg, #2662d0 0%, #1f5bd0 10%, #1a4bb8 86%, #143f9f 100%);
+  --tray-ink: #ffffff;
+  --tray-soft: #edf3ff;
+  --tray-edge: rgba(255, 255, 255, 0.4);
+  --tray-hover: rgba(255, 255, 255, 0.2);
+  --start-bg: linear-gradient(180deg, #8fe66a 0%, #62c640 50%, #54b830 100%);
+  --start-ink: #06240a;
+  --start-edge: #1f6a14;
+  --start-orb: radial-gradient(circle at 34% 26%, #ffffff 0%, #d8ffd0 24%, #4fb830 60%, #1d6a10 100%);
+  --ticker-bg: linear-gradient(180deg, #143f9f, #0c2c78);
+  --ticker-ink: #e6efff;
+  --ticker-edge: rgba(255, 255, 255, 0.3);
+
+  --menu-bg: #fbfaf0;
+  --menu-edge: #0a3fa8;
+  --menu-ink: #10233f;
+  --menu-hover: #2a62d6;
+  --menu-hover-ink: #ffffff;
+
+  --accent: #1f5bd0;
+  --accent-ink: #ffffff;
+  --accent-2: #3a9a2a;
+  --link: #0a3fa8;
+  --focus: #0a2f8f;
+
+  --chat-in-bg: #ffffff;
+  --chat-in-ink: #10233f;
+  --chat-out-bg: #dcebff;
+  --chat-out-ink: #0b2447;
+  --badge-bg: #d11a1a;
+  --badge-ink: #ffffff;
+  --card-bg: #fffef5;
+  --card-ink: #10233f;
+
+  /* mirrors Base.astro's skinScript xp theme colour */
+  --backdrop-base: #4a9be8;
+  --backdrop-lo: #2f7fd6;
+  --backdrop-hi: #cfe9fb;
+
+  --bubble: #8fc6f5;
+  --orb-hi: #f2f9ff;
+  --orb-lo: #3a8fe0;
+  --deskicon-a: #ffe083;
+  --deskicon-b: #e0a92c;
+
+  --cursor-arrow: url('/cursors/arrow.png') 4 2;
+  --cursor-hand: url('/cursors/hand.png') 15 3;
+  --cursor-move: url('/cursors/move.png') 16 16;
+}
+
+[data-skin='90s'] {
+  color-scheme: light;
+
+  --sky-1: #1a1060;
+  --sky-2: #12083e;
+  --sky-3: #3a2a9a;
+  --grass-1: #1f8f8f;
+  --grass-2: #0a4a4a;
+  --plate:
+    radial-gradient(60% 40% at 80% 10%, rgba(120, 90, 255, 0.28), rgba(120, 90, 255, 0) 70%),
+    linear-gradient(180deg, #0b0630 0%, #1a1060 60%, #2a1a80 100%);
+  --ground: linear-gradient(180deg, #1f8f8f 0%, #0f6a6a 50%, #0a4a4a 100%);
+  --ground-curve: 0;
+  --ground-hi: rgba(255, 255, 255, 0.5);
+  --sun: rgba(255, 255, 160, 0.25);
+  --scanline: none;
+  --stage-edge: #ffffff;
+  --stage-shadow: 6px 6px 0 rgba(0, 0, 0, 0.55);
+
+  --ink: #000000;
+  --ink-soft: #202020;
+  --ink-mute: #3a3a3a;
+
+  --panel: #c0c0c0;
+  --panel-2: #dfdfdf;
+  --panel-edge: #808080;
+  --radius-win: 0px;
+  --radius-btn: 0px;
+  --radius-panel: 0px;
+  --win-shadow: 4px 4px 0 rgba(0, 0, 0, 0.55);
+  --chrome: linear-gradient(90deg, #000080 0%, #0a64b0 100%);
+  --chrome-edge: #000000;
+  --bar-ink: #ffffff;
+  --winbtn-bg: linear-gradient(180deg, #dcdcdc, #c0c0c0);
+  --winbtn-ink: #000000;
+  --winbtn-edge: #000000;
+
+  --glass: rgba(192, 192, 192, 0.88);
+  --glass-solid: #c0c0c0;
+  --glass-edge: #ffffff;
+  --glass-ink: #000000;
+  --glass-blur: 4px;
+
+  --btn-bg: linear-gradient(180deg, #dcdcdc 0%, #c0c0c0 100%);
+  --btn-bg-on: linear-gradient(180deg, #b0b0b0 0%, #c0c0c0 100%);
+  --btn-ink: #000000;
+  --btn-edge: #000000;
+  --btn-hi: rgba(255, 255, 255, 0.95);
+
+  --head-face: linear-gradient(180deg, #00007a 0%, #1a1ab0 50%, #00007a 100%);
+  --head-stroke: #000040;
+  --head-stroke-w: 1px;
+  --head-edge: rgba(255, 255, 255, 0.6);
+  --head-shadow: rgba(0, 0, 0, 0.35);
+
+  --tray-bg: linear-gradient(180deg, #c0c0c0 0%, #c0c0c0 100%);
+  --tray-ink: #000000;
+  --tray-soft: #404040;
+  --tray-edge: #ffffff;
+  --tray-hover: rgba(0, 0, 0, 0.12);
+  --start-bg: linear-gradient(180deg, #dcdcdc 0%, #c0c0c0 100%);
+  --start-ink: #000000;
+  --start-edge: #000000;
+  --start-orb: radial-gradient(circle, #ffe600 0 38%, #ff2a9d 40% 100%);
+  --ticker-bg: linear-gradient(180deg, #000000, #0a0a2a);
+  --ticker-ink: #7dffb0;
+  --ticker-edge: #808080;
+
+  --menu-bg: #c0c0c0;
+  --menu-edge: #000000;
+  --menu-ink: #000000;
+  --menu-hover: #000080;
+  --menu-hover-ink: #ffffff;
+
+  --accent: #000080;
+  --accent-ink: #ffffff;
+  --accent-2: #008080;
+  --link: #0000cc;
+  --focus: #000080;
+
+  --chat-in-bg: #ffffff;
+  --chat-in-ink: #000000;
+  --chat-out-bg: #ffff99;
+  --chat-out-ink: #000000;
+  --badge-bg: #ffff00;
+  --badge-ink: #cc0000;
+  --card-bg: #ffffe1;
+  --card-ink: #000000;
+
+  /* mirrors Base.astro's skinScript 90s theme colour */
+  --backdrop-base: #1a1060;
+  --backdrop-lo: #0b0630;
+  --backdrop-hi: #4b3bb0;
+
+  --bubble: #8f7fff;
+  --orb-hi: #ffffff;
+  --orb-lo: #4b3bb0;
+  --deskicon-a: #ffff66;
+  --deskicon-b: #c0a000;
+
+  --cursor-arrow: url('/cursors/arrow.png') 4 2;
+  --cursor-hand: url('/cursors/hand.png') 15 3;
+  --cursor-move: url('/cursors/move.png') 16 16;
 }
 
 /* Shared scale. Not per-skin: spacing is the 4/8 px grid. */

@@ -1,0 +1,119 @@
+{
+  "hero": {
+    "id": "inicio",
+    "windowTitle": "Miss Javi · inicio.exe",
+    "name": "Miss Javi",
+    "kicker": "[texto de ejemplo] profe de inglés",
+    "tagline": "Inglés sin miedo, a tu ritmo (lema provisorio).",
+    "intro": "Texto de relleno: acá va una presentación corta de la profe, con onda y sin letra chica. Todo esto es un borrador para probar el diseño del escritorio.",
+    "ctaPrimary": "Escribime",
+    "ctaSecondary": "Mirá los proyectos",
+    "avatarLabel": "Avatar de ejemplo en pixel art (sin foto real)"
+  },
+  "contact": {
+    "id": "contacto",
+    "windowTitle": "Contacto · chat",
+    "chatLabel": "Conversación de ejemplo",
+    "lines": [
+      { "from": "in", "text": "¡Hola! Soy un mensaje de ejemplo 👋" },
+      { "from": "out", "text": "Hola, quiero practicar inglés (texto de relleno)." },
+      { "from": "in", "text": "Contame tu nivel y armamos un plan, esto es un borrador." },
+      { "from": "out", "text": "Dale, ¡perfecto! (conversación inventada)" }
+    ],
+    "cta": "Escribime por WhatsApp",
+    "ctaNote": "Botón de demostración: todavía no abre ningún chat.",
+    "demo": true
+  },
+  "cv": {
+    "id": "cv",
+    "windowTitle": "CV.DOC",
+    "fileName": "CV-miss-javi-ejemplo.doc",
+    "heading": "Currículum (borrador)",
+    "timelineLabel": "Trayectoria de ejemplo",
+    "timeline": [
+      { "when": "20XX – hoy", "what": "Clases particulares (dato de relleno)" },
+      { "when": "20XX – 20XX", "what": "Taller de conversación (dato de relleno)" },
+      { "when": "20XX", "what": "Certificación de ejemplo (no es real)" },
+      { "when": "20XX", "what": "Estudios inventados para el borrador" }
+    ],
+    "download": "Descargar CV",
+    "downloadNote": "Botón de demostración: todavía no hay archivo.",
+    "demo": true
+  },
+  "projects": {
+    "id": "proyectos",
+    "windowTitle": "Mis proyectos",
+    "listLabel": "Carpeta de proyectos de ejemplo",
+    "items": [
+      {
+        "id": "club",
+        "title": "Club de conversación",
+        "icon": "folder",
+        "blurb": "Texto de relleno: encuentros para charlar en inglés sin presión.",
+        "tags": ["ejemplo", "conversación", "grupal"]
+      },
+      {
+        "id": "cuentos",
+        "title": "Cuentos y canciones",
+        "icon": "book",
+        "blurb": "Texto de relleno: aprender vocabulario con historias y música.",
+        "tags": ["ejemplo", "niños", "lectura"]
+      },
+      {
+        "id": "examen",
+        "title": "Preparación de examen",
+        "icon": "star",
+        "blurb": "Texto de relleno: práctica guiada para rendir una certificación.",
+        "tags": ["ejemplo", "examen"]
+      },
+      {
+        "id": "empresa",
+        "title": "Inglés para el trabajo",
+        "icon": "floppy",
+        "blurb": "Texto de relleno: correos, reuniones y presentaciones en inglés.",
+        "tags": ["ejemplo", "trabajo", "online"]
+      }
+    ]
+  },
+  "posts": {
+    "id": "blog",
+    "windowTitle": "Bloc de notas · blog.txt",
+    "listLabel": "Entradas de ejemplo",
+    "read": "Leer",
+    "newLabel": "¡NUEVO!",
+    "items": [
+      {
+        "id": "primeros-pasos",
+        "title": "Primeros pasos (entrada de ejemplo)",
+        "date": "2026-01-15",
+        "dateLabel": "15 ene 2026",
+        "excerpt": "Texto de relleno para mostrar cómo se vería un resumen de entrada en el blog.",
+        "isNew": true
+      },
+      {
+        "id": "errores-comunes",
+        "title": "Errores comunes (entrada de ejemplo)",
+        "date": "2026-01-08",
+        "dateLabel": "8 ene 2026",
+        "excerpt": "Otro resumen inventado: acá irían consejos cortos para practicar mejor.",
+        "isNew": false
+      },
+      {
+        "id": "musica",
+        "title": "Aprender con música (entrada de ejemplo)",
+        "date": "2025-12-20",
+        "dateLabel": "20 dic 2025",
+        "excerpt": "Resumen de relleno sobre canciones y vocabulario. Se reemplaza más adelante.",
+        "isNew": false
+      }
+    ]
+  },
+  "garnish": {
+    "newBadge": "¡NUEVO!",
+    "construction": "EN CONSTRUCCIÓN (borrador)",
+    "badges": ["hecho con cariño", "mejor en 800×600", "sin cookies"],
+    "backToTop": "▲ volver arriba",
+    "glitterLabel": "brillitos decorativos",
+    "footer": "Sitio de ejemplo · todo el contenido es de relleno"
+  }
+}

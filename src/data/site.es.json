@@ -1,36 +1,50 @@
 {
   "locale": "es",
-  "brand": "Teacher Landing",
+  "brand": "Miss Javi (borrador)",
   "taskbar": {
     "start": "Inicio",
     "navLabel": "Secciones del sitio",
     "nav": [
-      { "label": "Inicio", "href": "#inicio" },
-      { "label": "Clases", "href": "#clases" },
-      { "label": "Precios", "href": "#precios" },
-      { "label": "Método", "href": "#metodo" },
-      { "label": "FAQ", "href": "#faq" },
-      { "label": "Contacto", "href": "#contacto" }
+      {
+        "label": "Inicio",
+        "href": "#inicio"
+      },
+      {
+        "label": "Contacto",
+        "href": "#contacto"
+      },
+      {
+        "label": "CV",
+        "href": "#cv"
+      },
+      {
+        "label": "Proyectos",
+        "href": "#proyectos"
+      },
+      {
+        "label": "Blog",
+        "href": "#blog"
+      }
     ],
     "soundOn": "Sonidos: activados",
     "soundOff": "Sonidos: desactivados",
     "langOff": "English: fase 3",
-    "menuHead": "Profesora · Santiago de Chile",
+    "menuHead": "Miss Javi · borrador",
     "menuStyleguide": "Style guide (fase 0)",
-    "menuFoot": "Fase 0 · demo"
+    "menuFoot": "Borrador · contenido de ejemplo"
   },
   "boot": {
-    "title": "TEACHER.EXE",
+    "title": "MISS JAVI",
     "line": "Iniciando escritorio…",
-    "foot": "Fase 0 · puerta de diseño"
+    "foot": "Borrador · contenido de ejemplo"
   },
   "ticker": {
     "label": "Avisos del sitio",
     "items": [
-      "Fase 0 · puerta de diseño",
-      "Aero vs Y2K",
-      "Sin nombre, sin precios, sin fotos todavía",
-      "Nada entra en una sección sin pasar por acá"
+      "Borrador del sitio de Miss Javi",
+      "Elegí tu escritorio: 90s, XP o Aero",
+      "Todo el texto es de relleno",
+      "Sin precios, sin fotos, sin datos reales todavía"
     ]
   },
   "counter": {
@@ -38,10 +52,28 @@
     "demo": true
   },
   "shell": {
-    "windowTitle": "TEACHER.EXE",
-    "kicker": "Fase 0 · puerta de diseño",
-    "heading": "TEACHER",
-    "body": "El escritorio todavía es un esqueleto. Los ingredientes se juzgan en el style guide antes de escribir contenido real.",
+    "windowTitle": "MISS JAVI",
+    "kicker": "Borrador · contenido de ejemplo",
+    "heading": "MISS JAVI",
+    "body": "Esto es un borrador con texto de relleno para probar el escritorio retro.",
     "cta": "Ver style guide"
+  },
+  "themes": {
+    "label": "Escritorio",
+    "default": "aero",
+    "options": [
+      {
+        "id": "aero",
+        "label": "Aero"
+      },
+      {
+        "id": "xp",
+        "label": "XP"
+      },
+      {
+        "id": "90s",
+        "label": "90s"
+      }
+    ]
   }
 }

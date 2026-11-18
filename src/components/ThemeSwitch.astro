@@ -1,0 +1,89 @@
+---
+import site from '../data/site.es.json';
+
+interface Props {
+  /** id of the subtree to skin. Omit for the page-wide switch. */
+  controls?: string;
+  /** skin ids to show; defaults to site.themes.options */
+  only?: string[];
+  /** extra options (styleguide only, e.g. y2k) */
+  extra?: { id: string; label: string }[];
+  /** initially pressed skin */
+  current?: string;
+}
+
+const { controls, only, extra = [], current = site.themes.default } = Astro.props;
+const options = [...site.themes.options, ...extra].filter((o) => !only || only.includes(o.id));
+const global = !controls;
+---
+
+<div
+  class="themeswitch"
+  role="group"
+  aria-label={site.themes.label}
+  data-themeswitch
+  hidden={global}
+>
+  <span class="themeswitch__label" aria-hidden="true">{site.themes.label}</span>
+  {
+    options.map((option) => (
+      <button
+        class="themeswitch__btn"
+        type="button"
+        data-skin-set={option.id}
+        aria-controls={controls}
+        aria-pressed={option.id === current ? 'true' : 'false'}
+      >
+        {option.label}
+      </button>
+    ))
+  }
+</div>
+
+<style>
+  .themeswitch {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .themeswitch[hidden] {
+    display: none;
+  }
+
+  .themeswitch__label {
+    padding-right: 4px;
+    font-size: 0.66rem;
+    color: var(--tray-soft);
+    white-space: nowrap;
+  }
+
+  .themeswitch__btn {
+    min-width: 34px;
+    min-height: 26px;
+    padding: 2px 7px;
+    font: 700 0.7rem/1 var(--font-ui);
+    color: var(--tray-ink);
+    background: transparent;
+    border: 1px solid var(--tray-edge);
+    border-radius: var(--radius-btn);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .themeswitch__btn:hover {
+    background: var(--tray-hover);
+  }
+
+  .themeswitch__btn[aria-pressed='true'] {
+    color: var(--menu-hover-ink);
+    background: var(--menu-hover);
+  }
+
+  @container (max-width: 700px) {
+    .themeswitch__label {
+      display: none;
+    }
+  }
+</style>

@@ -17,10 +17,17 @@ const {
   bodyClass,
   doc = false,
 } = Astro.props;
+
+// Runs before first paint so a saved skin never flashes aero. Whitelist only;
+// the colours mirror --backdrop-base in tokens.css. Not used on /styleguide.
+const skinScript =
+  "try{var k=localStorage.getItem('tl:skin'),i=['aero','xp','90s'].indexOf(k);" +
+  "if(i>-1){document.documentElement.dataset.skin=k;" +
+  "document.querySelector('meta[name=theme-color]').content=['#2f9fcf','#4a9be8','#1a1060'][i]}}catch(e){}";
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} data-skin="aero">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -38,7 +45,8 @@ const {
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content={doc ? '#08121a' : '#7cc8f5'} />
+    <meta name="theme-color" content={doc ? '#08121a' : '#2f9fcf'} />
+    {!doc && <script is:inline set:html={skinScript} />}
   </head>
   <body class:list={[doc && 'doc', bodyClass]}>
     <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -67,6 +75,40 @@ const {
         <circle cx="8" cy="8" r="6.2" />
         <path d="M1.8 8h12.4M8 1.8c2.4 2.6 2.4 9.8 0 12.4M8 1.8c-2.4 2.6-2.4 9.8 0 12.4" />
       </symbol>
+
+      <!-- pixel-art set (16×16 grid): outline is currentColor, fills are fixed or --deskicon-* -->
+      <symbol id="px-book" viewBox="0 0 16 16" shape-rendering="crispEdges">
+        <path fill="currentColor" d="M2 1h12v1h-12zM1 2h1v1h-1zM14 2h1v1h-1zM1 3h1v1h-1zM4 3h8v1h-8zM14 3h1v1h-1zM1 4h1v1h-1zM4 4h1v1h-1zM11 4h1v1h-1zM14 4h1v1h-1zM1 5h1v1h-1zM4 5h8v1h-8zM14 5h1v1h-1zM1 6h1v1h-1zM14 6h1v1h-1zM1 7h1v1h-1zM14 7h1v1h-1zM1 8h1v1h-1zM14 8h1v1h-1zM1 9h1v1h-1zM14 9h1v1h-1zM1 10h14v1h-14zM1 11h1v1h-1zM3 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM9 11h1v1h-1zM11 11h1v1h-1zM14 11h1v1h-1zM1 12h1v1h-1zM14 12h1v1h-1zM1 13h14v1h-14z" />
+        <path fill="#e03a2a" d="M2 2h12v1h-12zM2 3h2v1h-2zM12 3h2v1h-2zM2 4h2v1h-2zM12 4h2v1h-2zM2 5h2v1h-2zM12 5h2v1h-2zM2 6h12v1h-12zM2 7h12v1h-12zM2 8h12v1h-12zM2 9h12v1h-12z" />
+        <path fill="#ffffff" d="M5 4h6v1h-6zM2 11h1v1h-1zM4 11h1v1h-1zM6 11h1v1h-1zM8 11h1v1h-1zM10 11h1v1h-1zM12 11h2v1h-2zM2 12h12v1h-12z" />
+      </symbol>
+      <symbol id="px-envelope" viewBox="0 0 16 16" shape-rendering="crispEdges">
+        <path fill="currentColor" d="M1 3h14v1h-14zM1 4h1v1h-1zM14 4h1v1h-1zM1 5h2v1h-2zM13 5h2v1h-2zM1 6h1v1h-1zM3 6h2v1h-2zM11 6h2v1h-2zM14 6h1v1h-1zM1 7h1v1h-1zM5 7h2v1h-2zM9 7h2v1h-2zM14 7h1v1h-1zM1 8h1v1h-1zM7 8h2v1h-2zM14 8h1v1h-1zM1 9h1v1h-1zM14 9h1v1h-1zM1 10h1v1h-1zM14 10h1v1h-1zM1 11h14v1h-14z" />
+        <path fill="#ffffff" d="M2 4h12v1h-12zM3 5h10v1h-10zM2 6h1v1h-1zM5 6h6v1h-6zM13 6h1v1h-1zM2 7h3v1h-3zM7 7h2v1h-2zM11 7h3v1h-3zM2 8h5v1h-5zM9 8h5v1h-5zM2 9h12v1h-12zM2 10h12v1h-12z" />
+      </symbol>
+      <symbol id="px-floppy" viewBox="0 0 16 16" shape-rendering="crispEdges">
+        <path fill="currentColor" d="M1 1h13v1h-13zM1 2h1v1h-1zM4 2h1v1h-1zM11 2h1v1h-1zM14 2h1v1h-1zM1 3h1v1h-1zM4 3h1v1h-1zM11 3h1v1h-1zM14 3h1v1h-1zM1 4h1v1h-1zM4 4h1v1h-1zM11 4h1v1h-1zM14 4h1v1h-1zM1 5h1v1h-1zM14 5h1v1h-1zM1 6h1v1h-1zM14 6h1v1h-1zM1 7h1v1h-1zM3 7h10v1h-10zM14 7h1v1h-1zM1 8h1v1h-1zM3 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM1 9h1v1h-1zM3 9h1v1h-1zM12 9h1v1h-1zM14 9h1v1h-1zM1 10h1v1h-1zM3 10h10v1h-10zM14 10h1v1h-1zM1 11h1v1h-1zM3 11h1v1h-1zM12 11h1v1h-1zM14 11h1v1h-1zM1 12h1v1h-1zM14 12h1v1h-1zM1 13h14v1h-14z" />
+        <path fill="#2a4fb8" d="M2 2h2v1h-2zM12 2h2v1h-2zM2 3h2v1h-2zM12 3h2v1h-2zM2 4h2v1h-2zM12 4h2v1h-2zM2 5h12v1h-12zM2 6h12v1h-12zM2 7h1v1h-1zM13 7h1v1h-1zM2 8h1v1h-1zM13 8h1v1h-1zM2 9h1v1h-1zM13 9h1v1h-1zM2 10h1v1h-1zM13 10h1v1h-1zM2 11h1v1h-1zM13 11h1v1h-1zM2 12h12v1h-12z" />
+        <path fill="#c8d0d8" d="M5 2h6v1h-6zM5 3h6v1h-6zM5 4h6v1h-6z" />
+        <path fill="#ffffff" d="M4 8h8v1h-8zM4 9h8v1h-8zM4 11h8v1h-8z" />
+      </symbol>
+      <symbol id="px-star" viewBox="0 0 16 16" shape-rendering="crispEdges">
+        <path fill="currentColor" d="M7 1h2v1h-2zM6 2h1v1h-1zM9 2h1v1h-1zM6 3h1v1h-1zM9 3h1v1h-1zM5 4h1v1h-1zM10 4h1v1h-1zM0 5h5v1h-5zM11 5h5v1h-5zM1 6h1v1h-1zM14 6h1v1h-1zM2 7h1v1h-1zM13 7h1v1h-1zM3 8h1v1h-1zM12 8h1v1h-1zM3 9h1v1h-1zM12 9h1v1h-1zM2 10h1v1h-1zM7 10h2v1h-2zM13 10h1v1h-1zM2 11h1v1h-1zM6 11h2v1h-2zM9 11h1v1h-1zM13 11h1v1h-1zM1 12h1v1h-1zM5 12h1v1h-1zM10 12h1v1h-1zM14 12h1v1h-1zM1 13h4v1h-4zM11 13h4v1h-4z" />
+        <path fill="#ffd23a" d="M7 2h2v1h-2zM7 3h2v1h-2zM6 4h4v1h-4zM5 5h6v1h-6zM2 6h12v1h-12zM3 7h10v1h-10zM4 8h8v1h-8zM4 9h8v1h-8zM3 10h4v1h-4zM9 10h4v1h-4zM3 11h3v1h-3zM10 11h3v1h-3zM2 12h3v1h-3zM11 12h3v1h-3z" />
+      </symbol>
+      <symbol id="px-folder" viewBox="0 0 16 16" shape-rendering="crispEdges">
+        <path fill="currentColor" d="M2 2h5v1h-5zM1 3h1v1h-1zM7 3h1v1h-1zM1 4h1v1h-1zM7 4h8v1h-8zM1 5h1v1h-1zM14 5h1v1h-1zM1 6h1v1h-1zM14 6h1v1h-1zM1 7h1v1h-1zM14 7h1v1h-1zM1 8h1v1h-1zM14 8h1v1h-1zM1 9h1v1h-1zM14 9h1v1h-1zM1 10h1v1h-1zM14 10h1v1h-1zM1 11h1v1h-1zM14 11h1v1h-1zM1 12h14v1h-14z" />
+        <path style="fill:var(--deskicon-a)" d="M2 3h5v1h-5zM2 4h5v1h-5zM2 5h12v1h-12zM2 7h12v1h-12zM2 8h12v1h-12z" />
+        <path fill="#ffffff" d="M2 6h12v1h-12z" />
+        <path style="fill:var(--deskicon-b)" d="M2 9h12v1h-12zM2 10h12v1h-12zM2 11h12v1h-12z" />
+      </symbol>
+      <symbol id="px-apple" viewBox="0 0 16 16" shape-rendering="crispEdges">
+        <path fill="currentColor" d="M8 1h2v1h-2zM8 2h1v1h-1zM10 2h1v1h-1zM3 3h4v1h-4zM8 3h6v1h-6zM2 4h1v1h-1zM7 4h1v1h-1zM14 4h1v1h-1zM1 5h1v1h-1zM14 5h1v1h-1zM1 6h1v1h-1zM14 6h1v1h-1zM1 7h1v1h-1zM14 7h1v1h-1zM1 8h1v1h-1zM14 8h1v1h-1zM1 9h1v1h-1zM14 9h1v1h-1zM2 10h1v1h-1zM13 10h1v1h-1zM2 11h1v1h-1zM13 11h1v1h-1zM3 12h1v1h-1zM7 12h2v1h-2zM12 12h1v1h-1zM4 13h3v1h-3zM9 13h3v1h-3z" />
+        <path fill="#4fb830" d="M9 2h1v1h-1z" />
+        <path fill="#e03a2a" d="M3 4h4v1h-4zM8 4h6v1h-6zM2 5h2v1h-2zM6 5h8v1h-8zM2 6h1v1h-1zM5 6h9v1h-9zM2 7h12v1h-12zM2 8h12v1h-12zM2 9h12v1h-12zM3 10h10v1h-10zM3 11h10v1h-10zM4 12h3v1h-3zM9 12h3v1h-3z" />
+        <path fill="#ffffff" d="M4 5h2v1h-2zM3 6h2v1h-2z" />
+      </symbol>
+
     </svg>
 
     <slot />

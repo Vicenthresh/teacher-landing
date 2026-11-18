@@ -295,10 +295,42 @@ for (const counter of $$('[data-counter]')) {
   digits.textContent = String(base + hits).padStart(6, '0');
 }
 
-/* ------------------------------------------------------------ audit skins */
+/* ------------------------------------------------------------------ skins */
+/* Two kinds of [data-skin-set] button share one handler:
+ *   with aria-controls    → scoped: skins one subtree (the styleguide audit).
+ *   without aria-controls → global: skins <html>, persists `tl:skin`, syncs
+ *                           every global switch. y2k is not a page theme, so
+ *                           the global kind is whitelisted. */
+
+const PAGE_SKINS = ['aero', 'xp', '90s'];
+const globalSwitches = () => $$('[data-skin-set]:not([aria-controls])');
+
+function syncSkinSwitches() {
+  const current = document.documentElement.dataset.skin;
+  for (const btn of globalSwitches()) {
+    btn.setAttribute('aria-pressed', String(btn.dataset.skinSet === current));
+  }
+}
+
+function setPageSkin(id) {
+  if (!PAGE_SKINS.includes(id)) return;
+  const root = document.documentElement;
+  root.dataset.skin = id;
+  store.set('tl:skin', id);
+  syncSkinSwitches();
+  /* theme-color follows the skin: the backdrop base colour is the token */
+  const color = getComputedStyle(root).getPropertyValue('--backdrop-base').trim();
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta && color) meta.setAttribute('content', color);
+}
 
 for (const toggle of $$('[data-skin-set]')) {
   toggle.addEventListener('click', () => {
+    if (!toggle.hasAttribute('aria-controls')) {
+      /* the delegated click handler below already beeps when sound is on */
+      setPageSkin(toggle.dataset.skinSet);
+      return;
+    }
     const host = document.getElementById(toggle.getAttribute('aria-controls'));
     if (!host) return;
     host.dataset.skin = toggle.dataset.skinSet;
@@ -308,6 +340,10 @@ for (const toggle of $$('[data-skin-set]')) {
     beep('click');
   });
 }
+
+/* the global switch is `hidden` in the HTML so no-JS visitors see no dead UI */
+for (const group of $$('[data-themeswitch][hidden]')) group.hidden = false;
+syncSkinSwitches();
 
 /* --------------------------------------------------------- global clicks */
 

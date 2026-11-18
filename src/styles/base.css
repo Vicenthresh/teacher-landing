@@ -478,6 +478,304 @@ strong {
   gap: var(--space-2);
 }
 
+/* --------------------------------------------------- xp and 90s chrome */
+/* Window chrome per skin. Colours come from tokens (--chrome is the blue
+   title bar in xp and the navy bar in 90s); selectors only change shape. */
+
+[data-skin='xp'] .window {
+  border-width: 0 3px 3px;
+  border-color: var(--panel-edge);
+}
+
+[data-skin='xp'] .window__bar {
+  min-height: 30px;
+  border-bottom: 0;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+[data-skin='xp'] .window__title {
+  font-size: 0.85rem;
+  text-shadow: 1px 1px 0 #0a2a6e;
+}
+
+[data-skin='xp'] .window__icon {
+  opacity: 1;
+}
+
+[data-skin='xp'] .winbtn {
+  width: 22px;
+  height: 22px;
+  border-width: 1px;
+  border-radius: 4px;
+  font-size: 13px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -2px 3px rgba(0, 0, 40, 0.3);
+}
+
+/* red close: the audited badge pair, so no new colour is introduced */
+[data-skin='xp'] .winbtn[data-win='close'] {
+  color: var(--badge-ink);
+  background: var(--badge-bg);
+}
+
+[data-skin='90s'] .window {
+  padding: 2px;
+  border: 2px solid;
+  border-color: var(--glass-edge) var(--btn-edge) var(--btn-edge) var(--glass-edge);
+  box-shadow:
+    inset -1px -1px 0 var(--panel-edge),
+    inset 1px 1px 0 var(--panel-2),
+    var(--win-shadow);
+}
+
+[data-skin='90s'] .window__bar {
+  min-height: 22px;
+  padding: 2px 3px 2px 4px;
+  border-bottom: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+[data-skin='90s'] .window__title {
+  font-size: 0.78rem;
+}
+
+[data-skin='90s'] .window__icon {
+  width: 14px;
+  height: 14px;
+  opacity: 1;
+}
+
+[data-skin='90s'] .winbtn {
+  width: 18px;
+  height: 16px;
+  font-size: 11px;
+  border: 2px solid;
+  border-color: var(--glass-edge) var(--winbtn-edge) var(--winbtn-edge) var(--glass-edge);
+  border-radius: 0;
+  box-shadow: inset -1px -1px 0 var(--panel-edge);
+}
+
+[data-skin='90s'] .winbtn:active {
+  border-color: var(--winbtn-edge) var(--glass-edge) var(--glass-edge) var(--winbtn-edge);
+  box-shadow: inset 1px 1px 0 var(--panel-edge);
+}
+
+[data-skin='90s'] .btn {
+  border: 2px solid;
+  border-color: var(--glass-edge) var(--btn-edge) var(--btn-edge) var(--glass-edge);
+  border-radius: 0;
+  box-shadow: inset -1px -1px 0 var(--panel-edge), inset 1px 1px 0 var(--panel-2);
+  text-shadow: none;
+}
+
+[data-skin='90s'] .btn:active {
+  border-color: var(--btn-edge) var(--glass-edge) var(--glass-edge) var(--btn-edge);
+  box-shadow: inset 1px 1px 0 var(--panel-edge);
+  transform: none;
+}
+
+[data-skin='90s'] .btn--ghost {
+  background: var(--panel-2);
+  border-color: var(--glass-edge) var(--btn-edge) var(--btn-edge) var(--glass-edge);
+}
+
+[data-skin='xp'] .btn {
+  border-radius: 3px;
+  text-shadow: none;
+  box-shadow:
+    inset 0 1px 0 var(--btn-hi),
+    inset 0 -2px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* mega button: bold, glossy, all skins (still the audited --btn-* pair) */
+
+.btn--mega {
+  min-height: 52px;
+  padding: 10px 28px;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+  border-width: 2px;
+  border-radius: calc(var(--radius-btn) + 4px);
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0 48%, rgba(255, 255, 255, 0) 50%),
+    var(--btn-bg);
+  box-shadow:
+    inset 0 1px 0 var(--btn-hi),
+    inset 0 -3px 5px rgba(255, 255, 255, 0.3),
+    0 4px 10px rgba(5, 28, 43, 0.35);
+  transition: transform 120ms var(--ease);
+}
+
+.btn--mega:hover {
+  transform: translateY(-1px);
+}
+
+.btn--mega:active {
+  background-image: none;
+}
+
+[data-skin='90s'] .btn--mega {
+  border-radius: 0;
+  background-image: none;
+  box-shadow: inset -2px -2px 0 var(--panel-edge), inset 2px 2px 0 var(--panel-2);
+  text-transform: uppercase;
+}
+
+[data-skin='xp'] .btn--mega {
+  border-radius: 6px;
+  box-shadow:
+    inset 0 1px 0 var(--btn-hi),
+    inset 0 -3px 4px rgba(0, 0, 0, 0.12),
+    0 3px 8px rgba(4, 28, 80, 0.4);
+}
+
+/* -------------------------------------------------------------- garnish */
+/* Ingredients for the old-internet look (Garnish.astro). Animation is
+   transform and opacity only and is switched off under reduced motion. */
+
+.px-icon {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  color: var(--ink);
+  image-rendering: pixelated;
+  shape-rendering: crispEdges;
+}
+
+.glitter {
+  display: inline-block;
+  width: 4rem;
+  height: 1.5rem;
+  vertical-align: middle;
+  overflow: visible;
+}
+
+.sparkle {
+  fill: #ffe066;
+  stroke: #b88a00;
+  stroke-width: 0.5;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.newbadge {
+  display: inline-block;
+  padding: 2px 7px;
+  border: 2px solid var(--badge-ink);
+  border-radius: 3px;
+  background: var(--badge-bg);
+  color: var(--badge-ink);
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform: rotate(-4deg);
+}
+
+.construction {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 6px var(--space-2);
+  background: repeating-linear-gradient(135deg, #ffd400 0 12px, #1a1a1a 12px 24px);
+  border: 1px solid #1a1a1a;
+}
+
+.construction__text {
+  padding: 2px 10px;
+  background: var(--card-bg);
+  color: var(--card-ink);
+  border: 1px solid var(--card-ink);
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.b88 {
+  display: inline-grid;
+  place-items: center;
+  width: 88px;
+  height: 31px;
+  padding: 0 4px;
+  border: 2px solid;
+  border-color: #ffffff #4a4a4a #4a4a4a #ffffff;
+  font-family: var(--font-display);
+  font-size: 0.5rem;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  text-align: center;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+
+.b88--btn {
+  background: var(--btn-bg);
+  color: var(--btn-ink);
+}
+
+.b88--badge {
+  background: var(--badge-bg);
+  color: var(--badge-ink);
+}
+
+.b88--card {
+  background: var(--card-bg);
+  color: var(--card-ink);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sparkle {
+    animation: twinkle-star 1.8s ease-in-out infinite;
+  }
+
+  .sparkle--2 {
+    animation-delay: -0.5s;
+  }
+
+  .sparkle--3 {
+    animation-delay: -1.1s;
+  }
+
+  .sparkle--4 {
+    animation-delay: -1.5s;
+  }
+
+  .newbadge {
+    animation: new-blink 1s steps(2, jump-none) infinite;
+  }
+}
+
+@keyframes twinkle-star {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.35;
+    transform: scale(0.55);
+  }
+}
+
+@keyframes new-blink {
+  from {
+    transform: rotate(-4deg) scale(1);
+  }
+
+  to {
+    transform: rotate(-4deg) scale(1.14);
+  }
+}
+
 /* --------------------------------------------------------- chrome text */
 /* The gradient face is decorative. Contrast is carried by a real stroke
    (--head-stroke), measured at AA against the panel behind it. Never body
@@ -684,6 +982,332 @@ strong {
 @keyframes bubble-drift {
   to {
     transform: translate3d(-14px, -22px, 0);
+  }
+}
+
+/* ------------------------------------------------------------ backdrops */
+/* One component, three layers. The skin decides which layer is shown, and the
+   others are display:none so their animations never run. Distances use
+   container units (the .backdrop is the container), so the same art fits the
+   viewport on the page and a small plinth in the styleguide. Visibility goes
+   through custom properties so the NEAREST data-skin wins (a skinned subtree
+   inside a skinned page shows only its own layer). Animation is transform and
+   opacity only, and everything is static under reduced motion. */
+
+:root,
+[data-skin] {
+  --bd-aero: none;
+  --bd-xp: none;
+  --bd-90s: none;
+}
+
+[data-skin='aero'] {
+  --bd-aero: block;
+}
+
+[data-skin='xp'] {
+  --bd-xp: block;
+}
+
+[data-skin='90s'] {
+  --bd-90s: block;
+}
+
+.backdrop {
+  container-type: size;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background-color: var(--backdrop-base);
+}
+
+.backdrop--contained {
+  position: absolute;
+}
+
+.backdrop__layer {
+  position: absolute;
+  inset: 0;
+}
+
+.backdrop__aero {
+  display: var(--bd-aero);
+  background:
+    radial-gradient(60% 46% at 24% 16%, var(--backdrop-hi) 0%, rgba(143, 220, 240, 0) 70%),
+    linear-gradient(180deg, var(--backdrop-base) 0%, var(--backdrop-lo) 100%);
+}
+
+.backdrop__xp {
+  display: var(--bd-xp);
+  background: var(--plate);
+}
+
+.backdrop__90s {
+  display: var(--bd-90s);
+  background:
+    conic-gradient(rgba(255, 255, 255, 0.05) 25%, transparent 0 50%, rgba(255, 255, 255, 0.05) 0 75%, transparent 0) 0 0 / 32px 32px,
+    var(--plate);
+}
+
+/* aero: koi pond */
+
+.ripple {
+  position: absolute;
+  width: 22cqmax;
+  height: 22cqmax;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  box-shadow: 0 0 0 18px rgba(255, 255, 255, 0.1);
+  opacity: 0.3;
+  transform: scale(0.7);
+}
+
+.ripple--1 {
+  top: 6%;
+  left: 62%;
+}
+
+.ripple--2 {
+  top: 52%;
+  left: 8%;
+}
+
+.ripple--3 {
+  top: 70%;
+  left: 58%;
+}
+
+.koi {
+  position: absolute;
+  left: 0;
+  width: clamp(72px, 9cqw, 128px);
+  height: auto;
+  aspect-ratio: 5 / 2;
+  color: #ff7a2a;
+  transform: rotate(var(--r));
+}
+
+.koi--1 {
+  top: 14%;
+  --r: 6deg;
+  --dy: 10cqh;
+}
+
+.koi--2 {
+  top: 38%;
+  --r: -5deg;
+  --dy: -8cqh;
+  color: #ffb02e;
+}
+
+.koi--3 {
+  top: 62%;
+  --r: 4deg;
+  --dy: 9cqh;
+  color: #e8432a;
+  width: clamp(56px, 7cqw, 100px);
+}
+
+.koi--4 {
+  top: 82%;
+  --r: -4deg;
+  --dy: -6cqh;
+  color: #ff9a4a;
+  width: clamp(56px, 7cqw, 100px);
+}
+
+/* dotted matrix: ~4 px pitch, darkens the gaps so the water reads as LEDs */
+.dotmatrix {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0) 0 1px, rgba(2, 24, 38, 0.5) 1.6px) 0 0 / 4px 4px;
+}
+
+/* xp: rolling hill, sky, clouds (generic shapes) */
+
+.hill {
+  position: absolute;
+  left: -20%;
+  width: 140%;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  background: var(--ground);
+}
+
+.hill--back {
+  bottom: -26%;
+  height: 52%;
+  opacity: 0.8;
+  transform: translateX(14%);
+}
+
+.hill--front {
+  bottom: -30%;
+  height: 50%;
+  transform: translateX(-10%);
+  box-shadow: inset 0 2px 0 var(--ground-hi);
+}
+
+.cloud {
+  position: absolute;
+  left: 0;
+  width: 96px;
+  height: 26px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow:
+    28px -14px 0 4px rgba(255, 255, 255, 0.9),
+    58px -4px 0 0 rgba(255, 255, 255, 0.9);
+}
+
+.cloud--1 {
+  top: 14%;
+  transform: translateX(14cqw);
+}
+
+.cloud--2 {
+  top: 28%;
+  transform: translateX(58cqw) scale(0.8);
+}
+
+.cloud--3 {
+  top: 8%;
+  transform: translateX(84cqw) scale(0.6);
+}
+
+/* 90s: tiled checker + twinkling pixel stars */
+
+.stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 2px;
+  background: #ffffff;
+}
+
+.stars--a {
+  box-shadow:
+    7cqw 12cqh #ffffff, 18cqw 64cqh #9fe8ff, 29cqw 28cqh #ffffff, 41cqw 82cqh #ffe600,
+    53cqw 14cqh #ffffff, 64cqw 52cqh #9fe8ff, 76cqw 76cqh #ffffff, 88cqw 22cqh #ffe600,
+    94cqw 58cqh #ffffff, 12cqw 90cqh #ffffff, 47cqw 44cqh #9fe8ff, 82cqw 6cqh #ffffff;
+}
+
+.stars--b {
+  box-shadow:
+    3cqw 40cqh #ffffff, 14cqw 8cqh #ffe600, 24cqw 72cqh #ffffff, 36cqw 18cqh #9fe8ff,
+    58cqw 90cqh #ffffff, 69cqw 34cqh #ffe600, 79cqw 60cqh #ffffff, 91cqw 84cqh #9fe8ff,
+    97cqw 10cqh #ffffff, 33cqw 52cqh #ffffff, 61cqw 6cqh #9fe8ff, 72cqw 92cqh #ffffff;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ripple {
+    animation: ripple 11s ease-out infinite;
+  }
+
+  .ripple--2 {
+    animation-delay: -4s;
+  }
+
+  .ripple--3 {
+    animation-delay: -8s;
+  }
+
+  .koi {
+    animation: koi-swim 80s linear infinite;
+    will-change: transform;
+  }
+
+  .koi--1 {
+    animation-delay: -12s;
+  }
+
+  .koi--2 {
+    animation-duration: 104s;
+    animation-delay: -60s;
+  }
+
+  .koi--3 {
+    animation-duration: 128s;
+    animation-delay: -30s;
+  }
+
+  .koi--4 {
+    animation-duration: 96s;
+    animation-delay: -84s;
+  }
+
+  .cloud {
+    animation: cloud-drift 150s linear infinite;
+  }
+
+  .cloud--2 {
+    animation-duration: 210s;
+    animation-delay: -90s;
+  }
+
+  .cloud--3 {
+    animation-duration: 260s;
+    animation-delay: -40s;
+  }
+
+  .stars--a {
+    animation: twinkle 1.6s steps(2, jump-none) infinite;
+  }
+
+  .stars--b {
+    animation: twinkle 1.6s steps(2, jump-none) -0.8s infinite;
+  }
+
+  .backdrop--still * {
+    animation: none !important;
+  }
+}
+
+@keyframes ripple {
+  from {
+    opacity: 0.55;
+    transform: scale(0.2);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+@keyframes koi-swim {
+  from {
+    transform: translate3d(-22cqw, 0, 0) rotate(var(--r));
+  }
+
+  50% {
+    transform: translate3d(54cqw, var(--dy), 0) rotate(calc(var(--r) * -1));
+  }
+
+  to {
+    transform: translate3d(124cqw, 0, 0) rotate(var(--r));
+  }
+}
+
+@keyframes cloud-drift {
+  from {
+    transform: translate3d(-30cqw, 0, 0);
+  }
+
+  to {
+    transform: translate3d(110cqw, 0, 0);
+  }
+}
+
+@keyframes twinkle {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0.15;
   }
 }
 
@@ -1554,7 +2178,10 @@ strong {
     overflow-x: auto;
   }
 
-  .bubbles__float {
+  .bubbles__float,
+  .backdrop *,
+  .sparkle,
+  .newbadge {
     animation: none !important;
   }
 }

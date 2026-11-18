@@ -1,7 +1,19 @@
 ---
 interface Props {
   title: string;
-  icon?: 'computer' | 'folder' | 'doc' | 'help' | 'globe';
+  id?: string;
+  icon?:
+    | 'computer'
+    | 'folder'
+    | 'doc'
+    | 'help'
+    | 'globe'
+    | 'px-book'
+    | 'px-envelope'
+    | 'px-floppy'
+    | 'px-star'
+    | 'px-folder'
+    | 'px-apple';
   controls?: boolean;
   drag?: boolean;
   class?: string;
@@ -9,6 +21,7 @@ interface Props {
 }
 
 const {
+  id,
   title,
   icon = 'computer',
   controls = false,
@@ -16,15 +29,19 @@ const {
   class: className,
   bodyClass,
 } = Astro.props;
+
+// line icons live in the sprite as #i-*, pixel-art ones as #px-*
+const iconHref = icon.startsWith('px-') ? `#${icon}` : `#i-${icon}`;
 ---
 
 <section
+  id={id}
   class:list={['window', className]}
   data-drag={drag ? '' : undefined}
   aria-label={title}
 >
   <header class="window__bar">
-    <svg class="window__icon" aria-hidden="true" focusable="false"><use href={`#i-${icon}`} /></svg>
+    <svg class="window__icon" aria-hidden="true" focusable="false"><use href={iconHref} /></svg>
     <span class="window__title">{title}</span>
     {
       controls && (

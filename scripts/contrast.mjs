@@ -6,8 +6,12 @@
  * measured against the pixels it really sits on. For every pair we take the
  * worst stop, so a chrome bar passes only if its lightest stop passes.
  *
+ * Skins come from a list (aero, xp, 90s, y2k). xp and 90s must define every
+ * token aero defines. Glass, tray and cards are composited over each skin's
+ * backdrop colours.
+ *
  * Writes src/data/contrast.json (consumed by /styleguide) and exits 1 on a
- * failed pair.
+ * failed pair or a missing token.
  */
 
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -35,8 +39,40 @@ function blockFor(needle) {
   throw new Error(`token block not found: ${needle}`);
 }
 
+/* Skins are a list, not a pair. `inherits` skins fall back to aero for any
+   token they do not define; the others must define every aero token. */
+const SKINS = [
+  { id: 'aero', label: 'Aero', inherits: false },
+  { id: 'xp', label: 'XP', inherits: false },
+  { id: '90s', label: '90s', inherits: false },
+  { id: 'y2k', label: 'Y2K', inherits: true },
+];
+
+/* Tokens every skin must carry for the draft sections. */
+const REQUIRED = [
+  '--chat-in-bg', '--chat-in-ink', '--chat-out-bg', '--chat-out-ink',
+  '--badge-bg', '--badge-ink', '--card-bg', '--card-ink', '--link',
+  '--backdrop-base', '--backdrop-lo', '--backdrop-hi',
+];
+
 const aero = blockFor("[data-skin='aero']");
-const y2k = { ...aero, ...blockFor("[data-skin='y2k']") };
+const tokens = { aero };
+const contractErrors = [];
+
+for (const skin of SKINS.slice(1)) {
+  const own = blockFor(`[data-skin='${skin.id}']`);
+  tokens[skin.id] = { ...aero, ...own };
+  if (!skin.inherits) {
+    const missing = Object.keys(aero).filter((key) => !(key in own));
+    if (missing.length) contractErrors.push(`${skin.label} no define: ${missing.join(', ')}`);
+  }
+}
+
+for (const skin of SKINS) {
+  const own = skin.id === 'aero' ? aero : blockFor(`[data-skin='${skin.id}']`);
+  const missing = REQUIRED.filter((key) => !(key in own));
+  if (missing.length) contractErrors.push(`${skin.label} sin tokens de sección: ${missing.join(', ')}`);
+}
 
 /* ---------------------------------------------------------------- colour */
 
@@ -88,45 +124,61 @@ const toHex = (c) =>
 
 /* ------------------------------------------------------------- the pairs */
 
-const SKY = { aero: '#7cc8f5', y2k: '#04263f' };
-const GRASS = { aero: '#6fc23c', y2k: '#0a2f22' };
+const HEADING_NOTE = {
+  aero: 'metal oscuro sobre panel claro; el trazo solo afina el borde',
+  xp: 'azul intenso sobre crema; el trazo solo afina el borde',
+  '90s': 'azul marino sobre gris; el trazo solo afina el borde',
+  y2k: 'plata clara sobre navy; el trazo solo afina el borde',
+};
+
+/* Every colour a panel can sit on: the three backdrop tokens plus the ground
+   stops. Glass and tray are composited over each and the worst one wins. */
+const backdropsOf = (t) => [
+  ...colorsIn(t['--backdrop-base']),
+  ...colorsIn(t['--backdrop-lo']),
+  ...colorsIn(t['--backdrop-hi']),
+  ...colorsIn(t['--ground']),
+];
 
 const pairs = (skin) => {
-  const t = skin === 'aero' ? aero : y2k;
-  const heading = {
-    label: 'Chrome heading · cara',
-    fg: colorsIn(t['--head-face']),
-    bg: colorsIn(t['--panel']),
-    note:
-      skin === 'aero'
-        ? 'metal oscuro sobre panel claro; el trazo solo afina el borde'
-        : 'plata clara sobre navy; el trazo solo afina el borde',
-  };
-
-  const glassOverSky = over(colorsIn(t['--glass'])[0], hex(SKY[skin]));
-  const glassOverGrass = over(colorsIn(t['--glass'])[0], hex(GRASS[skin]));
-  const trayStops = colorsIn(t['--tray-bg']).map((c) => over(c, hex(SKY[skin])));
+  const t = tokens[skin];
+  const backdrops = backdropsOf(t);
+  const glassOver = colorsIn(t['--glass']).flatMap((g) => backdrops.map((b) => over(g, b)));
+  const trayStops = colorsIn(t['--tray-bg']).flatMap((c) => backdrops.map((b) => over(c, b)));
+  const c = (name) => colorsIn(t[name]);
 
   return [
-    { label: 'Texto · panel', fg: colorsIn(t['--ink']), bg: colorsIn(t['--panel']), note: 'párrafo y títulos sólidos' },
-    { label: 'Texto suave · panel', fg: colorsIn(t['--ink-soft']), bg: colorsIn(t['--panel']), note: 'texto secundario' },
-    { label: 'Enlace · panel', fg: colorsIn(t['--link']), bg: colorsIn(t['--panel']), note: 'links dentro de ventanas' },
-    { label: 'Barra de ventana', fg: colorsIn(t['--bar-ink']), bg: colorsIn(t['--chrome']), note: 'peor stop del cromo' },
-    { label: 'Botón', fg: colorsIn(t['--btn-ink']), bg: colorsIn(t['--btn-bg']), note: 'peor stop del gloss' },
-    { label: 'Vidrio · texto', fg: colorsIn(t['--glass-ink']), bg: [glassOverSky, glassOverGrass], note: 'vidrio compuesto sobre cielo y pasto' },
-    { label: 'Bandeja', fg: colorsIn(t['--tray-ink']), bg: trayStops, note: 'bandeja compuesta sobre cielo' },
-    { label: 'Bandeja · suave', fg: colorsIn(t['--tray-soft']), bg: trayStops, note: 'idioma y etiquetas de la bandeja' },
-    { label: 'Ticker', fg: colorsIn(t['--ticker-ink']), bg: colorsIn(t['--ticker-bg']), note: 'línea de avisos' },
-    heading,
-    { label: 'Menú Inicio', fg: colorsIn(t['--menu-ink']), bg: colorsIn(t['--menu-bg']), note: 'ítems del menú' },
-    { label: 'Botón Inicio', fg: colorsIn(t['--start-ink']), bg: colorsIn(t['--start-bg']), note: 'peor stop del botón' },
+    { label: 'Texto · panel', fg: c('--ink'), bg: c('--panel'), note: 'párrafo y títulos sólidos' },
+    { label: 'Texto suave · panel', fg: c('--ink-soft'), bg: c('--panel'), note: 'texto secundario' },
+    { label: 'Texto apagado · panel', fg: c('--ink-mute'), bg: [...c('--panel'), ...c('--panel-2')], note: 'eyebrow y pies de menú' },
+    { label: 'Enlace · panel', fg: c('--link'), bg: c('--panel'), note: 'links dentro de ventanas' },
+    { label: 'Barra de ventana', fg: c('--bar-ink'), bg: c('--chrome'), note: 'peor stop del cromo' },
+    { label: 'Botón de ventana', fg: c('--winbtn-ink'), bg: c('--winbtn-bg'), note: 'minimizar, maximizar, cerrar' },
+    { label: 'Botón', fg: c('--btn-ink'), bg: c('--btn-bg'), note: 'peor stop del gloss' },
+    { label: 'Botón · pulsado', fg: c('--btn-ink'), bg: c('--btn-bg-on'), note: 'estado :active' },
+    { label: 'Vidrio · texto', fg: c('--glass-ink'), bg: glassOver, note: 'vidrio compuesto sobre fondo y pasto' },
+    { label: 'Bandeja', fg: c('--tray-ink'), bg: trayStops, note: 'bandeja compuesta sobre el fondo' },
+    { label: 'Bandeja · suave', fg: c('--tray-soft'), bg: trayStops, note: 'idioma y etiquetas de la bandeja' },
+    { label: 'Ticker', fg: c('--ticker-ink'), bg: c('--ticker-bg'), note: 'línea de avisos' },
+    { label: 'Chrome heading · cara', fg: c('--head-face'), bg: c('--panel'), note: HEADING_NOTE[skin] },
+    { label: 'Menú Inicio', fg: c('--menu-ink'), bg: c('--menu-bg'), note: 'ítems del menú' },
+    { label: 'Menú · hover', fg: c('--menu-hover-ink'), bg: c('--menu-hover'), note: 'ítem enfocado' },
+    { label: 'Botón Inicio', fg: c('--start-ink'), bg: c('--start-bg'), note: 'peor stop del botón' },
+    { label: 'Chat · recibido', fg: c('--chat-in-ink'), bg: c('--chat-in-bg'), note: 'burbuja de la ventana de contacto' },
+    { label: 'Chat · enviado', fg: c('--chat-out-ink'), bg: c('--chat-out-bg'), note: 'burbuja propia' },
+    { label: 'Insignia NEW', fg: c('--badge-ink'), bg: c('--badge-bg'), note: 'sello NEW! y etiquetas' },
+    { label: 'Tarjeta · texto', fg: c('--card-ink'), bg: c('--card-bg'), note: 'tarjetas del blog' },
+    { label: 'Tarjeta · enlace', fg: c('--link'), bg: c('--card-bg'), note: 'enlace "Leer" dentro de la tarjeta' },
+    { label: 'Chat · enlace', fg: c('--link'), bg: [...c('--chat-in-bg'), ...c('--chat-out-bg')], note: 'enlaces dentro de burbujas' },
+    { label: 'Foco · panel', fg: c('--focus'), bg: [...c('--panel'), ...c('--card-bg')], min: 3, note: 'contraste no textual, 3:1' },
   ];
 };
 
 const rows = [];
 
-for (const skin of ['aero', 'y2k']) {
-  for (const pair of pairs(skin)) {
+for (const skin of SKINS) {
+  for (const pair of pairs(skin.id)) {
+    const min = pair.min ?? 4.5;
     let worst = { value: Infinity, fg: null, bg: null };
     for (const fg of pair.fg) {
       for (const bg of pair.bg) {
@@ -134,13 +186,17 @@ for (const skin of ['aero', 'y2k']) {
         if (value < worst.value) worst = { value, fg, bg };
       }
     }
+    if (!isFinite(worst.value)) {
+      contractErrors.push(`${skin.label} · ${pair.label}: token ausente o sin colores que auditar`);
+      continue;
+    }
     rows.push({
-      pair: `${skin === 'aero' ? 'Aero' : 'Y2K'} · ${pair.label}`,
+      pair: `${skin.label} · ${pair.label}`,
       fg: toHex(worst.fg),
       bg: toHex(worst.bg),
       ratio: worst.value.toFixed(2),
-      aa: worst.value >= 4.5 ? 'pass' : 'fail',
-      min: '4.5:1',
+      aa: worst.value >= min ? 'pass' : 'fail',
+      min: `${min}:1`,
       note: pair.note,
     });
   }
@@ -164,6 +220,8 @@ for (const pair of shared) {
 
 const failures = rows.filter((row) => row.aa === 'fail');
 
+for (const message of contractErrors) console.error(`CONTRATO: ${message}`);
+
 writeFileSync(
   resolve(root, 'src/data/contrast.json'),
   JSON.stringify({ generated: new Date().toISOString().slice(0, 10), rows }, null, 2) + '\n',
@@ -178,4 +236,4 @@ for (const row of rows) {
 }
 console.log(`\n${rows.length} pares · ${failures.length} fallan · escrito src/data/contrast.json`);
 
-if (failures.length) process.exit(1);
+if (failures.length || contractErrors.length) process.exit(1);

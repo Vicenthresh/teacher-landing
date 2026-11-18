@@ -9,12 +9,13 @@ import m from '../data/measurements.json';
 import weight from '../data/weight.json';
 import contrast from '../data/contrast.json';
 
-const { meta, plates, ingredients, measure, verdict, sample } = data;
+const { meta, plates, ingredients, measure, verdict, sample, themes } = data;
 const nav = site.taskbar.nav;
 const wide = new Set(['bubbles', 'taskbar', 'drag']);
+const wideTheme = new Set(['mega', 'theme-switch', 'pixel-set', 'badge88', 'construction']);
 ---
 
-<Base title="Style guide — Teacher Landing" description="Puerta de diseño de la Fase 0: ingredientes, dos skins, contraste y peso." doc>
+<Base title="Style guide — Teacher Landing" description="Puerta de diseño de la Fase 0: ingredientes, cuatro skins, contraste y peso." doc>
   <main id="main" class="doc__wrap">
     <header class="doc-head">
       <div class="doc-head__top">
@@ -27,6 +28,7 @@ const wide = new Set(['bubbles', 'taskbar', 'drag']);
           <a href="#ingredientes">Ingredientes</a>
           <a href="#medidas">Medidas</a>
           <a href="#veredicto">Veredicto</a>
+          <a href="#temas">Temas</a>
         </nav>
       </div>
       <p class="doc-lede">{meta.lede}</p>
@@ -246,6 +248,51 @@ const wide = new Set(['bubbles', 'taskbar', 'drag']);
           }
         </dl>
       </section>
+    </section>
+
+    {/* ------------------------------------------- 05 · themes and garnish */}
+    <section class="doc-section" id="temas" aria-labelledby="h-temas">
+      <h2 class="doc-h2" id="h-temas">
+        <span>{themes.kicker}</span>
+        {themes.title}
+      </h2>
+      <p class="doc-note">{themes.lede}</p>
+
+      <h3 class="doc-h3">{themes.platesTitle}</h3>
+      <div class="plates">
+        <Plate skin="xp" label={themes.plates.xp.label} tag={themes.plates.xp.tag} sub={themes.plates.xp.sub} />
+        <Plate skin="90s" label={themes.plates.s90.label} tag={themes.plates.s90.tag} sub={themes.plates.s90.sub} />
+      </div>
+
+      <h3 class="doc-h3">{themes.itemsTitle}</h3>
+      <div class="specs">
+        {
+          themes.items.map((item) => (
+            <article class:list={['spec', wideTheme.has(item.id) && 'spec--wide']} id={`ing-${item.id}`}>
+              <header class="spec__head">
+                <span class="spec__num">{item.n}</span>
+                <h3 class="spec__name">{item.name}</h3>
+                <span class:list={['badge', `badge--${item.badge}`]}>{item.badgeLabel}</span>
+                <span class="spec__cost">{item.cost}</span>
+              </header>
+              <div class="spec__demo">
+                <IngredientDemo id={item.id} nav={nav} />
+              </div>
+              <ul class="spec__notes">
+                <li>
+                  <span>
+                    <b>{themes.labels.verdict}:</b> {item.verdict}
+                  </span>
+                </li>
+                {item.notes.map((note) => <li>{note}</li>)}
+              </ul>
+              <p class="spec__a11y">
+                <b>{themes.labels.motion}.</b> {item.motion}
+              </p>
+            </article>
+          ))
+        }
+      </div>
     </section>
 
     <footer class="sg-footer">
@@ -649,6 +696,76 @@ const wide = new Set(['bubbles', 'taskbar', 'drag']);
     margin: 0;
     color: var(--doc-soft);
     font-size: 0.9rem;
+  }
+
+
+  /* section 05: demos for the new skins and garnish */
+
+  .plinth--bd {
+    min-height: 220px;
+    align-content: center;
+  }
+
+  .plinth--water {
+    background-image: linear-gradient(180deg, var(--backdrop-base), var(--backdrop-lo));
+    border-color: var(--stage-edge);
+    color: #ffffff;
+  }
+
+  .sg-nodots .dotmatrix {
+    display: none;
+  }
+
+  .sg-onwater {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    padding: 4px 8px;
+    width: fit-content;
+    background: var(--card-bg);
+    color: var(--card-ink);
+  }
+
+  .glitter--lg {
+    width: 9rem;
+    height: 3.4rem;
+  }
+
+  .pixel-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pixel-row li {
+    display: grid;
+    justify-items: center;
+    gap: 4px;
+    color: var(--ink);
+  }
+
+  .pixel-row .px-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  @media (min-width: 640px) {
+    .demo-grid--3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .sg-sw__window {
+    margin: var(--space-6) auto;
+  }
+
+  .sg-sw__bar {
+    position: relative;
+    margin-top: auto;
+    justify-content: flex-end;
   }
 
   .sg-footer {

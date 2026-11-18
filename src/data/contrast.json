@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-17",
+  "generated": "2026-11-18",
   "rows": [
     {
       "pair": "Aero · Texto · panel",
@@ -20,6 +20,15 @@
       "note": "texto secundario"
     },
     {
+      "pair": "Aero · Texto apagado · panel",
+      "fg": "#476a7d",
+      "bg": "#e7f3fb",
+      "ratio": "5.13",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "eyebrow y pies de menú"
+    },
+    {
       "pair": "Aero · Enlace · panel",
       "fg": "#0b5e8f",
       "bg": "#f7fcff",
@@ -38,6 +47,15 @@
       "note": "peor stop del cromo"
     },
     {
+      "pair": "Aero · Botón de ventana",
+      "fg": "#0b2b3c",
+      "bg": "#b9cfdd",
+      "ratio": "9.15",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "minimizar, maximizar, cerrar"
+    },
+    {
       "pair": "Aero · Botón",
       "fg": "#062b3d",
       "bg": "#8fd2f7",
@@ -47,28 +65,37 @@
       "note": "peor stop del gloss"
     },
     {
-      "pair": "Aero · Vidrio · texto",
-      "fg": "#08283a",
-      "bg": "#a0d77e",
-      "ratio": "9.08",
+      "pair": "Aero · Botón · pulsado",
+      "fg": "#062b3d",
+      "bg": "#7cc8f5",
+      "ratio": "8.05",
       "aa": "pass",
       "min": "4.5:1",
-      "note": "vidrio compuesto sobre cielo y pasto"
+      "note": "estado :active"
+    },
+    {
+      "pair": "Aero · Vidrio · texto",
+      "fg": "#08283a",
+      "bg": "#66a4c0",
+      "ratio": "5.55",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "vidrio compuesto sobre fondo y pasto"
     },
     {
       "pair": "Aero · Bandeja",
       "fg": "#eaf7ff",
-      "bg": "#153b52",
-      "ratio": "10.78",
+      "bg": "#1a3e48",
+      "ratio": "10.51",
       "aa": "pass",
       "min": "4.5:1",
-      "note": "bandeja compuesta sobre cielo"
+      "note": "bandeja compuesta sobre el fondo"
     },
     {
       "pair": "Aero · Bandeja · suave",
       "fg": "#a9cfe3",
-      "bg": "#153b52",
-      "ratio": "7.13",
+      "bg": "#1a3e48",
+      "ratio": "6.95",
       "aa": "pass",
       "min": "4.5:1",
       "note": "idioma y etiquetas de la bandeja"
@@ -101,6 +128,15 @@
       "note": "ítems del menú"
     },
     {
+      "pair": "Aero · Menú · hover",
+      "fg": "#ffffff",
+      "bg": "#1673ad",
+      "ratio": "5.13",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "ítem enfocado"
+    },
+    {
       "pair": "Aero · Botón Inicio",
       "fg": "#0b2a12",
       "bg": "#4aa61f",
@@ -108,6 +144,483 @@
       "aa": "pass",
       "min": "4.5:1",
       "note": "peor stop del botón"
+    },
+    {
+      "pair": "Aero · Chat · recibido",
+      "fg": "#0a2b3d",
+      "bg": "#ffffff",
+      "ratio": "14.73",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "burbuja de la ventana de contacto"
+    },
+    {
+      "pair": "Aero · Chat · enviado",
+      "fg": "#0b2a12",
+      "bg": "#d9f7be",
+      "ratio": "13.29",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "burbuja propia"
+    },
+    {
+      "pair": "Aero · Insignia NEW",
+      "fg": "#ffffff",
+      "bg": "#c2410c",
+      "ratio": "5.18",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "sello NEW! y etiquetas"
+    },
+    {
+      "pair": "Aero · Tarjeta · texto",
+      "fg": "#0a2b3d",
+      "bg": "#ffffff",
+      "ratio": "14.73",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "tarjetas del blog"
+    },
+    {
+      "pair": "Aero · Tarjeta · enlace",
+      "fg": "#0b5e8f",
+      "bg": "#ffffff",
+      "ratio": "6.97",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "enlace \"Leer\" dentro de la tarjeta"
+    },
+    {
+      "pair": "Aero · Chat · enlace",
+      "fg": "#0b5e8f",
+      "bg": "#d9f7be",
+      "ratio": "5.98",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "enlaces dentro de burbujas"
+    },
+    {
+      "pair": "Aero · Foco · panel",
+      "fg": "#0b4a6b",
+      "bg": "#f7fcff",
+      "ratio": "9.21",
+      "aa": "pass",
+      "min": "3:1",
+      "note": "contraste no textual, 3:1"
+    },
+    {
+      "pair": "XP · Texto · panel",
+      "fg": "#10233f",
+      "bg": "#f6f4e6",
+      "ratio": "14.24",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "párrafo y títulos sólidos"
+    },
+    {
+      "pair": "XP · Texto suave · panel",
+      "fg": "#2c3f5e",
+      "bg": "#f6f4e6",
+      "ratio": "9.60",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "texto secundario"
+    },
+    {
+      "pair": "XP · Texto apagado · panel",
+      "fg": "#46597a",
+      "bg": "#ebe7d0",
+      "ratio": "5.68",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "eyebrow y pies de menú"
+    },
+    {
+      "pair": "XP · Enlace · panel",
+      "fg": "#0a3fa8",
+      "bg": "#f6f4e6",
+      "ratio": "8.30",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "links dentro de ventanas"
+    },
+    {
+      "pair": "XP · Barra de ventana",
+      "fg": "#ffffff",
+      "bg": "#2a68d6",
+      "ratio": "5.19",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "peor stop del cromo"
+    },
+    {
+      "pair": "XP · Botón de ventana",
+      "fg": "#ffffff",
+      "bg": "#2f6cd8",
+      "ratio": "4.93",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "minimizar, maximizar, cerrar"
+    },
+    {
+      "pair": "XP · Botón",
+      "fg": "#10233f",
+      "bg": "#d6d0b4",
+      "ratio": "10.15",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "peor stop del gloss"
+    },
+    {
+      "pair": "XP · Botón · pulsado",
+      "fg": "#10233f",
+      "bg": "#d6d0b4",
+      "ratio": "10.15",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "estado :active"
+    },
+    {
+      "pair": "XP · Vidrio · texto",
+      "fg": "#0b2447",
+      "bg": "#82b2e6",
+      "ratio": "6.99",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "vidrio compuesto sobre fondo y pasto"
+    },
+    {
+      "pair": "XP · Bandeja",
+      "fg": "#ffffff",
+      "bg": "#2662d0",
+      "ratio": "5.61",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "bandeja compuesta sobre el fondo"
+    },
+    {
+      "pair": "XP · Bandeja · suave",
+      "fg": "#edf3ff",
+      "bg": "#2662d0",
+      "ratio": "5.04",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "idioma y etiquetas de la bandeja"
+    },
+    {
+      "pair": "XP · Ticker",
+      "fg": "#e6efff",
+      "bg": "#143f9f",
+      "ratio": "8.10",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "línea de avisos"
+    },
+    {
+      "pair": "XP · Chrome heading · cara",
+      "fg": "#2a68d0",
+      "bg": "#f6f4e6",
+      "ratio": "4.76",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "azul intenso sobre crema; el trazo solo afina el borde"
+    },
+    {
+      "pair": "XP · Menú Inicio",
+      "fg": "#10233f",
+      "bg": "#fbfaf0",
+      "ratio": "15.02",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "ítems del menú"
+    },
+    {
+      "pair": "XP · Menú · hover",
+      "fg": "#ffffff",
+      "bg": "#2a62d6",
+      "ratio": "5.50",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "ítem enfocado"
+    },
+    {
+      "pair": "XP · Botón Inicio",
+      "fg": "#06240a",
+      "bg": "#54b830",
+      "ratio": "6.54",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "peor stop del botón"
+    },
+    {
+      "pair": "XP · Chat · recibido",
+      "fg": "#10233f",
+      "bg": "#ffffff",
+      "ratio": "15.74",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "burbuja de la ventana de contacto"
+    },
+    {
+      "pair": "XP · Chat · enviado",
+      "fg": "#0b2447",
+      "bg": "#dcebff",
+      "ratio": "12.80",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "burbuja propia"
+    },
+    {
+      "pair": "XP · Insignia NEW",
+      "fg": "#ffffff",
+      "bg": "#d11a1a",
+      "ratio": "5.42",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "sello NEW! y etiquetas"
+    },
+    {
+      "pair": "XP · Tarjeta · texto",
+      "fg": "#10233f",
+      "bg": "#fffef5",
+      "ratio": "15.55",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "tarjetas del blog"
+    },
+    {
+      "pair": "XP · Tarjeta · enlace",
+      "fg": "#0a3fa8",
+      "bg": "#fffef5",
+      "ratio": "9.06",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "enlace \"Leer\" dentro de la tarjeta"
+    },
+    {
+      "pair": "XP · Chat · enlace",
+      "fg": "#0a3fa8",
+      "bg": "#dcebff",
+      "ratio": "7.59",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "enlaces dentro de burbujas"
+    },
+    {
+      "pair": "XP · Foco · panel",
+      "fg": "#0a2f8f",
+      "bg": "#f6f4e6",
+      "ratio": "10.46",
+      "aa": "pass",
+      "min": "3:1",
+      "note": "contraste no textual, 3:1"
+    },
+    {
+      "pair": "90s · Texto · panel",
+      "fg": "#000000",
+      "bg": "#c0c0c0",
+      "ratio": "11.54",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "párrafo y títulos sólidos"
+    },
+    {
+      "pair": "90s · Texto suave · panel",
+      "fg": "#202020",
+      "bg": "#c0c0c0",
+      "ratio": "8.96",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "texto secundario"
+    },
+    {
+      "pair": "90s · Texto apagado · panel",
+      "fg": "#3a3a3a",
+      "bg": "#c0c0c0",
+      "ratio": "6.25",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "eyebrow y pies de menú"
+    },
+    {
+      "pair": "90s · Enlace · panel",
+      "fg": "#0000cc",
+      "bg": "#c0c0c0",
+      "ratio": "6.17",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "links dentro de ventanas"
+    },
+    {
+      "pair": "90s · Barra de ventana",
+      "fg": "#ffffff",
+      "bg": "#0a64b0",
+      "ratio": "6.06",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "peor stop del cromo"
+    },
+    {
+      "pair": "90s · Botón de ventana",
+      "fg": "#000000",
+      "bg": "#c0c0c0",
+      "ratio": "11.54",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "minimizar, maximizar, cerrar"
+    },
+    {
+      "pair": "90s · Botón",
+      "fg": "#000000",
+      "bg": "#c0c0c0",
+      "ratio": "11.54",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "peor stop del gloss"
+    },
+    {
+      "pair": "90s · Botón · pulsado",
+      "fg": "#000000",
+      "bg": "#b0b0b0",
+      "ratio": "9.68",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "estado :active"
+    },
+    {
+      "pair": "90s · Vidrio · texto",
+      "fg": "#000000",
+      "bg": "#aaaaaf",
+      "ratio": "9.06",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "vidrio compuesto sobre fondo y pasto"
+    },
+    {
+      "pair": "90s · Bandeja",
+      "fg": "#000000",
+      "bg": "#c0c0c0",
+      "ratio": "11.54",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "bandeja compuesta sobre el fondo"
+    },
+    {
+      "pair": "90s · Bandeja · suave",
+      "fg": "#404040",
+      "bg": "#c0c0c0",
+      "ratio": "5.70",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "idioma y etiquetas de la bandeja"
+    },
+    {
+      "pair": "90s · Ticker",
+      "fg": "#7dffb0",
+      "bg": "#0a0a2a",
+      "ratio": "15.42",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "línea de avisos"
+    },
+    {
+      "pair": "90s · Chrome heading · cara",
+      "fg": "#1a1ab0",
+      "bg": "#c0c0c0",
+      "ratio": "6.35",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "azul marino sobre gris; el trazo solo afina el borde"
+    },
+    {
+      "pair": "90s · Menú Inicio",
+      "fg": "#000000",
+      "bg": "#c0c0c0",
+      "ratio": "11.54",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "ítems del menú"
+    },
+    {
+      "pair": "90s · Menú · hover",
+      "fg": "#ffffff",
+      "bg": "#000080",
+      "ratio": "16.01",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "ítem enfocado"
+    },
+    {
+      "pair": "90s · Botón Inicio",
+      "fg": "#000000",
+      "bg": "#c0c0c0",
+      "ratio": "11.54",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "peor stop del botón"
+    },
+    {
+      "pair": "90s · Chat · recibido",
+      "fg": "#000000",
+      "bg": "#ffffff",
+      "ratio": "21.00",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "burbuja de la ventana de contacto"
+    },
+    {
+      "pair": "90s · Chat · enviado",
+      "fg": "#000000",
+      "bg": "#ffff99",
+      "ratio": "20.02",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "burbuja propia"
+    },
+    {
+      "pair": "90s · Insignia NEW",
+      "fg": "#cc0000",
+      "bg": "#ffff00",
+      "ratio": "5.48",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "sello NEW! y etiquetas"
+    },
+    {
+      "pair": "90s · Tarjeta · texto",
+      "fg": "#000000",
+      "bg": "#ffffe1",
+      "ratio": "20.64",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "tarjetas del blog"
+    },
+    {
+      "pair": "90s · Tarjeta · enlace",
+      "fg": "#0000cc",
+      "bg": "#ffffe1",
+      "ratio": "11.03",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "enlace \"Leer\" dentro de la tarjeta"
+    },
+    {
+      "pair": "90s · Chat · enlace",
+      "fg": "#0000cc",
+      "bg": "#ffff99",
+      "ratio": "10.69",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "enlaces dentro de burbujas"
+    },
+    {
+      "pair": "90s · Foco · panel",
+      "fg": "#000080",
+      "bg": "#c0c0c0",
+      "ratio": "8.80",
+      "aa": "pass",
+      "min": "3:1",
+      "note": "contraste no textual, 3:1"
     },
     {
       "pair": "Y2K · Texto · panel",
@@ -128,6 +641,15 @@
       "note": "texto secundario"
     },
     {
+      "pair": "Y2K · Texto apagado · panel",
+      "fg": "#7fb3c9",
+      "bg": "#0a2a3c",
+      "ratio": "6.52",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "eyebrow y pies de menú"
+    },
+    {
       "pair": "Y2K · Enlace · panel",
       "fg": "#8fe6ff",
       "bg": "#071e2c",
@@ -146,6 +668,15 @@
       "note": "peor stop del cromo"
     },
     {
+      "pair": "Y2K · Botón de ventana",
+      "fg": "#04141d",
+      "bg": "#89a9bb",
+      "ratio": "7.53",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "minimizar, maximizar, cerrar"
+    },
+    {
       "pair": "Y2K · Botón",
       "fg": "#001018",
       "bg": "#45bfe7",
@@ -155,13 +686,22 @@
       "note": "peor stop del gloss"
     },
     {
-      "pair": "Y2K · Vidrio · texto",
-      "fg": "#e9f8ff",
-      "bg": "#08292d",
-      "ratio": "14.17",
+      "pair": "Y2K · Botón · pulsado",
+      "fg": "#001018",
+      "bg": "#5fc4e6",
+      "ratio": "9.68",
       "aa": "pass",
       "min": "4.5:1",
-      "note": "vidrio compuesto sobre cielo y pasto"
+      "note": "estado :active"
+    },
+    {
+      "pair": "Y2K · Vidrio · texto",
+      "fg": "#e9f8ff",
+      "bg": "#082e44",
+      "ratio": "13.04",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "vidrio compuesto sobre fondo y pasto"
     },
     {
       "pair": "Y2K · Bandeja",
@@ -170,7 +710,7 @@
       "ratio": "11.40",
       "aa": "pass",
       "min": "4.5:1",
-      "note": "bandeja compuesta sobre cielo"
+      "note": "bandeja compuesta sobre el fondo"
     },
     {
       "pair": "Y2K · Bandeja · suave",
@@ -209,6 +749,15 @@
       "note": "ítems del menú"
     },
     {
+      "pair": "Y2K · Menú · hover",
+      "fg": "#001018",
+      "bg": "#37d6ff",
+      "ratio": "11.24",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "ítem enfocado"
+    },
+    {
       "pair": "Y2K · Botón Inicio",
       "fg": "#04141d",
       "bg": "#89a9bb",
@@ -216,6 +765,69 @@
       "aa": "pass",
       "min": "4.5:1",
       "note": "peor stop del botón"
+    },
+    {
+      "pair": "Y2K · Chat · recibido",
+      "fg": "#e8f6ff",
+      "bg": "#0a2a3c",
+      "ratio": "13.52",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "burbuja de la ventana de contacto"
+    },
+    {
+      "pair": "Y2K · Chat · enviado",
+      "fg": "#ffffff",
+      "bg": "#0f5a74",
+      "ratio": "7.68",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "burbuja propia"
+    },
+    {
+      "pair": "Y2K · Insignia NEW",
+      "fg": "#001018",
+      "bg": "#b6ff3d",
+      "ratio": "15.97",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "sello NEW! y etiquetas"
+    },
+    {
+      "pair": "Y2K · Tarjeta · texto",
+      "fg": "#e8f6ff",
+      "bg": "#0a2a3c",
+      "ratio": "13.52",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "tarjetas del blog"
+    },
+    {
+      "pair": "Y2K · Tarjeta · enlace",
+      "fg": "#8fe6ff",
+      "bg": "#0a2a3c",
+      "ratio": "10.59",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "enlace \"Leer\" dentro de la tarjeta"
+    },
+    {
+      "pair": "Y2K · Chat · enlace",
+      "fg": "#8fe6ff",
+      "bg": "#0f5a74",
+      "ratio": "5.46",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "enlaces dentro de burbujas"
+    },
+    {
+      "pair": "Y2K · Foco · panel",
+      "fg": "#9fe6ff",
+      "bg": "#0a2a3c",
+      "ratio": "10.81",
+      "aa": "pass",
+      "min": "3:1",
+      "note": "contraste no textual, 3:1"
     },
     {
       "pair": "Ambas · dígitos del contador",

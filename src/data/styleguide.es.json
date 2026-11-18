@@ -2,8 +2,14 @@
   "meta": {
     "kicker": "Fase 0 · puerta de diseño",
     "title": "Style guide",
-    "lede": "Los trece ingredientes del sistema visual, en contexto y aislados, en las dos skins. Nada pasa a una sección real sin sobrevivir esta página: se mira a 360 px y a 1280 px, se mide el contraste y se pesa.",
-    "chips": ["2 skins", "13 ingredientes", "360 → 1280 px", "≤ 100 KB gzip", "AA en cada par"],
+    "lede": "Los veintiséis ingredientes del sistema visual, en contexto y aislados, en las cuatro skins. Nada pasa a una sección real sin sobrevivir esta página: se mira a 360 px y a 1280 px, se mide el contraste y se pesa.",
+    "chips": [
+      "4 skins (3 de página + Y2K)",
+      "26 ingredientes",
+      "360 → 1280 px",
+      "≤ 100 KB gzip",
+      "AA en cada par"
+    ],
     "jump": "Ir a"
   },
   "plates": {
@@ -29,11 +35,18 @@
     "body": "Este párrafo está acá para juzgar el cuerpo del texto sobre un panel claro. Si no se lee de un vistazo, no va al sitio.",
     "ctaPrimary": "Reservar por WhatsApp",
     "ctaSecondary": "Ver clases",
-    "facts": ["A1–C1", "Online", "Santiago"],
+    "facts": [
+      "A1–C1",
+      "Online",
+      "Santiago"
+    ],
     "windowTitle": "Mi PC",
     "windowSub": "teacher.exe",
     "reopen": "Reabrir ventana",
-    "deskIcons": ["Mi PC", "Clases"],
+    "deskIcons": [
+      "Mi PC",
+      "Clases"
+    ],
     "glassTitle": "Sobre mí",
     "glassBody": "Texto de muestra sobre vidrio, encima del cielo y del pasto. El blur solo existe acá: una ventana, un panel de vidrio.",
     "glassFoot": "blur(14px) · un panel por viewport",
@@ -340,6 +353,234 @@
       {
         "q": "¿Precios públicos?",
         "why": "Define si hay tabla de precios o 'consultar'. No se inventa ningún monto."
+      }
+    ]
+  },
+  "themes": {
+    "kicker": "05",
+    "title": "Temas y adornos",
+    "lede": "Los ingredientes del borrador de Miss Javi: dos pieles nuevas para el escritorio (XP y 90s), fondos por skin y adornos de internet viejo. Cada tarjeta trae veredicto, costo y qué pasa con prefers-reduced-motion. Y2K sigue siendo solo de styleguide.",
+    "platesTitle": "XP y 90s en contexto",
+    "plates": {
+      "xp": {
+        "label": "Placa C · XP",
+        "tag": "página",
+        "sub": "Barra azul, panel crema, colina verde. Misma estructura, otros tokens."
+      },
+      "s90": {
+        "label": "Placa D · 90s",
+        "tag": "página",
+        "sub": "Gris biselado, barra marino, cielo de estrellas. Cuadrado y sin vidrio de verdad."
+      }
+    },
+    "itemsTitle": "Auditoría de los ingredientes nuevos",
+    "labels": {
+      "verdict": "Veredicto",
+      "cost": "Costo",
+      "motion": "Con reduced-motion"
+    },
+    "demo": {
+      "windowLine": "Ventana de ejemplo para ver la barra y el marco de esta skin.",
+      "windowTitle": "Miss Javi · ejemplo",
+      "megaLabel": "Botón mega",
+      "swapLine": "Cambiá la skin de esta caja con el selector de abajo.",
+      "dotsLine": "Máscara de puntos de 4 px sobre un degradado de agua.",
+      "pixelLabels": {
+        "book": "libro",
+        "envelope": "sobre",
+        "floppy": "disquete",
+        "star": "estrella",
+        "folder": "carpeta",
+        "apple": "manzana"
+      },
+      "kind": {
+        "aero": "Aero",
+        "xp": "XP",
+        "s90": "90s"
+      }
+    },
+    "items": [
+      {
+        "id": "koi",
+        "n": "14",
+        "name": "Estanque koi (Aero)",
+        "badge": "cond",
+        "badgeLabel": "Condicional",
+        "verdict": "Se queda si es el único fondo animado de la página y respeta el límite de peso.",
+        "cost": "≈ 0,9 KB gzip (CSS + SVG)",
+        "notes": [
+          "Degradado de agua, cuatro peces en SVG inline que nadan con transform y tres anillos de ondas que se desvanecen con opacity.",
+          "Es el único fondo que se anima en vivo en esta página; los demás se muestran congelados. Las tres capas juntas pesan ≈ 2,6 KB gzip."
+        ],
+        "motion": "Los peces quedan quietos en su posición base y los anillos se ven como líneas finas fijas."
+      },
+      {
+        "id": "dotmatrix",
+        "n": "15",
+        "name": "Matriz de puntos",
+        "badge": "keep",
+        "badgeLabel": "Mantener",
+        "verdict": "Da el aspecto LED sin una sola imagen; va siempre encima del agua.",
+        "cost": "≈ 0,2 KB gzip: un radial-gradient repetido",
+        "notes": [
+          "Paso de 4 px: oscurece el espacio entre puntos y deja el punto claro.",
+          "No se anima: no suma trabajo al compositor."
+        ],
+        "motion": "No tiene animación, así que no cambia."
+      },
+      {
+        "id": "xp-hill",
+        "n": "16",
+        "name": "Colina XP",
+        "badge": "keep",
+        "badgeLabel": "Mantener",
+        "verdict": "Formas propias (no una copia de ningún fondo de sistema): cielo, dos colinas y nubes suaves.",
+        "cost": "≈ 0,4 KB gzip, solo CSS",
+        "notes": [
+          "Las colinas salen de --ground y el cielo de --plate: cambian con los tokens.",
+          "Las nubes derivan despacio con transform."
+        ],
+        "motion": "Las nubes se quedan en su lugar."
+      },
+      {
+        "id": "s90-tiles",
+        "n": "17",
+        "name": "Mosaico 90s",
+        "badge": "keep",
+        "badgeLabel": "Mantener",
+        "verdict": "Tablero de ajedrez tenue más estrellas de píxel que titilan en dos fases.",
+        "cost": "≈ 0,3 KB gzip, solo CSS",
+        "notes": [
+          "El titileo usa opacity con steps(2), como un GIF.",
+          "Dos capas de estrellas en desfase, nada más."
+        ],
+        "motion": "Las estrellas se ven fijas y a plena opacidad."
+      },
+      {
+        "id": "xp-chrome",
+        "n": "18",
+        "name": "Marco de ventana XP",
+        "badge": "keep",
+        "badgeLabel": "Mantener",
+        "verdict": "Barra azul, esquinas redondeadas y cierre rojo; todo por tokens y selectores de skin.",
+        "cost": "≈ 0,2 KB gzip",
+        "notes": [
+          "El rojo del cierre reusa el par de la insignia NEW: no entra ningún color nuevo.",
+          "Misma marca HTML que Aero."
+        ],
+        "motion": "Sin animación propia."
+      },
+      {
+        "id": "s90-chrome",
+        "n": "19",
+        "name": "Marco de ventana 90s",
+        "badge": "keep",
+        "badgeLabel": "Mantener",
+        "verdict": "Gris biselado, barra marino en degradado horizontal y botones cuadrados.",
+        "cost": "≈ 0,3 KB gzip",
+        "notes": [
+          "El bisel se arma con bordes de cuatro colores tomados de tokens.",
+          "Los botones se hunden al pulsar."
+        ],
+        "motion": "Sin animación propia."
+      },
+      {
+        "id": "glitter",
+        "n": "20",
+        "name": "Brillitos",
+        "badge": "cond",
+        "badgeLabel": "Condicional",
+        "verdict": "Solo en el título del hero y como máximo tres adornos animados por pantalla.",
+        "cost": "≈ 0,3 KB gzip: cuatro destellos SVG",
+        "notes": [
+          "Cada destello alterna opacity y scale.",
+          "Es decoración: va con aria-hidden."
+        ],
+        "motion": "Los destellos quedan quietos y visibles."
+      },
+      {
+        "id": "new-badge",
+        "n": "21",
+        "name": "Sello NEW",
+        "badge": "keep",
+        "badgeLabel": "Mantener",
+        "verdict": "Parpadeo con steps() para el look de GIF; el texto viene del JSON y es un par auditado.",
+        "cost": "≈ 0,2 KB gzip",
+        "notes": [
+          "Parpadea con transform (escala), no con opacity, para que el texto nunca pierda contraste.",
+          "Usa --badge-bg y --badge-ink."
+        ],
+        "motion": "El sello queda quieto, ligeramente inclinado."
+      },
+      {
+        "id": "construction",
+        "n": "22",
+        "name": "Franja en construcción",
+        "badge": "keep",
+        "badgeLabel": "Mantener",
+        "verdict": "Rayas amarillas y negras con la etiqueta sobre una tarjeta sólida.",
+        "cost": "≈ 0,2 KB gzip",
+        "notes": [
+          "Las rayas son decoración; el texto va sobre --card-bg.",
+          "No se anima."
+        ],
+        "motion": "No tiene animación."
+      },
+      {
+        "id": "badge88",
+        "n": "23",
+        "name": "Insignia 88×31",
+        "badge": "keep",
+        "badgeLabel": "Mantener",
+        "verdict": "Botón de 88×31 en CSS puro, con tres tonos tomados de pares auditados.",
+        "cost": "≈ 0,3 KB gzip",
+        "notes": [
+          "Texto de la tipografía pixel a 0,5 rem: solo palabras cortas.",
+          "Tonos: botón, insignia y tarjeta."
+        ],
+        "motion": "No tiene animación."
+      },
+      {
+        "id": "pixel-set",
+        "n": "24",
+        "name": "Set de iconos pixel",
+        "badge": "keep",
+        "badgeLabel": "Mantener",
+        "verdict": "Seis iconos de 16×16 en el sprite, con crispEdges y sin peticiones extra.",
+        "cost": "≈ 0,9 KB gzip en el sprite",
+        "notes": [
+          "Libro, sobre, disquete, estrella, carpeta y manzana.",
+          "El contorno usa currentColor; el relleno viene de la paleta o de --deskicon-*."
+        ],
+        "motion": "Sin animación propia."
+      },
+      {
+        "id": "mega",
+        "n": "25",
+        "name": "Botón mega",
+        "badge": "keep",
+        "badgeLabel": "Mantener",
+        "verdict": "Más grande y brillante para las dos llamadas del hero; sigue usando el par --btn-*.",
+        "cost": "≈ 0,5 KB gzip",
+        "notes": [
+          "Se ve distinto en Aero, XP y 90s sin cambiar el marcado.",
+          "El hover solo mueve transform."
+        ],
+        "motion": "Sin transición ni desplazamiento."
+      },
+      {
+        "id": "theme-switch",
+        "n": "26",
+        "name": "Selector de tema",
+        "badge": "cond",
+        "badgeLabel": "Condicional",
+        "verdict": "Este va con aria-controls y cambia solo la caja; el de la página no lleva aria-controls y se muestra solo con JS.",
+        "cost": "≈ 0,4 KB gzip + lógica en desktop.js",
+        "notes": [
+          "Grupo de botones con aria-pressed.",
+          "El selector global guarda tl:skin y aplica la skin antes del primer pintado."
+        ],
+        "motion": "Sin animación propia."
       }
     ]
   }

@@ -5,6 +5,10 @@ import Taskbar from '../Taskbar.astro';
 import Ticker from '../Ticker.astro';
 import VisitorCounter from '../VisitorCounter.astro';
 import BootPanel from '../BootPanel.astro';
+import Backdrop from '../Backdrop.astro';
+import Garnish from '../Garnish.astro';
+import ThemeSwitch from '../ThemeSwitch.astro';
+import home from '../../data/home.es.json';
 import site from '../../data/site.es.json';
 import data from '../../data/styleguide.es.json';
 
@@ -15,6 +19,9 @@ interface Props {
 
 const { id, nav } = Astro.props;
 const { sample, demos } = data;
+const { demo: td } = data.themes;
+const { garnish } = home;
+const pixel = ['book', 'envelope', 'floppy', 'star', 'folder', 'apple'] as const;
 ---
 
 {
@@ -194,6 +201,135 @@ const { sample, demos } = data;
             <span class="sound-label__off">{site.taskbar.soundOff}</span>
           </span>
         </button>
+      </div>
+    </div>
+  )
+}
+
+{
+  id === 'koi' && (
+    <div class="plinth plinth--tall plinth--bd sg-nodots" data-skin="aero">
+      <Backdrop uid="sg-koi" contained />
+    </div>
+  )
+}
+
+{
+  id === 'dotmatrix' && (
+    <div class="plinth plinth--tall plinth--bd plinth--water" data-skin="aero">
+      <span class="dotmatrix" aria-hidden="true" />
+      <p class="small sg-onwater">{td.dotsLine}</p>
+    </div>
+  )
+}
+
+{
+  id === 'xp-hill' && (
+    <div class="plinth plinth--tall plinth--bd" data-skin="xp">
+      <Backdrop uid="sg-xp" contained still />
+    </div>
+  )
+}
+
+{
+  id === 's90-tiles' && (
+    <div class="plinth plinth--tall plinth--bd" data-skin="90s">
+      <Backdrop uid="sg-90" contained still />
+    </div>
+  )
+}
+
+{
+  (id === 'xp-chrome' || id === 's90-chrome') && (
+    <div class="plinth plinth--tall plinth--bd" data-skin={id === 'xp-chrome' ? 'xp' : '90s'}>
+      <Backdrop uid={`sg-${id}`} contained still />
+      <Window title={td.windowTitle} controls class="demo-window">
+        <p class="small mb-0">{td.windowLine}</p>
+      </Window>
+    </div>
+  )
+}
+
+{
+  id === 'glitter' && (
+    <div class="plinth plinth--flat plinth--center">
+      <Garnish variant="glitter" class="glitter--lg" />
+    </div>
+  )
+}
+
+{
+  id === 'new-badge' && (
+    <div class="plinth plinth--flat plinth--center">
+      <Garnish variant="new-badge" text={garnish.newBadge} />
+    </div>
+  )
+}
+
+{
+  id === 'construction' && (
+    <div class="plinth plinth--flat">
+      <Garnish variant="construction" text={garnish.construction} />
+    </div>
+  )
+}
+
+{
+  id === 'badge88' && (
+    <div class="plinth plinth--flat">
+      <div class="cluster">
+        <Garnish variant="badge88" tone="btn" text={garnish.badges[0]} />
+        <Garnish variant="badge88" tone="badge" text={garnish.badges[1]} />
+        <Garnish variant="badge88" tone="card" text={garnish.badges[2]} />
+      </div>
+    </div>
+  )
+}
+
+{
+  id === 'pixel-set' && (
+    <div class="plinth plinth--flat">
+      <ul class="pixel-row">
+        {
+          pixel.map((name) => (
+            <li>
+              <svg class="px-icon" aria-hidden="true" focusable="false">
+                <use href={`#px-${name}`} />
+              </svg>
+              <span class="small">{td.pixelLabels[name]}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  )
+}
+
+{
+  id === 'mega' && (
+    <div class="demo-grid demo-grid--3">
+      {
+        (['aero', 'xp', '90s'] as const).map((skin) => (
+          <div class="plinth plinth--flat plinth--center" data-skin={skin}>
+            <button class="btn btn--mega" type="button">
+              {td.megaLabel}
+            </button>
+          </div>
+        ))
+      }
+    </div>
+  )
+}
+
+{
+  id === 'theme-switch' && (
+    <div class="plinth plinth--desk plinth--bd" id="sw-demo" data-skin="aero">
+      <Backdrop uid="sg-sw" contained still />
+      <Window title={td.windowTitle} class="demo-window sg-sw__window">
+        <p class="small mb-0">{td.swapLine}</p>
+      </Window>
+      <div class="taskbar sg-sw__bar">
+        <ThemeSwitch controls="sw-demo" extra={[{ id: 'y2k', label: 'Y2K' }]} />
       </div>
     </div>
   )
