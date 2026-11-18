@@ -11,6 +11,20 @@ The design brief, budget, traps and phases live in the vault:
 [`docs/phase-0.md`](docs/phase-0.md) for the measurements, the verdict and the
 blocked decisions. Phase 1 has not started.
 
+## Screenshots
+
+Phase 0 as served by `pnpm dev` — sample copy, no real content yet. The home
+page plays its boot screen once per session; these shots show the settled
+desktop.
+
+| `/` — desktop, 1280 px | `/` — phone, 390 px |
+| --- | --- |
+| ![Home after boot: TEACHER.EXE window, taskbar, ticker](docs/screenshots/home.png) | ![Home on a phone](docs/screenshots/home-mobile.png) |
+
+| `/styleguide/` — the two skin plates | `/styleguide/` — ingredient audit |
+| --- | --- |
+| ![Aero and Y2K plates side by side](docs/screenshots/styleguide-plates.png) | ![Ingredient audit cards](docs/screenshots/styleguide-ingredients.png) |
+
 ## Commands
 
 ```sh
@@ -43,6 +57,7 @@ public/
   cursors/              32 px PNG cursors
 scripts/                contrast + weight reports
 docs/phase-0.md         the Phase 0 record
+docs/screenshots/       README captures (home + styleguide)
 ```
 
 ## Rules
