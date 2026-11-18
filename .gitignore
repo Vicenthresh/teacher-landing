@@ -6,3 +6,7 @@ dist/
 .env.*
 !.env.example
 pnpm-debug.log*
+
+# Reference assets (icon packs, gifs) staged locally while designing.
+# Curated files get copied into public/; the raw packs stay out of the repo.
+.assets/
