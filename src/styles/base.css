@@ -2454,3 +2454,67 @@ strong {
   text-transform: uppercase;
   white-space: nowrap;
 }
+
+/* --------------------------------------------------------- home: blog */
+/* Notepad window: article cards on the audited card pair, the "Leer"
+   link is a prevented demo anchor, isNew posts get the blinking badge. */
+
+.blog .window__body {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.bloggrid {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.post {
+  padding: var(--space-3) var(--space-4);
+  color: var(--card-ink);
+  background: var(--card-bg);
+  border: 1px solid var(--panel-edge);
+  border-radius: var(--radius-panel);
+}
+
+[data-skin='90s'] .post {
+  border-radius: 0;
+}
+
+.post__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.post__title {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.post__date {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: 0.72rem;
+  color: var(--ink-mute);
+}
+
+.post__excerpt {
+  margin: var(--space-2) 0 0;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.post__read {
+  display: inline-block;
+  margin-top: var(--space-2);
+  font-weight: 700;
+  color: var(--link);
+}
+
+.post__read:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}

@@ -1,10 +1,30 @@
 ---
 import Window from '../Window.astro';
+import Garnish from '../Garnish.astro';
 import home from '../../data/home.es.json';
 
 const { posts } = home;
 ---
 
 <Window id={posts.id} title={posts.windowTitle} icon="px-book" class="blog">
-  <p class="muted">{posts.listLabel}</p>
+  <p class="eyebrow">{posts.listLabel}</p>
+  <div class="bloggrid">
+    {
+      posts.items.map((post) => (
+        <article class="post">
+          <header class="post__head">
+            <h3 class="post__title">{post.title}</h3>
+            {post.isNew && <Garnish variant="new-badge" text={posts.newLabel} />}
+          </header>
+          <time class="post__date mono" datetime={post.date}>
+            {post.dateLabel}
+          </time>
+          <p class="post__excerpt">{post.excerpt}</p>
+          <a class="post__read" href="#" data-demo>
+            {posts.read}
+          </a>
+        </article>
+      ))
+    }
+  </div>
 </Window>
