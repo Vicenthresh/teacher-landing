@@ -7,23 +7,34 @@ The design brief, budget, traps and phases live in the vault:
 `Projects/Teacher Landing/Teacher Landing.md` (hub) and
 `Pitches/Teacher Landing - Pitch.md`.
 
-**Phase 0 (style gate) is built and waiting for review.** See
-[`docs/phase-0.md`](docs/phase-0.md) for the measurements, the verdict and the
-blocked decisions. Phase 1 has not started.
+**Phase 0 (style gate) is built** — see [`docs/phase-0.md`](docs/phase-0.md) for
+the measurements, the verdict and the blocked decisions. A **draft home page**
+now lives on `/` with placeholder content ("Miss Javi"): hero, contact chat,
+CV, projects, blog and an old-internet footer, plus a taskbar theme switcher
+(Aero / XP / 90s) with one animated backdrop per skin. Real content is
+Phase 2.
 
 ## Screenshots
 
-Phase 0 as served by `pnpm dev` — sample copy, no real content yet. The home
-page plays its boot screen once per session; these shots show the settled
-desktop.
+The home page draft (`/`), placeholder copy only. The theme switcher in the
+taskbar tray moves the desktop between the three page skins; the boot screen
+plays once per session and these shots show the settled desktop.
 
-| `/` — desktop, 1280 px | `/` — phone, 390 px |
+| `/` — Aero (default: koi pond under a dot matrix) | `/` — XP (hill and clouds) |
 | --- | --- |
-| ![Home after boot: TEACHER.EXE window, taskbar, ticker](docs/screenshots/home.png) | ![Home on a phone](docs/screenshots/home-mobile.png) |
+| ![Home in the Aero skin](docs/screenshots/home-aero.png) | ![Home in the XP skin](docs/screenshots/home-xp.png) |
 
-| `/styleguide/` — the two skin plates | `/styleguide/` — ingredient audit |
+| `/` — 90s (starfield) | `/` — phone, 390 px |
+| --- | --- |
+| ![Home in the 90s skin](docs/screenshots/home-90s.png) | ![Home on a phone](docs/screenshots/home-mobile.png) |
+
+| `/styleguide/` — the skin plates | `/styleguide/` — ingredient audit |
 | --- | --- |
 | ![Aero and Y2K plates side by side](docs/screenshots/styleguide-plates.png) | ![Ingredient audit cards](docs/screenshots/styleguide-ingredients.png) |
+
+`/styleguide/` §05 — the new themes (XP, 90s), backdrops and old-internet garnish:
+
+![Styleguide themes and garnish section](docs/screenshots/styleguide-themes.png)
 
 ## Commands
 
@@ -43,14 +54,15 @@ pnpm measure          # build + both
 ```
 src/
   components/           Window, Sky, Taskbar, Ticker, VisitorCounter, Boot*
-    styleguide/         Plate (one skin) + IngredientDemo
-  data/                 UI copy, styleguide copy, generated measurements
-  layouts/Base.astro    head, meta, font preload, SVG sprite, styles
-  pages/index.astro     skeleton (ES, `/`) — Phase 1 replaces it
-  pages/styleguide.astro  the design gate: two plates, 13 ingredients, numbers
+    sections/           Hero, Contact, Cv, Projects, Blog, Footer (draft home)
+    styleguide/         Plate + IngredientDemo
+  data/                 UI copy, home copy, styleguide copy, generated measurements
+  layouts/Base.astro    head, meta, skin head script, SVG sprite, styles
+  pages/index.astro      the draft home (`/`): Miss Javi, sections, theme switcher
+  pages/styleguide.astro  the design gate: plates, ingredients, themes §05, numbers
   scripts/desktop.js    drag, window controls, start menu, boot, sound, skin switch
-  styles/tokens.css     aero + y2k skins
-  styles/base.css       every ingredient, token-driven
+  styles/tokens.css     aero + y2k + xp + 90s skins
+  styles/base.css       every ingredient + the home sections, token-driven
   cursors/              SVG sources for the PNG cursors in public/
 public/
   fonts/                Silkscreen 400/700, Latin subset + OFL licence
