@@ -3,15 +3,15 @@
   "rows": [
     {
       "item": "/ · HTML",
-      "raw": "8.1 KB",
-      "gzip": "2.3 KB",
+      "raw": "20.0 KB",
+      "gzip": "5.1 KB",
       "budget": "—",
       "over": false
     },
     {
       "item": "/ · CSS",
-      "raw": "39.0 KB",
-      "gzip": "10.3 KB",
+      "raw": "44.5 KB",
+      "gzip": "11.1 KB",
       "budget": "—",
       "over": false
     },
@@ -24,8 +24,8 @@
     },
     {
       "item": "/ · total HTML+CSS+JS",
-      "raw": "52.7 KB",
-      "gzip": "14.8 KB",
+      "raw": "70.1 KB",
+      "gzip": "18.5 KB",
       "budget": "≤ 100 KB",
       "over": false
     },
@@ -38,8 +38,8 @@
     },
     {
       "item": "/styleguide/ · CSS",
-      "raw": "45.7 KB",
-      "gzip": "12.1 KB",
+      "raw": "50.3 KB",
+      "gzip": "12.8 KB",
       "budget": "—",
       "over": false
     },
@@ -52,8 +52,8 @@
     },
     {
       "item": "/styleguide/ · total HTML+CSS+JS",
-      "raw": "153.1 KB",
-      "gzip": "30.5 KB",
+      "raw": "157.7 KB",
+      "gzip": "31.1 KB",
       "budget": "≤ 100 KB",
       "over": false
     },
@@ -73,8 +73,8 @@
     },
     {
       "item": "Primera carga de /styleguide/ (peor caso)",
-      "raw": "171.6 KB",
-      "gzip": "49.1 KB",
+      "raw": "176.2 KB",
+      "gzip": "49.7 KB",
       "budget": "≤ 350 KB",
       "over": false
     }
@@ -91,11 +91,11 @@
   ],
   "assets": {
     "css": [
-      "/_astro/BootScreen.By2ec6Op.css"
+      "/_astro/home.DjAnkWJ0.css"
     ],
     "js": [
       "/_astro/Base.astro_astro_type_script_index_0_lang.BQ-fjhy6.js"
     ]
   },
-  "firstLoadBytes": 50257
+  "firstLoadBytes": 50943
 }
