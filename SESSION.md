@@ -119,13 +119,13 @@ Each atlas has one more row: the 16 px variant of the same base, for title bars 
 - **Gate.** `pnpm check:desk` also asserts that every styleguide ingredient id still renders.
 
 ## Foundation
-- [ ] F1 Icon pipeline, atlases, weight rows and the decisions record | files: scripts/icons.py, public/icons/xp.webp, public/icons/98.webp, public/icons/NOTICE.txt, src/data/icons.json, scripts/weight.mjs, package.json, docs/desktop.md | accept:
+- [x] F1 Icon pipeline, atlases, weight rows and the decisions record | files: scripts/icons.py, public/icons/xp.webp, public/icons/98.webp, public/icons/NOTICE.txt, src/data/icons.json, scripts/weight.mjs, package.json, docs/desktop.md | accept:
   - `scripts/icons.py` (`python3 -I`, Pillow only) reads `.assets/windows-icons/{winxp,win98}` and picks by real pixel size, then by bytes. It writes both 432×64 lossless WebP atlases plus icons.json in the Decisions §1 order.
   - It exits 1 with a clear message if `.assets` is missing. `--check` regenerates in memory and exits 1 if the committed files differ.
   - `package.json` gains `"icons": "python3 -I scripts/icons.py"`.
   - weight.mjs gains the two atlas rows and the `/` worst-case row from §2, and adds both atlases to the styleguide worst case. The XP atlas is ≤ 30 KB and the 98 atlas ≤ 8 KB.
   - `docs/desktop.md` holds the Decisions section verbatim. | test: `python3 -I scripts/icons.py --check && pnpm build && pnpm measure:weight`
-- [ ] F2 Bolder and desk tokens across all four skins, plus the new contrast pairs | files: src/styles/tokens.css, scripts/contrast.mjs | accept:
+- [x] F2 Bolder and desk tokens across all four skins, plus the new contrast pairs | files: src/styles/tokens.css, scripts/contrast.mjs | accept:
   - The shared type scale and chrome tokens exist (§4).
   - aero, xp and 90s each define every new per-skin token. 90s points `--icon-atlas` at `/icons/98.webp`; y2k inherits.
   - contrast.mjs has the 5 new pairs (the label chip composited over backdrops) and the extended `REQUIRED`.

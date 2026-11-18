@@ -1,0 +1,65 @@
+{
+  "inicio": {
+    "i": 0,
+    "xp": "computer_explorer-1.png",
+    "w98": "computer_explorer-1.png",
+    "size48xp": 48,
+    "size48w98": 48
+  },
+  "contacto": {
+    "i": 1,
+    "xp": "msmsgs_1-2.png",
+    "w98": "users_green-1.png",
+    "size48xp": 48,
+    "size48w98": 48
+  },
+  "cv": {
+    "i": 2,
+    "xp": "wordpad_128-1.png",
+    "w98": "wordpad_154-0.png",
+    "size48xp": 48,
+    "size48w98": 32
+  },
+  "proyectos": {
+    "i": 3,
+    "xp": "directory_closed-1.png",
+    "w98": "directory_closed-1.png",
+    "size48xp": 48,
+    "size48w98": 48
+  },
+  "blog": {
+    "i": 4,
+    "xp": "notepad-2.png",
+    "w98": "notepad-1.png",
+    "size48xp": 48,
+    "size48w98": 48
+  },
+  "pantalla": {
+    "i": 5,
+    "xp": "display_properties-2.png",
+    "w98": "display_properties-1.png",
+    "size48xp": 48,
+    "size48w98": 48
+  },
+  "leeme": {
+    "i": 6,
+    "xp": "help_book_small-2.png",
+    "w98": "help_book_small-1.png",
+    "size48xp": 48,
+    "size48w98": 48
+  },
+  "styleguide": {
+    "i": 7,
+    "xp": "world-2.png",
+    "w98": "world-1.png",
+    "size48xp": 48,
+    "size48w98": 48
+  },
+  "papelera": {
+    "i": 8,
+    "xp": "recycle_bin_empty-1.png",
+    "w98": "recycle_bin_empty-1.png",
+    "size48xp": 48,
+    "size48w98": 48
+  }
+}

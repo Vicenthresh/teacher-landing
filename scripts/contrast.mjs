@@ -53,6 +53,10 @@ const REQUIRED = [
   '--chat-in-bg', '--chat-in-ink', '--chat-out-bg', '--chat-out-ink',
   '--badge-bg', '--badge-ink', '--card-bg', '--card-ink', '--link',
   '--backdrop-base', '--backdrop-lo', '--backdrop-hi',
+  '--icon-atlas', '--accent', '--accent-ink',
+  '--desk-label-ink', '--desk-label-bg', '--desk-select-bg', '--desk-select-ink',
+  '--chrome-inactive', '--bar-ink-inactive',
+  '--task-bg', '--task-ink', '--task-bg-on', '--task-ink-on',
 ];
 
 const aero = blockFor("[data-skin='aero']");
@@ -69,7 +73,8 @@ for (const skin of SKINS.slice(1)) {
 }
 
 for (const skin of SKINS) {
-  const own = skin.id === 'aero' ? aero : blockFor(`[data-skin='${skin.id}']`);
+  /* an inheriting skin (y2k) is held to what it resolves to, not to what it overrides */
+  const own = skin.id === 'aero' ? aero : skin.inherits ? tokens[skin.id] : blockFor(`[data-skin='${skin.id}']`);
   const missing = REQUIRED.filter((key) => !(key in own));
   if (missing.length) contractErrors.push(`${skin.label} sin tokens de sección: ${missing.join(', ')}`);
 }
@@ -145,6 +150,7 @@ const pairs = (skin) => {
   const backdrops = backdropsOf(t);
   const glassOver = colorsIn(t['--glass']).flatMap((g) => backdrops.map((b) => over(g, b)));
   const trayStops = colorsIn(t['--tray-bg']).flatMap((c) => backdrops.map((b) => over(c, b)));
+  const labelOver = colorsIn(t['--desk-label-bg']).flatMap((chip) => backdrops.map((b) => over(chip, b)));
   const c = (name) => colorsIn(t[name]);
 
   return [
@@ -152,7 +158,7 @@ const pairs = (skin) => {
     { label: 'Texto suave · panel', fg: c('--ink-soft'), bg: c('--panel'), note: 'texto secundario' },
     { label: 'Texto apagado · panel', fg: c('--ink-mute'), bg: [...c('--panel'), ...c('--panel-2')], note: 'eyebrow y pies de menú' },
     { label: 'Enlace · panel', fg: c('--link'), bg: c('--panel'), note: 'links dentro de ventanas' },
-    { label: 'Barra de ventana', fg: c('--bar-ink'), bg: c('--chrome'), note: 'peor stop del cromo' },
+    { label: 'Barra de ventana', fg: c('--bar-ink'), bg: c('--chrome'), min: 7, note: 'peor stop del cromo, AAA' },
     { label: 'Botón de ventana', fg: c('--winbtn-ink'), bg: c('--winbtn-bg'), note: 'minimizar, maximizar, cerrar' },
     { label: 'Botón', fg: c('--btn-ink'), bg: c('--btn-bg'), note: 'peor stop del gloss' },
     { label: 'Botón · pulsado', fg: c('--btn-ink'), bg: c('--btn-bg-on'), note: 'estado :active' },
@@ -170,6 +176,11 @@ const pairs = (skin) => {
     { label: 'Tarjeta · texto', fg: c('--card-ink'), bg: c('--card-bg'), note: 'tarjetas del blog' },
     { label: 'Tarjeta · enlace', fg: c('--link'), bg: c('--card-bg'), note: 'enlace "Leer" dentro de la tarjeta' },
     { label: 'Chat · enlace', fg: c('--link'), bg: [...c('--chat-in-bg'), ...c('--chat-out-bg')], note: 'enlaces dentro de burbujas' },
+    { label: 'Escritorio · etiqueta', fg: c('--desk-label-ink'), bg: labelOver, note: 'chip de la etiqueta compuesto sobre el fondo y pasto' },
+    { label: 'Escritorio · seleccionado', fg: c('--desk-select-ink'), bg: c('--desk-select-bg'), min: 7, note: 'icono seleccionado, AAA' },
+    { label: 'Barra inactiva', fg: c('--bar-ink-inactive'), bg: c('--chrome-inactive'), note: 'peor stop del cromo apagado' },
+    { label: 'Tarea', fg: c('--task-ink'), bg: c('--task-bg'), note: 'botón de ventana en la barra de tareas' },
+    { label: 'Tarea · activa', fg: c('--task-ink-on'), bg: c('--task-bg-on'), note: 'botón de la ventana activa' },
     { label: 'Foco · panel', fg: c('--focus'), bg: [...c('--panel'), ...c('--card-bg')], min: 3, note: 'contraste no textual, 3:1' },
   ];
 };

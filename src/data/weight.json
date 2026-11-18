@@ -3,15 +3,15 @@
   "rows": [
     {
       "item": "/ · HTML",
-      "raw": "20.0 KB",
-      "gzip": "5.1 KB",
+      "raw": "20.1 KB",
+      "gzip": "5.2 KB",
       "budget": "—",
       "over": false
     },
     {
       "item": "/ · CSS",
-      "raw": "44.5 KB",
-      "gzip": "11.1 KB",
+      "raw": "45.9 KB",
+      "gzip": "11.5 KB",
       "budget": "—",
       "over": false
     },
@@ -24,8 +24,8 @@
     },
     {
       "item": "/ · total HTML+CSS+JS",
-      "raw": "70.1 KB",
-      "gzip": "18.5 KB",
+      "raw": "71.6 KB",
+      "gzip": "18.8 KB",
       "budget": "≤ 100 KB",
       "over": false
     },
@@ -38,8 +38,8 @@
     },
     {
       "item": "/styleguide/ · CSS",
-      "raw": "50.3 KB",
-      "gzip": "12.8 KB",
+      "raw": "51.8 KB",
+      "gzip": "13.1 KB",
       "budget": "—",
       "over": false
     },
@@ -52,8 +52,8 @@
     },
     {
       "item": "/styleguide/ · total HTML+CSS+JS",
-      "raw": "157.7 KB",
-      "gzip": "31.1 KB",
+      "raw": "159.1 KB",
+      "gzip": "31.4 KB",
       "budget": "≤ 100 KB",
       "over": false
     },
@@ -72,9 +72,30 @@
       "over": false
     },
     {
+      "item": "Iconos XP (atlas WebP)",
+      "raw": "25.8 KB",
+      "gzip": "25.8 KB",
+      "budget": "≤ 30 KB",
+      "over": false
+    },
+    {
+      "item": "Iconos 98 (atlas WebP)",
+      "raw": "5.0 KB",
+      "gzip": "5.0 KB",
+      "budget": "≤ 8 KB",
+      "over": false
+    },
+    {
+      "item": "Primera carga de / (peor caso)",
+      "raw": "115.8 KB",
+      "gzip": "63.2 KB",
+      "budget": "≤ 350 KB",
+      "over": false
+    },
+    {
       "item": "Primera carga de /styleguide/ (peor caso)",
-      "raw": "176.2 KB",
-      "gzip": "49.7 KB",
+      "raw": "208.4 KB",
+      "gzip": "80.8 KB",
       "budget": "≤ 350 KB",
       "over": false
     }
@@ -91,11 +112,12 @@
   ],
   "assets": {
     "css": [
-      "/_astro/home.DjAnkWJ0.css"
+      "/_astro/home.DDysHPVB.css"
     ],
     "js": [
-      "/_astro/Base.astro_astro_type_script_index_0_lang.BQ-fjhy6.js"
+      "/_astro/Base.astro_astro_type_script_index_0_lang.CLT2qS9_.js"
     ]
   },
-  "firstLoadBytes": 50943
+  "firstLoadHomeBytes": 64690,
+  "firstLoadBytes": 82754
 }

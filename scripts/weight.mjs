@@ -69,6 +69,13 @@ const cursors = ['arrow.png', 'hand.png', 'move.png'].map((name) => {
   return { name, raw: buffer.length, gzip: gzip(buffer) };
 });
 
+/* WebP does not gzip, so the atlases count at their raw bytes. */
+const atlases = ['xp.webp', '98.webp'].map((name) => {
+  const buffer = readFileSync(resolve(root, 'public/icons', name));
+  return { name, raw: buffer.length };
+});
+const [atlasXp, atlas98] = atlases;
+
 const pages = {
   '/': page('/'),
   '/styleguide/': page('/styleguide/'),
@@ -117,11 +124,46 @@ rows.push({
   over: cursorTotals.gzip > 6 * KB,
 });
 
+rows.push(
+  {
+    item: 'Iconos XP (atlas WebP)',
+    raw: fmt(atlasXp.raw),
+    gzip: fmt(atlasXp.raw),
+    budget: '≤ 30 KB',
+    over: atlasXp.raw > 30 * KB,
+  },
+  {
+    item: 'Iconos 98 (atlas WebP)',
+    raw: fmt(atlas98.raw),
+    gzip: fmt(atlas98.raw),
+    budget: '≤ 8 KB',
+    over: atlas98.raw > 8 * KB,
+  },
+);
+
+/* A visitor to / downloads one atlas: the XP one, which is the default skin. */
+const home = pages['/'];
+const homeLoad =
+  home.html.gzip + home.cssSize.gzip + home.jsSize.gzip + fontTotals.gzip + cursorTotals.gzip + atlasXp.raw;
+rows.push({
+  item: 'Primera carga de / (peor caso)',
+  raw: fmt(home.html.raw + home.cssSize.raw + home.jsSize.raw + fontTotals.raw + cursorTotals.raw + atlasXp.raw),
+  gzip: fmt(homeLoad),
+  budget: '≤ 350 KB',
+  over: homeLoad > 350 * KB,
+});
+
+/* /styleguide/ shows every skin on its plates, so it pulls both atlases. */
 const worst = pages['/styleguide/'];
-const firstLoad = worst.html.gzip + worst.cssSize.gzip + worst.jsSize.gzip + fontTotals.gzip + cursorTotals.gzip;
+const firstLoad =
+  worst.html.gzip + worst.cssSize.gzip + worst.jsSize.gzip + fontTotals.gzip + cursorTotals.gzip +
+  atlasXp.raw + atlas98.raw;
 rows.push({
   item: 'Primera carga de /styleguide/ (peor caso)',
-  raw: fmt(worst.html.raw + worst.cssSize.raw + worst.jsSize.raw + fontTotals.raw + cursorTotals.raw),
+  raw: fmt(
+    worst.html.raw + worst.cssSize.raw + worst.jsSize.raw + fontTotals.raw + cursorTotals.raw +
+      atlasXp.raw + atlas98.raw,
+  ),
   gzip: fmt(firstLoad),
   budget: '≤ 350 KB',
   over: firstLoad > 350 * KB,
@@ -135,6 +177,7 @@ writeFileSync(
       rows,
       fonts: fonts.map((f) => ({ name: f.name, bytes: f.raw })),
       assets: { css: pages['/'].css, js: pages['/'].js },
+      firstLoadHomeBytes: homeLoad,
       firstLoadBytes: firstLoad,
     },
     null,
