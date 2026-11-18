@@ -2309,8 +2309,58 @@ strong {
   margin: 0;
 }
 
-.contact__note {
+.demo-note {
   margin: 0;
   font-size: 0.76rem;
   color: var(--ink-mute);
+}
+
+/* ----------------------------------------------------------- home: cv */
+/* Document-style sheet on the audited --card-* pair. No file behind the
+   download button: a[data-demo] is prevented in desktop.js. */
+
+.cv .window__body {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.cv__doc {
+  padding: var(--space-4) var(--space-5);
+  color: var(--card-ink);
+  background: var(--card-bg);
+  border: 1px solid var(--panel-edge);
+  border-radius: var(--radius-panel);
+}
+
+.cv__file {
+  margin: 0 0 var(--space-2);
+  font-size: 0.72rem;
+  color: var(--ink-mute);
+}
+
+.cv__heading {
+  margin: 0 0 var(--space-2);
+  font-size: 1rem;
+}
+
+.cv__doc .eyebrow {
+  margin: 0 0 var(--space-2);
+}
+
+.cv__timeline {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding-left: 1.3rem;
+}
+
+.cv__timeline li {
+  display: grid;
+  gap: 2px;
+  line-height: 1.4;
+}
+
+.cv__when {
+  font-size: 0.74rem;
+  letter-spacing: 0.02em;
 }
