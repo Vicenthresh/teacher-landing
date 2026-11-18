@@ -296,7 +296,7 @@ const pixel = ['book', 'envelope', 'floppy', 'star', 'folder', 'apple'] as const
               <svg class="px-icon" aria-hidden="true" focusable="false">
                 <use href={`#px-${name}`} />
               </svg>
-              <span class="small">{td.pixelLabels[name]}</span>
+              <span class="small">{td.pixelLabels[name] ?? name}</span>
             </li>
           ))
         }

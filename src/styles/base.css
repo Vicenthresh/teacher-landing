@@ -607,11 +607,18 @@ strong {
     inset 0 1px 0 var(--btn-hi),
     inset 0 -3px 5px rgba(255, 255, 255, 0.3),
     0 4px 10px rgba(5, 28, 43, 0.35);
-  transition: transform 120ms var(--ease);
+  /* hover lift only for those who welcome motion */
+  transition: none;
 }
 
-.btn--mega:hover {
-  transform: translateY(-1px);
+@media (prefers-reduced-motion: no-preference) {
+  .btn--mega {
+    transition: transform 120ms var(--ease);
+  }
+
+  .btn--mega:hover {
+    transform: translateY(-1px);
+  }
 }
 
 .btn--mega:active {

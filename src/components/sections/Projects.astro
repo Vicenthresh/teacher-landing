@@ -3,6 +3,11 @@ import Window from '../Window.astro';
 import home from '../../data/home.es.json';
 
 const { projects } = home;
+
+/* the data file is teacher-editable: an unknown icon name falls back to
+   the folder symbol instead of rendering an empty svg */
+const ICONS = new Set(['folder', 'book', 'star', 'floppy', 'apple', 'envelope']);
+const iconHref = (icon: string) => (ICONS.has(icon) ? `#px-${icon}` : '#px-folder');
 ---
 
 <Window id={projects.id} title={projects.windowTitle} icon="px-folder" class="projects">
@@ -13,7 +18,7 @@ const { projects } = home;
         <details class="proj">
           <summary class="proj__icon">
             <svg class="px-icon" aria-hidden="true" focusable="false">
-              <use href={`#px-${item.icon}`} />
+              <use href={iconHref(item.icon)} />
             </svg>
             <span class="proj__name">{item.title}</span>
           </summary>

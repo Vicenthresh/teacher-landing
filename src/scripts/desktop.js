@@ -337,7 +337,7 @@ for (const toggle of $$('[data-skin-set]')) {
     for (const sibling of $$('[data-skin-set]', toggle.parentElement)) {
       sibling.setAttribute('aria-pressed', String(sibling === toggle));
     }
-    beep('click');
+    /* the delegated global click handler below already beeps for buttons */
   });
 }
 
