@@ -2257,3 +2257,60 @@ strong {
 .hero__ctas {
   margin: 0;
 }
+
+/* ------------------------------------------------------ home: contact */
+/* Chat bubbles use the audited --chat-* pairs; the CTA is a demo anchor
+   (a[data-demo] is prevented in desktop.js) so no number is invented. */
+
+.contact .window__body {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.chat {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chat__line {
+  max-width: min(34rem, 100%);
+  padding: 8px 12px;
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.chat__line--in {
+  justify-self: start;
+  color: var(--chat-in-ink);
+  background: var(--chat-in-bg);
+  border: 1px solid var(--panel-edge);
+  border-radius: var(--radius-panel);
+  border-end-start-radius: 2px;
+}
+
+.chat__line--out {
+  justify-self: end;
+  color: var(--chat-out-ink);
+  background: var(--chat-out-bg);
+  border: 1px solid var(--panel-edge);
+  border-radius: var(--radius-panel);
+  border-end-end-radius: 2px;
+}
+
+[data-skin='90s'] .chat__line--in,
+[data-skin='90s'] .chat__line--out {
+  border-radius: 0;
+}
+
+.contact__ctas {
+  margin: 0;
+}
+
+.contact__note {
+  margin: 0;
+  font-size: 0.76rem;
+  color: var(--ink-mute);
+}

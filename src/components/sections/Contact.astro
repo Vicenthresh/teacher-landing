@@ -6,5 +6,20 @@ const { contact } = home;
 ---
 
 <Window id={contact.id} title={contact.windowTitle} icon="px-envelope" class="contact">
-  <p class="muted">{contact.chatLabel}</p>
+  <p class="eyebrow">{contact.chatLabel}</p>
+  <ul class="chat">
+    {
+      contact.lines.map((line) => (
+        <li
+          class:list={['chat__line', line.from === 'out' ? 'chat__line--out' : 'chat__line--in']}
+        >
+          {line.text}
+        </li>
+      ))
+    }
+  </ul>
+  <p class="cluster contact__ctas">
+    <a class="btn btn--mega" href="#" data-demo>{contact.cta}</a>
+  </p>
+  <p class="contact__note">{contact.ctaNote}</p>
 </Window>
