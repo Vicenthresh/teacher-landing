@@ -137,13 +137,13 @@ Each atlas has one more row: the 16 px variant of the same base, for title bars 
   - **Headings.** One visually hidden `<h1>` (the site brand) sits on the desk; the Hero name becomes `h2`.
   - **Footer.** `<Footer />` comes off `/` (its garnish returns in T6).
   - **CSS.** base.css gets the §3 grid, absolute windows, phone-mode CSS and the `:target` rules. The page has no vertical scrollbar at 1280×800 or 390×844, and with JS off every icon opens its window. | test: `pnpm build && test "$(grep -o 'data-desk-icon=' dist/index.html | wc -l)" -eq 6`
-- [ ] F4 Window-manager glue in desktop.js | files: src/scripts/desktop.js | accept:
+- [x] F4 Window-manager glue in desktop.js | files: src/scripts/desktop.js | accept:
   - A `[data-desk]`-gated block adds `html.has-desk`, removes the no-JS close links and un-hides the JS controls.
   - `openWindow(app)` un-hides, cascades, brings to front and focuses; `closeWindow(app)` hides and returns focus to the opener. Desk close runs before the legacy `[data-windows]` path.
   - It handles a z-index counter, `.is-active`, `hashchange` and `replaceState`, and opens Hero on load when there is no hash.
   - Single-click open for now (T1 adds selection). The styleguide drag and close demos behave as before.
   - / JS gzip grows ≤ 2.5 KB. | test: `pnpm build && pnpm measure:weight`
-- [ ] F5 Structural gate: `check:desk` | files: scripts/desk-check.mjs, package.json | accept:
+- [x] F5 Structural gate: `check:desk` | files: scripts/desk-check.mjs, package.json | accept:
   - A dependency-free Node script parses `dist/index.html` and `dist/styleguide/index.html` with regex and asserts:
     - every `[data-desk-icon]` href resolves to a `.window[data-app]` id or a site path
     - every desk window has `aria-labelledby` → an existing id, one no-JS close link and hidden JS close/min/max buttons

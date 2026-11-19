@@ -169,12 +169,103 @@ function endDrag() {
 document.addEventListener('pointerup', endDrag);
 document.addEventListener('pointercancel', endDrag);
 
+/* ------------------------------------------------------------ desk windows */
+/* Only `/` has [data-desk]. Without JS its windows open through :target (see
+   base.css); here JS takes over. Visibility is driven inline (hidden + display)
+   because the :target and default-window rules would beat a bare `hidden`. */
+
+const desk = document.querySelector('[data-desk]');
+const deskWins = desk ? $$('.window[data-app]', desk) : [];
+const deskWin = (app) => deskWins.find((win) => win.dataset.app === app);
+const deskOpen = () => deskWins.filter((win) => !win.hidden);
+/* phone mode has no default window: the icon grid is the resting state */
+const wideDesk = window.matchMedia('(min-width: 48rem) and (min-height: 32rem)');
+let zTop = 2; /* base.css gives desk windows z-index 2 */
+
+function setShown(win, on) {
+  win.hidden = !on;
+  win.style.display = on ? 'flex' : 'none';
+}
+
+function activate(win) {
+  for (const w of deskWins) w.classList.toggle('is-active', w === win);
+  win.style.zIndex = String(++zTop);
+}
+
+function openWindow(app, { focus = true, sync = true } = {}) {
+  const win = deskWin(app);
+  if (!win) return;
+  if (win.hidden) {
+    /* cascade: the first free step, so closing one never stacks two on a spot */
+    const used = deskOpen().map((w) => w._n);
+    let n = 0;
+    while (used.includes(n)) n++;
+    win._n = n % 8;
+    win.style.setProperty('--n', String(win._n));
+    setShown(win, true);
+  }
+  activate(win);
+  /* the desk never scrolls: undo any scroll a fragment jump may have caused */
+  desk.scrollTo(0, 0);
+  if (focus) win.focus({ preventScroll: true });
+  if (sync) history.replaceState(null, '', `#${app}`);
+}
+
+function closeWindow(app) {
+  const win = deskWin(app);
+  if (!win || win.hidden) return;
+  setShown(win, false);
+  win.classList.remove('is-active', 'is-min', 'is-max');
+  for (const btn of $$('[aria-pressed]', win)) btn.setAttribute('aria-pressed', 'false');
+  if (location.hash === `#${app}`) history.replaceState(null, '', location.pathname + location.search);
+  const top = deskOpen().sort((a, b) => a.style.zIndex - b.style.zIndex).pop();
+  if (top) activate(top);
+  desk.querySelector(`[data-desk-icon="${app}"]`)?.focus({ preventScroll: true });
+}
+
+if (desk) {
+  document.documentElement.classList.add('has-desk');
+  for (const link of $$('[data-nojs-close]', desk)) link.remove();
+  for (const btn of $$('.window [data-win][hidden]', desk)) btn.hidden = false;
+  for (const win of deskWins) setShown(win, false);
+
+  const first = deskWin(location.hash.slice(1));
+  if (first || wideDesk.matches) {
+    openWindow(first ? first.dataset.app : 'inicio', { focus: false, sync: false });
+  }
+
+  window.addEventListener('hashchange', () => {
+    const win = deskWin(location.hash.slice(1));
+    if (win) openWindow(win.dataset.app, { sync: false });
+  });
+
+  desk.addEventListener('pointerdown', (event) => {
+    const win = event.target.closest('.window');
+    if (win) activate(win);
+  });
+}
+
 document.addEventListener('click', (event) => {
+  /* desk icons: a modified click keeps its link behaviour; the styleguide
+     shortcut and the decorative plate icons have no window and fall through */
+  const icon = desk && event.target.closest('[data-desk] [data-desk-icon]');
+  if (icon && deskWin(icon.dataset.deskIcon) && !(event.ctrlKey || event.metaKey || event.shiftKey)) {
+    event.preventDefault();
+    openWindow(icon.dataset.deskIcon);
+    return;
+  }
+
   const control = event.target.closest('[data-win]');
   if (control) {
     const win = control.closest('.window');
     if (!win) return;
     const action = control.dataset.win;
+
+    /* a desk window closes here, before the legacy [data-windows] path */
+    if (action === 'close' && win.closest('[data-desk]')) {
+      closeWindow(win.dataset.app);
+      return;
+    }
 
     if (action === 'min') {
       const on = win.classList.toggle('is-min');
