@@ -120,6 +120,32 @@ let drag = null;
 document.addEventListener('pointerdown', (event) => {
   if (event.button !== 0 || event.target.closest('button')) return;
   const bar = event.target.closest('.window__bar');
+
+  /* a desk window drags by its --x/--y position (see base.css), not a transform */
+  const deskWindow = bar && bar.closest('[data-desk] .window[data-app]');
+  if (deskWindow) {
+    if (!wideDesk.matches || deskWindow.classList.contains('is-max')) return;
+    const w = deskWindow;
+    drag = {
+      desk: true,
+      win: w,
+      id: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      left: w.offsetLeft,
+      top: w.offsetTop,
+      /* the whole title bar stays inside the desk */
+      maxX: Math.max(0, desk.clientWidth - w.offsetWidth),
+      maxY: Math.max(0, desk.clientHeight - barEdge(w)),
+    };
+    bar.setPointerCapture(event.pointerId);
+    w.classList.add('is-dragging');
+    /* preventDefault below stops the browser focusing the window: do it here */
+    w.focus({ preventScroll: true });
+    event.preventDefault();
+    return;
+  }
+
   const win = bar && bar.closest('[data-drag]');
   if (!win || win.classList.contains('is-max')) return;
 
@@ -149,6 +175,12 @@ document.addEventListener('pointerdown', (event) => {
 
 document.addEventListener('pointermove', (event) => {
   if (!drag || event.pointerId !== drag.id) return;
+  if (drag.desk) {
+    const { win, left, top, startX, startY } = drag;
+    win.style.setProperty('--x', `${clamp(left + event.clientX - startX, 0, drag.maxX)}px`);
+    win.style.setProperty('--y', `${clamp(top + event.clientY - startY, 0, drag.maxY)}px`);
+    return;
+  }
   const minX = drag.box.left + 6 - drag.left;
   const maxX = drag.box.right - 6 - (drag.left + drag.width);
   const minY = drag.box.top + 6 - drag.top;
@@ -171,8 +203,8 @@ document.addEventListener('pointercancel', endDrag);
 
 /* ------------------------------------------------------------ desk windows */
 /* Only `/` has [data-desk]. Without JS its windows open through :target (see
-   base.css); here JS takes over. Visibility is driven inline (hidden + display)
-   because the :target and default-window rules would beat a bare `hidden`. */
+   base.css); here JS takes over: html.has-desk switches those rules off and
+   the `hidden` attribute alone decides what shows. */
 
 const desk = document.querySelector('[data-desk]');
 const deskWins = desk ? $$('.window[data-app]', desk) : [];
@@ -187,7 +219,30 @@ let zTop = 2; /* base.css gives desk windows z-index 2 */
 
 function setShown(win, on) {
   win.hidden = !on;
-  win.style.display = on ? 'flex' : 'none';
+}
+
+/* how far down a window its title bar ends (border included): the least of
+   the window that must stay on the desk */
+function barEdge(win) {
+  const bar = win.querySelector('.window__bar');
+  return bar ? Math.ceil(bar.getBoundingClientRect().bottom - win.getBoundingClientRect().top) : 0;
+}
+
+/* keep a window inside the desk: its whole title bar, never off an edge. Only
+   a window that needs it gets an inline --x/--y; the rest follow the CSS
+   cascade slot (and its icon-column count) */
+function clampWin(win) {
+  if (win.hidden || !wideDesk.matches || win.classList.contains('is-max')) return;
+  const x = clamp(win.offsetLeft, 0, Math.max(0, desk.clientWidth - win.offsetWidth));
+  const y = clamp(win.offsetTop, 0, Math.max(0, desk.clientHeight - barEdge(win)));
+  if (x !== win.offsetLeft) win.style.setProperty('--x', `${x}px`);
+  if (y !== win.offsetTop) win.style.setProperty('--y', `${y}px`);
+}
+
+function toggleMax(win, on = !win.classList.contains('is-max')) {
+  win.classList.toggle('is-max', on);
+  win.querySelector('[data-win="max"]')?.setAttribute('aria-pressed', String(on));
+  if (!on) clampWin(win);
 }
 
 function activate(win) {
@@ -261,8 +316,12 @@ function openWindow(app, { focus = true, sync = true } = {}) {
     while (used.includes(n)) n++;
     win._n = n % 8;
     win.style.setProperty('--n', String(win._n));
+    /* a fresh open goes to its cascade slot, not where it was last dragged */
+    win.style.removeProperty('--x');
+    win.style.removeProperty('--y');
     setShown(win, true);
   }
+  clampWin(win);
   activate(win);
   /* the desk never scrolls: undo any scroll a fragment jump may have caused */
   desk.scrollTo(0, 0);
@@ -274,8 +333,8 @@ function closeWindow(app) {
   const win = deskWin(app);
   if (!win || (win.hidden && !isMin(win))) return;
   setShown(win, false);
-  win.classList.remove('is-active', 'is-min', 'is-max');
-  for (const btn of $$('[aria-pressed]', win)) btn.setAttribute('aria-pressed', 'false');
+  win.classList.remove('is-active', 'is-min', 'is-dragging');
+  toggleMax(win, false);
   if (location.hash === `#${app}`) history.replaceState(null, '', location.pathname + location.search);
   const top = deskOpen().sort((a, b) => a.style.zIndex - b.style.zIndex).pop();
   if (top) activate(top);
@@ -389,9 +448,31 @@ if (desk) {
     if (win) openWindow(win.dataset.app, { sync: false });
   });
 
+  /* a press anywhere in a window raises it (and the others go inactive) */
   desk.addEventListener('pointerdown', (event) => {
     const win = event.target.closest('.window');
-    if (win) activate(win);
+    if (win && !win.classList.contains('is-active')) activate(win);
+  });
+
+  /* double-click a title bar: maximise / restore (phone mode has no max) */
+  desk.addEventListener('dblclick', (event) => {
+    const bar = event.target.closest('.window__bar');
+    if (!bar || event.target.closest('button, a') || !wideDesk.matches) return;
+    toggleMax(bar.closest('.window'));
+  });
+
+  /* the viewport changed: re-clamp what is open; crossing the breakpoint
+     switches mode live (CSS does the layout, this drops what phone mode lacks) */
+  let resizeFrame = 0;
+  const reclamp = () => {
+    cancelAnimationFrame(resizeFrame);
+    resizeFrame = requestAnimationFrame(() => deskOpen().forEach(clampWin));
+  };
+  window.addEventListener('resize', reclamp);
+  wideDesk.addEventListener('change', () => {
+    if (drag?.desk) endDrag();
+    if (wideDesk.matches) reclamp();
+    else deskWins.forEach((win) => toggleMax(win, false));
   });
 
   initIcons();
@@ -446,6 +527,11 @@ document.addEventListener('click', (event) => {
     if (action === 'min' && win.closest('[data-desk]')) {
       minimizeWindow(win.dataset.app);
       win._task?.focus({ preventScroll: true });
+      return;
+    }
+
+    if (action === 'max' && win.closest('[data-desk]')) {
+      toggleMax(win);
       return;
     }
 

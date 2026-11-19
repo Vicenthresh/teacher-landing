@@ -166,7 +166,7 @@ Each atlas has one more row: the 16 px variant of the same base, for title bars 
   - Click the active one to minimise; click a minimised one to restore and focus. The min button minimises into the taskbar.
   - Strip and button labels come from site.es.json.
   - The styleguide taskbar demos render unchanged (no `tasks` prop). | test: `pnpm build && pnpm measure:contrast && pnpm check:desk`
-- [ ] T3 Drag, maximise and viewport resize on the desk | size: medium | files: src/scripts/desktop.js, src/styles/base.css | accept:
+- [x] T3 Drag, maximise and viewport resize on the desk | size: medium | files: src/scripts/desktop.js, src/styles/base.css | accept:
   - Drag clamps to `.desk` and the title bar can never leave it; `pointerdown` brings the window to the front.
   - Double-clicking a desk title bar toggles max, and max fills the desk above the taskbar. Styleguide demo windows keep dblclick-to-reset.
   - The cascade and default widths match §3. A window resize re-clamps open windows, and crossing the breakpoint switches mode without a reload.
