@@ -5,6 +5,7 @@
     "start": "Inicio",
     "navLabel": "Secciones del sitio",
     "tasksLabel": "Ventanas abiertas",
+    "taskMinimized": "minimizada",
     "nav": [
       {
         "label": "Inicio",

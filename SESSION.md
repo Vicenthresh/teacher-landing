@@ -161,7 +161,7 @@ Each atlas has one more row: the 16 px variant of the same base, for title bars 
   - The selected state uses `--desk-select-bg/ink`, and a focus ring is visible on top of the selection in all 3 page skins.
   - A click on empty desk clears the selection.
   - Verified in preview at 1280×800 (mouse and keyboard only). | test: `pnpm build && pnpm check:desk`
-- [ ] T2 Taskbar window buttons and minimise | size: medium | files: src/components/Taskbar.astro, src/pages/index.astro, src/scripts/desktop.js, src/styles/base.css, src/data/site.es.json | accept:
+- [x] T2 Taskbar window buttons and minimise | size: medium | files: src/components/Taskbar.astro, src/pages/index.astro, src/scripts/desktop.js, src/styles/base.css, src/data/site.es.json | accept:
   - `/` passes `tasks`. With JS the nav anchors hide and `[data-tasks]` lists one button per open window: its 16 px atlas icon plus the title, `aria-pressed` on the active one.
   - Click the active one to minimise; click a minimised one to restore and focus. The min button minimises into the taskbar.
   - Strip and button labels come from site.es.json.

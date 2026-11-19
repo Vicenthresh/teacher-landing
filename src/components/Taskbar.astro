@@ -57,7 +57,15 @@ const link = (item: { label: string; href: string }) => ({
     }
   </nav>
 
-  {tasks && <div class="taskbar__tasks" data-tasks role="group" aria-label={site.taskbar.tasksLabel} />}
+  {tasks && (
+    <div
+      class="taskbar__tasks"
+      data-tasks
+      role="group"
+      aria-label={site.taskbar.tasksLabel}
+      data-label-min={site.taskbar.taskMinimized}
+    />
+  )}
 
   <div class="taskbar__tray">
     <slot name="tray" />

@@ -177,7 +177,10 @@ document.addEventListener('pointercancel', endDrag);
 const desk = document.querySelector('[data-desk]');
 const deskWins = desk ? $$('.window[data-app]', desk) : [];
 const deskWin = (app) => deskWins.find((win) => win.dataset.app === app);
-const deskOpen = () => deskWins.filter((win) => !win.hidden);
+const deskOpen = () => deskWins.filter((win) => !win.hidden); /* on screen */
+const isMin = (win) => win.hidden && win.classList.contains('is-min');
+const deskLive = () => deskWins.filter((win) => !win.hidden || isMin(win)); /* open: shown or minimised */
+const tasks = desk && document.querySelector('[data-tasks]');
 /* phone mode has no default window: the icon grid is the resting state */
 const wideDesk = window.matchMedia('(min-width: 48rem) and (min-height: 32rem)');
 let zTop = 2; /* base.css gives desk windows z-index 2 */
@@ -190,14 +193,70 @@ function setShown(win, on) {
 function activate(win) {
   for (const w of deskWins) w.classList.toggle('is-active', w === win);
   win.style.zIndex = String(++zTop);
+  syncTasks();
+}
+
+/* taskbar: one button per open window (minimised ones too), in the order they
+   were opened. Active = pressed. The nav anchors it replaces are hidden by CSS. */
+function syncTasks() {
+  if (!tasks) return;
+  for (const win of deskWins) {
+    const live = !win.hidden || isMin(win);
+    let btn = win._task;
+    if (!live) {
+      btn?.remove();
+      win._task = null;
+      continue;
+    }
+    if (!btn) {
+      btn = win._task = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'task';
+      btn.dataset.task = win.dataset.app;
+      const i = win.querySelector('.window__icon--atlas')?.style.getPropertyValue('--i');
+      if (i) {
+        const icon = document.createElement('span');
+        icon.className = 'task__icon';
+        icon.style.setProperty('--i', i);
+        icon.setAttribute('aria-hidden', 'true');
+        btn.append(icon);
+      }
+      const label = document.createElement('span');
+      label.className = 'task__label';
+      label.textContent = win.querySelector('.window__title')?.textContent.trim() ?? win.dataset.app;
+      btn.append(label);
+      tasks.append(btn);
+    }
+    btn.setAttribute('aria-pressed', String(!win.hidden && win.classList.contains('is-active')));
+    btn.title = isMin(win) ? `${btn.textContent} (${tasks.dataset.labelMin})` : '';
+  }
+}
+
+/* minimise into the taskbar: the window hides but stays open (is-min), and
+   keeps its cascade slot and position for the restore */
+function minimizeWindow(app) {
+  const win = deskWin(app);
+  if (!win || win.hidden) return;
+  setShown(win, false);
+  win.classList.add('is-min');
+  win.classList.remove('is-active');
+  /* the hash would still name this window: a later #app link must reopen it */
+  if (location.hash === `#${app}`) history.replaceState(null, '', location.pathname + location.search);
+  const top = deskOpen().sort((a, b) => a.style.zIndex - b.style.zIndex).pop();
+  if (top) activate(top);
+  else syncTasks();
 }
 
 function openWindow(app, { focus = true, sync = true } = {}) {
   const win = deskWin(app);
   if (!win) return;
-  if (win.hidden) {
+  if (isMin(win)) {
+    /* restore: same slot, same place */
+    win.classList.remove('is-min');
+    setShown(win, true);
+  } else if (win.hidden) {
     /* cascade: the first free step, so closing one never stacks two on a spot */
-    const used = deskOpen().map((w) => w._n);
+    const used = deskLive().map((w) => w._n);
     let n = 0;
     while (used.includes(n)) n++;
     win._n = n % 8;
@@ -213,13 +272,14 @@ function openWindow(app, { focus = true, sync = true } = {}) {
 
 function closeWindow(app) {
   const win = deskWin(app);
-  if (!win || win.hidden) return;
+  if (!win || (win.hidden && !isMin(win))) return;
   setShown(win, false);
   win.classList.remove('is-active', 'is-min', 'is-max');
   for (const btn of $$('[aria-pressed]', win)) btn.setAttribute('aria-pressed', 'false');
   if (location.hash === `#${app}`) history.replaceState(null, '', location.pathname + location.search);
   const top = deskOpen().sort((a, b) => a.style.zIndex - b.style.zIndex).pop();
   if (top) activate(top);
+  else syncTasks();
   desk.querySelector(`[data-desk-icon="${app}"]`)?.focus({ preventScroll: true });
 }
 
@@ -335,6 +395,13 @@ if (desk) {
   });
 
   initIcons();
+  tasks?.addEventListener('click', (event) => {
+    const btn = event.target.closest('[data-task]');
+    const win = btn && deskWin(btn.dataset.task);
+    if (!win) return;
+    if (!win.hidden && win.classList.contains('is-active')) minimizeWindow(win.dataset.app);
+    else openWindow(win.dataset.app); /* restores a minimised one; focuses either way */
+  });
 }
 
 document.addEventListener('click', (event) => {
@@ -372,6 +439,13 @@ document.addEventListener('click', (event) => {
     /* a desk window closes here, before the legacy [data-windows] path */
     if (action === 'close' && win.closest('[data-desk]')) {
       closeWindow(win.dataset.app);
+      return;
+    }
+
+    /* a desk window minimises into the taskbar; the focus follows to its button */
+    if (action === 'min' && win.closest('[data-desk]')) {
+      minimizeWindow(win.dataset.app);
+      win._task?.focus({ preventScroll: true });
       return;
     }
 
