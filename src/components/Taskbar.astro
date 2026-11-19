@@ -12,6 +12,8 @@ interface Props {
   soundOn?: boolean;
   /** pin to the viewport bottom on a real page (plates keep it in flow) */
   fixed?: boolean;
+  /** render the empty [data-tasks] strip that the window manager fills with one button per open window */
+  tasks?: boolean;
 }
 
 const {
@@ -23,6 +25,7 @@ const {
   langEnabled = false,
   soundOn = false,
   fixed = false,
+  tasks = false,
 } = Astro.props;
 
 const menuId = `startmenu-${idSuffix}`;
@@ -53,6 +56,8 @@ const link = (item: { label: string; href: string }) => ({
       ))
     }
   </nav>
+
+  {tasks && <div class="taskbar__tasks" data-tasks role="group" aria-label={site.taskbar.tasksLabel} />}
 
   <div class="taskbar__tray">
     <slot name="tray" />

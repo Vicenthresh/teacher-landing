@@ -5,7 +5,15 @@ import home from '../../data/home.es.json';
 const { contact } = home;
 ---
 
-<Window id={contact.id} title={contact.windowTitle} icon="px-envelope" class="contact">
+<Window
+  id={contact.id}
+  title={contact.windowTitle}
+  icon="px-envelope"
+  class="contact"
+  app="contacto"
+  atlasIcon="contacto"
+  nojsClose
+>
   <p class="eyebrow">{contact.chatLabel}</p>
   <ul class="chat">
     {

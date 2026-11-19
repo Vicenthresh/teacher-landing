@@ -5,7 +5,15 @@ import home from '../../data/home.es.json';
 const { cv } = home;
 ---
 
-<Window id={cv.id} title={cv.windowTitle} icon="px-floppy" class="cv">
+<Window
+  id={cv.id}
+  title={cv.windowTitle}
+  icon="px-floppy"
+  class="cv"
+  app="cv"
+  atlasIcon="cv"
+  nojsClose
+>
   <div class="cv__doc">
     <p class="cv__file mono">{cv.fileName}</p>
     <h3 class="display cv__heading">{cv.heading}</h3>

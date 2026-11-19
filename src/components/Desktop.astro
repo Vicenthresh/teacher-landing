@@ -1,0 +1,34 @@
+---
+import DeskIcon from './DeskIcon.astro';
+import home from '../data/home.es.json';
+import site from '../data/site.es.json';
+
+/* The desk: a fixed, non-scrolling surface holding the icon grid and the
+   section windows (the default slot). Hero must be the LAST window so the
+   no-JS :target rules in base.css can show it by default. */
+const { desk } = home;
+const icons = [
+  { name: 'inicio', href: '#inicio' },
+  { name: 'contacto', href: '#contacto' },
+  { name: 'cv', href: '#cv' },
+  { name: 'proyectos', href: '#proyectos' },
+  { name: 'blog', href: '#blog' },
+  { name: 'styleguide', href: '/styleguide/' },
+] as const;
+---
+
+<main id="main" class="desk" data-desk>
+  <h1 class="visually-hidden">{site.brand}</h1>
+  <nav class="desk__icons" aria-label={desk.navLabel}>
+    <ul>
+      {
+        icons.map((icon) => (
+          <li>
+            <DeskIcon name={icon.name} href={icon.href} label={desk.icons[icon.name]} />
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+  <slot />
+</main>

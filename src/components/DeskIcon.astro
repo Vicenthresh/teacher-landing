@@ -1,0 +1,28 @@
+---
+import icons from '../data/icons.json';
+
+interface Props {
+  /** key in icons.json: picks the atlas cell */
+  name: keyof typeof icons;
+  label: string;
+  href: string;
+  /** a purely visual copy (styleguide plates): hidden from AT and out of the tab order */
+  decorative?: boolean;
+  class?: string;
+}
+
+const { name, label, href, decorative = false, class: className } = Astro.props;
+const { i } = icons[name];
+---
+
+<a
+  class:list={['desk-icon', className]}
+  href={href}
+  data-desk-icon={name}
+  style={`--i:${i}`}
+  aria-hidden={decorative ? 'true' : undefined}
+  tabindex={decorative ? -1 : undefined}
+>
+  <span class="desk-icon__art" aria-hidden="true"></span>
+  <span class="desk-icon__label">{label}</span>
+</a>

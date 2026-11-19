@@ -2576,3 +2576,262 @@ strong {
 .sitefoot__top:hover {
   text-decoration: none;
 }
+
+/* ===================================================================== */
+/* The desk (home). A fixed, non-scrolling surface above the taskbar: an
+   icon grid plus the section windows. Static shell, pure CSS: with JS off
+   every window opens through :target. The window manager (desktop.js)
+   layers on top of this, it never replaces it.
+   Desktop mode  = (min-width: 48rem) and (min-height: 32rem)
+   Phone mode    = everything else: one full-screen sheet at a time.
+   Tokens only: no literal colours here. */
+
+/* the fixed taskbar is pinned to --taskbar-h so the desk ends exactly where it
+   starts (it measured 46px / 51px on its own: a gap on desktop, an overlap on
+   phones). The 540px rule mirrors the taskbar's own compact breakpoint. */
+.taskbar--fixed {
+  height: var(--taskbar-h);
+}
+
+@media (max-width: 540px) {
+  :root {
+    --taskbar-h: 54px;
+  }
+}
+
+.desk {
+  position: fixed;
+  inset: 0 0 var(--taskbar-h) 0;
+  z-index: 1;
+  overflow: hidden;
+  cursor: var(--cursor-arrow), auto;
+}
+
+.desk a,
+.desk button,
+.desk summary {
+  cursor: var(--cursor-hand), pointer;
+}
+
+/* --- icons --- */
+
+.desk__icons ul {
+  display: grid;
+  margin: 0;
+  padding: 12px;
+  list-style: none;
+}
+
+.desk__icons li {
+  display: grid;
+  min-width: 0;
+}
+
+.desk-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+  padding: var(--space-1) 0;
+  border-radius: var(--radius-btn);
+  color: var(--desk-label-ink);
+  text-decoration: none;
+  text-align: center;
+}
+
+.desk-icon:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.desk-icon__art {
+  flex: none;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  background-image: var(--icon-atlas);
+  background-repeat: no-repeat;
+  background-position: calc(var(--i) * -48px) 0;
+  image-rendering: pixelated;
+}
+
+.desk-icon__label {
+  max-width: 100%;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: var(--desk-label-bg);
+  color: var(--desk-label-ink);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  line-height: 1.25;
+  overflow-wrap: break-word;
+}
+
+/* 16 px atlas cell: the title bar icon of a desk window */
+.window__icon--atlas {
+  display: block;
+  background-image: var(--icon-atlas);
+  background-repeat: no-repeat;
+  background-position: calc(var(--i) * -48px) -48px;
+  image-rendering: pixelated;
+  opacity: 1;
+}
+
+/* --- window parts the desk adds --- */
+
+.winbtn[hidden] {
+  display: none;
+}
+
+a.winbtn {
+  text-decoration: none;
+}
+
+.taskbar__tasks {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+}
+
+/* --- no-JS: which window shows (Hero is the last window) --- */
+
+.desk > .window {
+  display: none;
+  z-index: 2;
+  min-height: 0;
+}
+
+.desk > .window:target,
+.desk > .window[data-app='inicio'] {
+  display: flex;
+}
+
+/* any other window targeted: the default one steps aside (a sibling rule, no :has) */
+.desk > .window:target ~ .window[data-app='inicio'] {
+  display: none;
+}
+
+.desk .window__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  font-size: var(--fs-base);
+}
+
+/* --- desktop mode --- */
+
+@media (min-width: 48rem) and (min-height: 32rem) {
+  .desk {
+    /* icon columns for 9 icons at 96 px rows: 3 in a short desk, 2 from 552 px, 1 from 936 px */
+    --desk-cols: 3;
+  }
+
+  .desk__icons {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+  .desk__icons ul {
+    height: 100%;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(auto-fill, var(--icon-cell-h));
+    grid-auto-columns: var(--icon-cell-w);
+  }
+
+  .desk__icons li {
+    height: var(--icon-cell-h);
+  }
+
+  .desk-icon {
+    height: 100%;
+  }
+
+  /* cascade: first window clear of the icon columns, each next +28/+28 */
+  .desk > .window {
+    --x: calc(var(--desk-cols) * var(--icon-cell-w) + 24px + var(--n, 0) * 28px);
+    --y: calc(16px + var(--n, 0) * 28px);
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: min(var(--w, 30rem), calc(100% - var(--x) - 16px));
+    max-height: calc(100% - var(--y) - 16px);
+  }
+
+  .desk > [data-app='inicio'] {
+    --n: 0;
+    --w: 34rem;
+  }
+
+  .desk > [data-app='contacto'] {
+    --n: 1;
+    --w: 26rem;
+  }
+
+  .desk > [data-app='cv'] {
+    --n: 2;
+    --w: 30rem;
+  }
+
+  .desk > [data-app='proyectos'] {
+    --n: 3;
+    --w: 34rem;
+  }
+
+  .desk > [data-app='blog'] {
+    --n: 4;
+    --w: 40rem;
+  }
+}
+
+@media (min-width: 48rem) and (min-height: 34.5rem) {
+  .desk {
+    --desk-cols: 2;
+  }
+}
+
+@media (min-width: 48rem) and (min-height: 58.5rem) {
+  .desk {
+    --desk-cols: 1;
+  }
+}
+
+/* --- phone mode: one window at a time, a full-screen sheet --- */
+
+@media not all and (min-width: 48rem) and (min-height: 32rem) {
+  .desk {
+    overflow: auto;
+  }
+
+  .desk__icons ul {
+    grid-template-columns: repeat(auto-fill, minmax(max(5.5rem, 25%), 1fr));
+  }
+
+  .desk-icon {
+    height: 100%;
+  }
+
+  /* the grid is the resting state: no default window, so close returns to it
+     (with no JS the Hero sheet would otherwise cover the icons for good) */
+  .desk > .window[data-app='inicio']:not(:target) {
+    display: none;
+  }
+
+  .desk > .window {
+    position: fixed;
+    inset: 0 0 var(--taskbar-h) 0;
+    width: auto;
+    max-height: none;
+    border-radius: 0;
+  }
+
+  .desk .window [data-win='min'],
+  .desk .window [data-win='max'] {
+    display: none;
+  }
+}
