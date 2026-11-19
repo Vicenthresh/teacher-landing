@@ -302,9 +302,27 @@ function minimizeWindow(app) {
   else syncTasks();
 }
 
+/* hide a window and forget its state, with no side effects on the others:
+   the callers decide who becomes active and what the taskbar shows */
+function dismiss(win) {
+  setShown(win, false);
+  win.classList.remove('is-active', 'is-min', 'is-dragging');
+  toggleMax(win, false);
+  if (location.hash === `#${win.dataset.app}`) history.replaceState(null, '', location.pathname + location.search);
+}
+
+/* phone mode: while a sheet covers the grid the icons behind it are out of
+   the tab order and the accessibility tree. Lifted before focus goes back. */
+function syncGrid() {
+  const grid = desk.querySelector('.desk__icons');
+  if (grid) grid.inert = !wideDesk.matches && deskOpen().length > 0;
+}
+
 function openWindow(app, { focus = true, sync = true } = {}) {
   const win = deskWin(app);
   if (!win) return;
+  /* phone mode shows one window at a time: whatever else is open closes first */
+  if (!wideDesk.matches) for (const other of deskLive()) if (other !== win) dismiss(other);
   if (isMin(win)) {
     /* restore: same slot, same place */
     win.classList.remove('is-min');
@@ -323,6 +341,7 @@ function openWindow(app, { focus = true, sync = true } = {}) {
   }
   clampWin(win);
   activate(win);
+  syncGrid();
   /* the desk never scrolls: undo any scroll a fragment jump may have caused */
   desk.scrollTo(0, 0);
   if (focus) win.focus({ preventScroll: true });
@@ -332,13 +351,11 @@ function openWindow(app, { focus = true, sync = true } = {}) {
 function closeWindow(app) {
   const win = deskWin(app);
   if (!win || (win.hidden && !isMin(win))) return;
-  setShown(win, false);
-  win.classList.remove('is-active', 'is-min', 'is-dragging');
-  toggleMax(win, false);
-  if (location.hash === `#${app}`) history.replaceState(null, '', location.pathname + location.search);
+  dismiss(win);
   const top = deskOpen().sort((a, b) => a.style.zIndex - b.style.zIndex).pop();
   if (top) activate(top);
   else syncTasks();
+  syncGrid();
   desk.querySelector(`[data-desk-icon="${app}"]`)?.focus({ preventScroll: true });
 }
 
@@ -471,8 +488,33 @@ if (desk) {
   window.addEventListener('resize', reclamp);
   wideDesk.addEventListener('change', () => {
     if (drag?.desk) endDrag();
-    if (wideDesk.matches) reclamp();
-    else deskWins.forEach((win) => toggleMax(win, false));
+    if (wideDesk.matches) {
+      reclamp();
+      syncGrid();
+      return;
+    }
+    /* into phone mode: exactly one window survives, the active one (else the
+       topmost shown). Minimised windows have no button to come back from. */
+    const shown = deskOpen();
+    const keep = shown.find((w) => w.classList.contains('is-active')) ?? shown.sort((a, b) => a.style.zIndex - b.style.zIndex).pop();
+    for (const win of deskLive()) if (win !== keep) dismiss(win);
+    deskWins.forEach((win) => toggleMax(win, false));
+    if (keep) activate(keep);
+    else syncTasks();
+    syncGrid();
+  });
+
+  /* Esc closes a window: from inside it, or (phone mode, one sheet over the
+     grid) from the page. An open start menu takes the key first. */
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape' || event.defaultPrevented) return;
+    if (document.querySelector('[data-menu]:not([hidden]), [data-boot]:not([hidden])')) return;
+    const inside = document.activeElement?.closest?.('.desk > .window[data-app]');
+    const lone = !wideDesk.matches && document.activeElement === document.body ? deskOpen()[0] : null;
+    const win = inside && !inside.hidden ? inside : lone;
+    if (!win) return;
+    event.preventDefault();
+    closeWindow(win.dataset.app);
   });
 
   initIcons();
@@ -480,7 +522,8 @@ if (desk) {
     const btn = event.target.closest('[data-task]');
     const win = btn && deskWin(btn.dataset.task);
     if (!win) return;
-    if (!win.hidden && win.classList.contains('is-active')) minimizeWindow(win.dataset.app);
+    /* phone mode has no minimise: its one button just brings the sheet back to focus */
+    if (wideDesk.matches && !win.hidden && win.classList.contains('is-active')) minimizeWindow(win.dataset.app);
     else openWindow(win.dataset.app); /* restores a minimised one; focuses either way */
   });
 }

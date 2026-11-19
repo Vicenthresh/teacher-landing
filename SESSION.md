@@ -171,7 +171,7 @@ Each atlas has one more row: the 16 px variant of the same base, for title bars 
   - Double-clicking a desk title bar toggles max, and max fills the desk above the taskbar. Styleguide demo windows keep dblclick-to-reset.
   - The cascade and default widths match §3. A window resize re-clamps open windows, and crossing the breakpoint switches mode without a reload.
   - Verified by dragging into all four edges at 1280×800 and 1024×600. | test: `pnpm build && pnpm check:desk`
-- [ ] T4 Phone mode: one window at a time | size: medium | files: src/scripts/desktop.js, src/styles/base.css | accept:
+- [x] T4 Phone mode: one window at a time | size: medium | files: src/scripts/desktop.js, src/styles/base.css | accept:
   - Outside the §3 query: the icon grid fits without scroll at 390×844 and 844×390. A tap opens one full-screen sheet and closes any other; drag is off and min/max are hidden.
   - Close and Esc return to the grid with focus on the opener. The window body scrolls internally; the page never does.
   - Verified in preview at 390×844 with JS on and off. | test: `pnpm build && pnpm check:desk`
