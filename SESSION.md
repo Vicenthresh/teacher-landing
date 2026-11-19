@@ -93,6 +93,7 @@ Each atlas has one more row: the 16 px variant of the same base, for title bars 
   - `--winbtn-w` 28px, `--winbtn-h` 24px (were 24×20)
   - Desk icons are 48px, against the old 34px CSS folder.
 - **Per-skin chrome.** A heavier `--win-shadow`.
+- **Desk wallpaper.** `.desk` is transparent today, so `/` shows the flat backdrop gradient and its dot grid instead of a desktop. Every skin gains a `--desk-bg` (aero and xp: `var(--plate)` plus a `--ground` band at the bottom; 90s: its navy plate; y2k: its own plate) drawn on `.desk`. The icon label chips already guarantee contrast over any of them.
 - **New per-skin tokens.** Every skin defines all of them; y2k inherits.
   - `--icon-atlas`, `--accent`, `--accent-ink`
   - `--desk-label-ink`, `--desk-label-bg` (a translucent chip, so labels are measurable over any backdrop)
@@ -174,8 +175,9 @@ Each atlas has one more row: the 16 px variant of the same base, for title bars 
   - Outside the §3 query: the icon grid fits without scroll at 390×844 and 844×390. A tap opens one full-screen sheet and closes any other; drag is off and min/max are hidden.
   - Close and Esc return to the grid with focus on the opener. The window body scrolls internally; the page never does.
   - Verified in preview at 390×844 with JS on and off. | test: `pnpm build && pnpm check:desk`
-- [ ] T5 Apply the bolder visual language | size: medium | files: src/styles/base.css, src/components/Window.astro | accept:
+- [ ] T5 Apply the bolder visual language | size: medium | files: src/styles/base.css, src/styles/tokens.css, src/components/Window.astro | accept:
   - base.css uses the §4 tokens: `--bar-h`, `--win-border`, the winbtn size, the type scale for title bars, labels, body and Hero name, and inactive chrome (`--chrome-inactive`, `--bar-ink-inactive`) on non-active desk windows.
+  - The desk paints `--desk-bg` in every skin, so `/` reads as a wallpaper with ground rather than the flat backdrop gradient. No literal colour for it in base.css.
   - No new literal colours enter base.css.
   - The styleguide plates and ingredient cards still render in every skin with no overflowing title bars at 612px plate width.
   - Before/after screenshots of / in aero, xp and 90s go to the thread. | test: `pnpm measure && pnpm check:desk`
