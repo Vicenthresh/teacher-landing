@@ -156,7 +156,7 @@ Each atlas has one more row: the 16 px variant of the same base, for title bars 
   - `package.json` gains `"check:desk"`, and `measure` becomes build + contrast + weight + check:desk. | test: `pnpm build && pnpm check:desk`
 
 ## Tasks
-- [ ] T1 Icon selection and keyboard model | size: medium | files: src/scripts/desktop.js, src/components/DeskIcon.astro, src/styles/base.css | accept:
+- [x] T1 Icon selection and keyboard model | size: medium | files: src/scripts/desktop.js, src/components/DeskIcon.astro, src/styles/base.css | accept:
   - The §3 model works: select on click, open on double-click, single-tap open on touch, `detail === 0` opens, roving tabindex, column-major arrows, Home/End, Enter/Space.
   - The selected state uses `--desk-select-bg/ink`, and a focus ring is visible on top of the selection in all 3 page skins.
   - A click on empty desk clears the selection.

@@ -223,6 +223,96 @@ function closeWindow(app) {
   desk.querySelector(`[data-desk-icon="${app}"]`)?.focus({ preventScroll: true });
 }
 
+/* ------------------------------------------------------------ desk icons */
+/* Selection and keyboard. The grid is ONE tab stop (roving tabindex): the
+   current icon has tabindex 0, the rest -1. Without JS every icon stays a
+   plain link in the tab order. */
+
+const deskIcons = desk ? $$('.desk__icons [data-desk-icon]', desk) : [];
+let currentIcon = null; /* the roving tab stop */
+let selectedIcon = null;
+let lastPointerType = 'mouse';
+
+function setCurrent(icon) {
+  currentIcon = icon;
+  for (const el of deskIcons) el.tabIndex = el === icon ? 0 : -1;
+}
+
+function selectIcon(icon, { focus = true } = {}) {
+  if (selectedIcon && selectedIcon !== icon) delete selectedIcon.dataset.selected;
+  selectedIcon = icon;
+  if (!icon) return;
+  icon.dataset.selected = 'true';
+  setCurrent(icon);
+  /* a link does not take focus on click in every browser */
+  if (focus && document.activeElement !== icon) icon.focus({ preventScroll: true });
+}
+
+/* the grid as columns of icons, read from the layout: it is column-major on
+   the desk and row-major (auto-fill) in phone mode, and the column count
+   follows the window height */
+function iconColumns() {
+  const columns = [];
+  for (const icon of deskIcons) {
+    const rect = icon.getBoundingClientRect();
+    if (!rect.width && !rect.height) continue;
+    const left = Math.round(rect.left);
+    let col = columns.find((c) => Math.abs(c.left - left) < 4);
+    if (!col) columns.push((col = { left, items: [] }));
+    col.items.push({ icon, top: rect.top });
+  }
+  columns.sort((a, b) => a.left - b.left);
+  for (const col of columns) col.items.sort((a, b) => a.top - b.top);
+  return columns;
+}
+
+function moveIcon(from, key) {
+  const columns = iconColumns();
+  const all = columns.flatMap((c) => c.items.map((i) => i.icon));
+  if (key === 'Home') return all[0];
+  if (key === 'End') return all[all.length - 1];
+
+  const c = columns.findIndex((col) => col.items.some((i) => i.icon === from));
+  if (c < 0) return all[0];
+  const r = columns[c].items.findIndex((i) => i.icon === from);
+  if (key === 'ArrowDown') return columns[c].items[Math.min(r + 1, columns[c].items.length - 1)].icon;
+  if (key === 'ArrowUp') return columns[c].items[Math.max(r - 1, 0)].icon;
+
+  const next = columns[clamp(c + (key === 'ArrowRight' ? 1 : -1), 0, columns.length - 1)];
+  return next.items[Math.min(r, next.items.length - 1)].icon;
+}
+
+function initIcons() {
+  if (!deskIcons.length) return;
+  setCurrent(deskIcons[0]);
+  const grid = deskIcons[0].closest('.desk__icons');
+
+  grid.addEventListener('pointerdown', (event) => {
+    lastPointerType = event.pointerType;
+  });
+
+  /* Tab into the grid, or closeWindow() handing focus back: that icon is the stop */
+  grid.addEventListener('focusin', (event) => {
+    const icon = event.target.closest('[data-desk-icon]');
+    if (icon) setCurrent(icon);
+  });
+
+  grid.addEventListener('keydown', (event) => {
+    const icon = event.target.closest('[data-desk-icon]');
+    if (!icon || event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return;
+
+    if (event.key === ' ') {
+      /* a link only activates on Enter: Space does the same, as a keyboard click */
+      event.preventDefault();
+      if (!event.repeat) icon.click();
+      return;
+    }
+    if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    selectIcon(moveIcon(icon, event.key));
+  });
+}
+
 if (desk) {
   document.documentElement.classList.add('has-desk');
   for (const link of $$('[data-nojs-close]', desk)) link.remove();
@@ -243,16 +333,34 @@ if (desk) {
     const win = event.target.closest('.window');
     if (win) activate(win);
   });
+
+  initIcons();
 }
 
 document.addEventListener('click', (event) => {
   /* desk icons: a modified click keeps its link behaviour; the styleguide
      shortcut and the decorative plate icons have no window and fall through */
   const icon = desk && event.target.closest('[data-desk] [data-desk-icon]');
-  if (icon && deskWin(icon.dataset.deskIcon) && !(event.ctrlKey || event.metaKey || event.shiftKey)) {
-    event.preventDefault();
-    openWindow(icon.dataset.deskIcon);
+  if (icon && !(event.ctrlKey || event.metaKey || event.shiftKey)) {
+    selectIcon(icon);
+    /* mouse: one click selects, a double-click opens. Touch and keyboard/AT
+       (detail 0) have no double-click, so one activation opens. */
+    const opens = event.detail === 0 || event.detail >= 2 || lastPointerType === 'touch';
+    if (!opens) {
+      event.preventDefault();
+      return;
+    }
+    if (deskWin(icon.dataset.deskIcon)) {
+      event.preventDefault();
+      openWindow(icon.dataset.deskIcon);
+    }
+    /* no window (the styleguide shortcut): the link navigates as usual */
     return;
+  }
+
+  /* a click on empty desk (not an icon, not a window) clears the selection */
+  if (desk && !icon && event.target.closest('[data-desk]') && !event.target.closest('.window')) {
+    selectIcon(null);
   }
 
   const control = event.target.closest('[data-win]');

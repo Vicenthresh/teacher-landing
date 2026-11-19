@@ -2645,6 +2645,23 @@ strong {
   outline-offset: 2px;
 }
 
+/* selected: the select pair fills the whole icon, label included */
+.desk-icon[data-selected] {
+  background: var(--desk-select-bg);
+  color: var(--desk-select-ink);
+}
+
+.desk-icon[data-selected] .desk-icon__label {
+  background: var(--desk-select-bg);
+  color: var(--desk-select-ink);
+}
+
+/* the outer ring (--focus) can sit close to the select colour, so a selected
+   icon gets a second, inner ring in the select ink: one of the two always reads */
+.desk-icon[data-selected]:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--desk-select-ink);
+}
+
 .desk-icon__art {
   flex: none;
   width: var(--icon-size);
