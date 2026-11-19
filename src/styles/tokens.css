@@ -30,6 +30,11 @@
     linear-gradient(180deg, #a6dcf8 0%, #7cc8f5 36%, #c9ecff 68%, #e8f9ff 100%);
   --ground: linear-gradient(180deg, #b7ee71 0%, #6fc23c 46%, #4f9d2c 100%);
   --ground-curve: 50% 50% 0 0 / 18% 18% 0 0;
+  /* the desk wallpaper: sky plate, a far hill and a ground band (classic desktop) */
+  --desk-bg:
+    var(--ground) 0 100% / 100% 16% no-repeat,
+    radial-gradient(78% 34% at 72% 100%, var(--grass-1) 0 98%, transparent 100%),
+    var(--plate);
   --ground-hi: rgba(255, 255, 255, 0.55);
   --sun: rgba(255, 255, 255, 0.9);
   --scanline: none;
@@ -48,7 +53,7 @@
   --radius-win: 10px;
   --radius-btn: 7px;
   --radius-panel: 14px;
-  --win-shadow: 0 24px 56px rgba(5, 28, 43, 0.46), 0 4px 10px rgba(5, 28, 43, 0.3);
+  --win-shadow: 0 32px 68px rgba(5, 28, 43, 0.58), 0 8px 16px rgba(5, 28, 43, 0.42), 0 0 0 1px rgba(5, 28, 43, 0.28);
   --chrome: linear-gradient(180deg, #ffffff 0%, #eaf4fa 36%, #c6d9e5 52%, #f4fbff 74%, #dbeaf3 100%);
   --chrome-edge: #7f9db0;
   --bar-ink: #0d2b3c;
@@ -162,6 +167,8 @@
     linear-gradient(180deg, #00101c 0%, #04263c 46%, #0a3a55 76%, #0c3c4a 100%);
   --ground: linear-gradient(180deg, #0d3f2c 0%, #07271c 60%, #03150e 100%);
   --ground-curve: 0;
+  /* its own plate: neon dusk with the dark ground band */
+  --desk-bg: var(--ground) 0 100% / 100% 12% no-repeat, var(--plate);
   --ground-hi: rgba(127, 233, 255, 0.35);
   --sun: rgba(127, 233, 255, 0.16);
   --scanline: repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.28) 0 1px, rgba(0, 0, 0, 0) 1px 3px);
@@ -178,7 +185,7 @@
   --radius-win: 2px;
   --radius-btn: 2px;
   --radius-panel: 2px;
-  --win-shadow: 0 0 0 1px #000, 0 22px 48px rgba(0, 0, 0, 0.75), 0 0 44px rgba(55, 214, 255, 0.16);
+  --win-shadow: 0 0 0 1px #000, 0 30px 60px rgba(0, 0, 0, 0.85), 0 0 56px rgba(55, 214, 255, 0.28);
   --chrome: linear-gradient(180deg, #f4fbff 0%, #cfe2ee 28%, #8fabbb 50%, #dcecf6 68%, #a4bccb 100%);
   --chrome-edge: #031018;
   --bar-ink: #04141d;
@@ -263,6 +270,11 @@
     linear-gradient(180deg, #2f7fd6 0%, #5aa9ec 50%, #bfe0fb 100%);
   --ground: linear-gradient(180deg, #8fd14f 0%, #58b030 50%, #3f8f1f 100%);
   --ground-curve: 60% 40% 0 0 / 30% 20% 0 0;
+  /* the desk wallpaper: sky plate, a far hill and a ground band (classic desktop) */
+  --desk-bg:
+    var(--ground) 0 100% / 100% 16% no-repeat,
+    radial-gradient(78% 34% at 72% 100%, var(--grass-1) 0 98%, transparent 100%),
+    var(--plate);
   --ground-hi: rgba(255, 255, 255, 0.4);
   --sun: rgba(255, 255, 200, 0.7);
   --scanline: none;
@@ -279,7 +291,7 @@
   --radius-win: 8px;
   --radius-btn: 3px;
   --radius-panel: 8px;
-  --win-shadow: 0 20px 46px rgba(4, 28, 80, 0.5), 0 4px 9px rgba(4, 28, 80, 0.34);
+  --win-shadow: 0 28px 60px rgba(4, 28, 80, 0.62), 0 8px 14px rgba(4, 28, 80, 0.44);
   --chrome: linear-gradient(180deg, #2150b8 0%, #1c4aae 14%, #0a42a6 56%, #0a3c9c 86%, #0a3590 100%);
   --chrome-edge: #0a2f8f;
   --bar-ink: #ffffff;
@@ -382,6 +394,8 @@
     linear-gradient(180deg, #0b0630 0%, #1a1060 60%, #2a1a80 100%);
   --ground: linear-gradient(180deg, #1f8f8f 0%, #0f6a6a 50%, #0a4a4a 100%);
   --ground-curve: 0;
+  /* the navy plate, flat like a 98 desktop */
+  --desk-bg: var(--plate);
   --ground-hi: rgba(255, 255, 255, 0.5);
   --sun: rgba(255, 255, 160, 0.25);
   --scanline: none;
@@ -398,7 +412,7 @@
   --radius-win: 0px;
   --radius-btn: 0px;
   --radius-panel: 0px;
-  --win-shadow: 6px 6px 0 rgba(0, 0, 0, 0.7);
+  --win-shadow: 8px 8px 0 rgba(0, 0, 0, 0.8);
   --chrome: linear-gradient(90deg, #000080 0%, #0a56a0 100%);
   --chrome-edge: #000000;
   --bar-ink: #ffffff;

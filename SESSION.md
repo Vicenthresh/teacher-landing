@@ -175,7 +175,7 @@ Each atlas has one more row: the 16 px variant of the same base, for title bars 
   - Outside the §3 query: the icon grid fits without scroll at 390×844 and 844×390. A tap opens one full-screen sheet and closes any other; drag is off and min/max are hidden.
   - Close and Esc return to the grid with focus on the opener. The window body scrolls internally; the page never does.
   - Verified in preview at 390×844 with JS on and off. | test: `pnpm build && pnpm check:desk`
-- [ ] T5 Apply the bolder visual language | size: medium | files: src/styles/base.css, src/styles/tokens.css, src/components/Window.astro | accept:
+- [x] T5 Apply the bolder visual language | size: medium | files: src/styles/base.css, src/styles/tokens.css, src/components/Window.astro | accept:
   - base.css uses the §4 tokens: `--bar-h`, `--win-border`, the winbtn size, the type scale for title bars, labels, body and Hero name, and inactive chrome (`--chrome-inactive`, `--bar-ink-inactive`) on non-active desk windows.
   - The desk paints `--desk-bg` in every skin, so `/` reads as a wallpaper with ground rather than the flat backdrop gradient. No literal colour for it in base.css.
   - No new literal colours enter base.css.
