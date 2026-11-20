@@ -1,0 +1,14 @@
+Desktop icons — credits and terms
+
+The two sprite atlases in this folder (xp.webp, 98.webp) are built from icons
+that were designed by Microsoft for Windows XP and Windows 98. They are
+Microsoft's property. They are used here only in a non-commercial learning
+project, to recreate an old-school desktop, and are not licensed for any other
+use. If you are the rights holder and want them removed, say so and they go.
+
+Source: the community "winxp-icons" and "win98-icons" PNG packs, which extract
+those icons from the original system files. Only a small curated set ships:
+nine icons per skin family, each at 48 px plus a 16 px variant. The exact source
+file of every icon is listed in src/data/icons.json.
+
+The atlases are regenerated with `pnpm icons` (scripts/icons.py).

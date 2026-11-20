@@ -12,9 +12,11 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "icons": "python3 -I scripts/icons.py",
     "measure:contrast": "node scripts/contrast.mjs",
     "measure:weight": "node scripts/weight.mjs",
-    "measure": "pnpm build && pnpm measure:contrast && pnpm measure:weight"
+    "check:desk": "node scripts/desk-check.mjs",
+    "measure": "pnpm build && pnpm measure:contrast && pnpm measure:weight && pnpm check:desk"
   },
   "dependencies": {
     "astro": "^7.4.12"

@@ -1,4 +1,7 @@
 ---
+import icons from '../data/icons.json';
+import site from '../data/site.es.json';
+
 interface Props {
   title: string;
   id?: string;
@@ -18,6 +21,12 @@ interface Props {
   drag?: boolean;
   class?: string;
   bodyClass?: string;
+  /** desk window: its app key (the icon that opens it); makes it focusable and labelled by its title */
+  app?: string;
+  /** key in icons.json: draws that icon's 16 px atlas cell in the title bar instead of the line/pixel icon */
+  atlasIcon?: keyof typeof icons;
+  /** render the no-JS close link (JS removes it) and start the JS min/max/close buttons hidden */
+  nojsClose?: boolean;
 }
 
 const {
@@ -28,7 +37,14 @@ const {
   drag = false,
   class: className,
   bodyClass,
+  app,
+  atlasIcon,
+  nojsClose = false,
 } = Astro.props;
+
+const titleId = app && id ? `${id}-title` : undefined;
+const atlasIndex = atlasIcon ? icons[atlasIcon].i : undefined;
+const showControls = controls || nojsClose;
 
 // line icons live in the sprite as #i-*, pixel-art ones as #px-*
 const iconHref = icon.startsWith('px-') ? `#${icon}` : `#i-${icon}`;
@@ -38,21 +54,57 @@ const iconHref = icon.startsWith('px-') ? `#${icon}` : `#i-${icon}`;
   id={id}
   class:list={['window', className]}
   data-drag={drag ? '' : undefined}
-  aria-label={title}
+  data-app={app}
+  tabindex={app ? -1 : undefined}
+  aria-label={titleId ? undefined : title}
+  aria-labelledby={titleId}
 >
   <header class="window__bar">
-    <svg class="window__icon" aria-hidden="true" focusable="false"><use href={iconHref} /></svg>
-    <span class="window__title">{title}</span>
     {
-      controls && (
+      atlasIndex !== undefined ? (
+        <span
+          class="window__icon window__icon--atlas"
+          style={`--i:${atlasIndex}`}
+          aria-hidden="true"
+        />
+      ) : (
+        <svg class="window__icon" aria-hidden="true" focusable="false"><use href={iconHref} /></svg>
+      )
+    }
+    <span class="window__title" id={titleId}>{title}</span>
+    {
+      showControls && (
         <span class="window__controls">
-          <button class="winbtn" type="button" data-win="min" aria-label="Minimizar ventana">
+          {nojsClose && (
+            <a class="winbtn" href="#main" data-nojs-close aria-label={site.window.close}>
+              ×
+            </a>
+          )}
+          <button
+            class="winbtn"
+            type="button"
+            data-win="min"
+            aria-label={site.window.min}
+            hidden={nojsClose}
+          >
             –
           </button>
-          <button class="winbtn" type="button" data-win="max" aria-label="Maximizar ventana">
+          <button
+            class="winbtn"
+            type="button"
+            data-win="max"
+            aria-label={site.window.max}
+            hidden={nojsClose}
+          >
             □
           </button>
-          <button class="winbtn" type="button" data-win="close" aria-label="Cerrar ventana">
+          <button
+            class="winbtn"
+            type="button"
+            data-win="close"
+            aria-label={site.window.close}
+            hidden={nojsClose}
+          >
             ×
           </button>
         </span>

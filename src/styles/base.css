@@ -196,7 +196,7 @@ strong {
   min-width: 0;
   background: var(--panel);
   color: var(--ink);
-  border: 1px solid var(--panel-edge);
+  border: var(--win-border) solid var(--panel-edge);
   border-radius: var(--radius-win);
   box-shadow: var(--win-shadow);
 }
@@ -205,11 +205,11 @@ strong {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  min-height: 34px;
-  padding: 4px var(--space-2) 4px 10px;
+  min-height: var(--bar-h);
+  padding: 4px var(--space-2) 4px var(--space-3);
   background: var(--chrome);
-  border-bottom: 1px solid var(--chrome-edge);
-  border-radius: calc(var(--radius-win) - 1px) calc(var(--radius-win) - 1px) 0 0;
+  border-bottom: var(--win-border) solid var(--chrome-edge);
+  border-radius: calc(var(--radius-win) - var(--win-border)) calc(var(--radius-win) - var(--win-border)) 0 0;
   color: var(--bar-ink);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.95),
@@ -227,7 +227,7 @@ strong {
 .window__title {
   flex: 1 1 auto;
   min-width: 0;
-  font-size: 0.8rem;
+  font-size: var(--fs-sm);
   font-weight: 700;
   letter-spacing: 0.01em;
   white-space: nowrap;
@@ -249,13 +249,13 @@ strong {
 .winbtn {
   display: grid;
   place-items: center;
-  width: 24px;
-  height: 20px;
+  width: var(--winbtn-w);
+  height: var(--winbtn-h);
   padding: 0;
-  font: 700 12px/1 var(--font-ui);
+  font: 700 var(--fs-base) / 1 var(--font-ui);
   color: var(--winbtn-ink);
   background: var(--winbtn-bg);
-  border: 1px solid var(--winbtn-edge);
+  border: var(--win-border) solid var(--winbtn-edge);
   border-radius: 3px;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.9),
@@ -273,7 +273,7 @@ strong {
 }
 
 [data-skin='y2k'] .winbtn {
-  border-width: 1px;
+  border-width: var(--win-border);
   box-shadow:
     inset 1px 1px 0 #ffffff,
     inset -1px -1px 0 #4c6472;
@@ -485,18 +485,18 @@ strong {
    title bar in xp and the navy bar in 90s); selectors only change shape. */
 
 [data-skin='xp'] .window {
-  border-width: 0 3px 3px;
+  border-width: 0 calc(var(--win-border) * 2) calc(var(--win-border) * 2);
   border-color: var(--panel-edge);
 }
 
 [data-skin='xp'] .window__bar {
-  min-height: 30px;
+  min-height: var(--bar-h);
   border-bottom: 0;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
 [data-skin='xp'] .window__title {
-  font-size: 0.85rem;
+  font-size: var(--fs-sm);
   text-shadow: 1px 1px 0 #0a2a6e;
 }
 
@@ -505,11 +505,11 @@ strong {
 }
 
 [data-skin='xp'] .winbtn {
-  width: 22px;
-  height: 22px;
-  border-width: 1px;
+  width: calc(var(--winbtn-h) + 4px);
+  height: calc(var(--winbtn-h) + 4px);
+  border-width: var(--win-border);
   border-radius: 4px;
-  font-size: 13px;
+  font-size: var(--fs-base);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.45),
     inset 0 -2px 3px rgba(0, 0, 40, 0.3);
@@ -522,8 +522,8 @@ strong {
 }
 
 [data-skin='90s'] .window {
-  padding: 2px;
-  border: 2px solid;
+  padding: var(--win-border);
+  border: var(--win-border) solid;
   border-color: var(--glass-edge) var(--btn-edge) var(--btn-edge) var(--glass-edge);
   box-shadow:
     inset -1px -1px 0 var(--panel-edge),
@@ -532,15 +532,15 @@ strong {
 }
 
 [data-skin='90s'] .window__bar {
-  min-height: 22px;
-  padding: 2px 3px 2px 4px;
+  min-height: var(--bar-h);
+  padding: 2px 4px 2px 6px;
   border-bottom: 0;
   border-radius: 0;
   box-shadow: none;
 }
 
 [data-skin='90s'] .window__title {
-  font-size: 0.78rem;
+  font-size: var(--fs-sm);
 }
 
 [data-skin='90s'] .window__icon {
@@ -550,10 +550,10 @@ strong {
 }
 
 [data-skin='90s'] .winbtn {
-  width: 18px;
-  height: 16px;
-  font-size: 11px;
-  border: 2px solid;
+  width: var(--winbtn-w);
+  height: var(--winbtn-h);
+  font-size: var(--fs-sm);
+  border: var(--win-border) solid;
   border-color: var(--glass-edge) var(--winbtn-edge) var(--winbtn-edge) var(--glass-edge);
   border-radius: 0;
   box-shadow: inset -1px -1px 0 var(--panel-edge);
@@ -2238,13 +2238,14 @@ strong {
 
 .hero__name {
   margin: 0;
-  font-size: clamp(1.6rem, 7vw, 2.4rem);
+  font-size: clamp(var(--fs-xl), 7vw, var(--fs-3xl));
+  line-height: 1.1;
   text-transform: uppercase;
 }
 
 .hero__label {
   margin: 0;
-  font-size: 0.76rem;
+  font-size: var(--fs-xs);
   color: var(--ink-mute);
 }
 
@@ -2254,7 +2255,7 @@ strong {
 
 .hero__tagline {
   margin: 0 0 var(--space-2);
-  font-size: 1.05rem;
+  font-size: var(--fs-lg);
   font-weight: 700;
   line-height: 1.35;
 }
@@ -2575,4 +2576,407 @@ strong {
 
 .sitefoot__top:hover {
   text-decoration: none;
+}
+
+/* ===================================================================== */
+/* The desk (home). A fixed, non-scrolling surface above the taskbar: an
+   icon grid plus the section windows. Static shell, pure CSS: with JS off
+   every window opens through :target. The window manager (desktop.js)
+   layers on top of this, it never replaces it.
+   Desktop mode  = (min-width: 48rem) and (min-height: 32rem)
+   Phone mode    = everything else: one full-screen sheet at a time.
+   Tokens only: no literal colours here. */
+
+/* the fixed taskbar is pinned to --taskbar-h so the desk ends exactly where it
+   starts (it measured 46px / 51px on its own: a gap on desktop, an overlap on
+   phones). The 540px rule mirrors the taskbar's own compact breakpoint. */
+.taskbar--fixed {
+  height: var(--taskbar-h);
+}
+
+@media (max-width: 540px) {
+  :root {
+    --taskbar-h: 54px;
+  }
+}
+
+.desk {
+  position: fixed;
+  inset: 0 0 var(--taskbar-h) 0;
+  z-index: 1;
+  overflow: hidden;
+  /* the wallpaper: --desk-bg is the skin's plate (aero/xp add the hill and ground band) */
+  background: var(--desk-bg);
+  background-color: var(--sky-2);
+  cursor: var(--cursor-arrow), auto;
+}
+
+.desk a,
+.desk button,
+.desk summary {
+  cursor: var(--cursor-hand), pointer;
+}
+
+/* --- icons --- */
+
+.desk__icons ul {
+  display: grid;
+  margin: 0;
+  padding: 12px;
+  list-style: none;
+}
+
+.desk__icons li {
+  display: grid;
+  min-width: 0;
+}
+
+.desk-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+  padding: var(--space-1) 0;
+  border-radius: var(--radius-btn);
+  color: var(--desk-label-ink);
+  text-decoration: none;
+  text-align: center;
+}
+
+.desk-icon:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* selected: the select pair fills the whole icon, label included */
+.desk-icon[data-selected] {
+  background: var(--desk-select-bg);
+  color: var(--desk-select-ink);
+}
+
+.desk-icon[data-selected] .desk-icon__label {
+  background: var(--desk-select-bg);
+  color: var(--desk-select-ink);
+}
+
+/* the outer ring (--focus) can sit close to the select colour, so a selected
+   icon gets a second, inner ring in the select ink: one of the two always reads */
+.desk-icon[data-selected]:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--desk-select-ink);
+}
+
+.desk-icon__art {
+  flex: none;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  background-image: var(--icon-atlas);
+  background-repeat: no-repeat;
+  background-position: calc(var(--i) * -48px) 0;
+  image-rendering: pixelated;
+}
+
+.desk-icon__label {
+  max-width: 100%;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: var(--desk-label-bg);
+  color: var(--desk-label-ink);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  line-height: 1.25;
+  overflow-wrap: break-word;
+}
+
+/* 16 px atlas cell: the title bar icon of a desk window */
+.window__icon--atlas {
+  display: block;
+  background-image: var(--icon-atlas);
+  background-repeat: no-repeat;
+  background-position: calc(var(--i) * -48px) -48px;
+  image-rendering: pixelated;
+  opacity: 1;
+}
+
+/* --- window parts the desk adds --- */
+
+.winbtn[hidden] {
+  display: none;
+}
+
+a.winbtn {
+  text-decoration: none;
+}
+
+.taskbar__tasks {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* JS on: the strip of window buttons replaces the section anchors in the bar
+   (the start menu keeps them). Without JS the strip stays empty. */
+.has-desk .taskbar__nav {
+  display: none;
+}
+
+.task {
+  display: flex;
+  flex: 0 1 11rem;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  min-height: 34px;
+  padding: 0 10px 0 8px;
+  font: 700 var(--fs-sm) / 1 var(--font-ui);
+  color: var(--task-ink);
+  background: var(--task-bg);
+  border: 1px solid var(--tray-edge);
+  border-radius: 4px;
+  cursor: var(--cursor-hand), pointer;
+}
+
+.task:hover {
+  filter: brightness(1.08);
+}
+
+.task[aria-pressed='true'] {
+  color: var(--task-ink-on);
+  background: var(--task-bg-on);
+  box-shadow: inset 0 2px 4px color-mix(in srgb, currentColor 35%, transparent);
+}
+
+/* the same 16 px atlas row as the title bar icon */
+.task__icon {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  background-image: var(--icon-atlas);
+  background-repeat: no-repeat;
+  background-position: calc(var(--i) * -48px) -48px;
+  image-rendering: pixelated;
+}
+
+.task__label {
+  min-width: 0;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* --- which window shows (Hero is the last window) --- */
+
+.desk > .window {
+  display: none;
+  z-index: 2;
+  min-height: 0;
+}
+
+/* no JS: :target decides, and Hero is the default */
+html:not(.has-desk) .desk > .window:target,
+html:not(.has-desk) .desk > .window[data-app='inicio'] {
+  display: flex;
+}
+
+/* any other window targeted: the default one steps aside (a sibling rule, no :has) */
+html:not(.has-desk) .desk > .window:target ~ .window[data-app='inicio'] {
+  display: none;
+}
+
+/* JS on: the hidden attribute decides. history.replaceState does not move
+   :target, so the rules above must not apply once desktop.js has taken over. */
+html.has-desk .desk > .window[hidden] {
+  display: none;
+}
+
+html.has-desk .desk > .window:not([hidden]) {
+  display: flex;
+}
+
+.desk .window__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: var(--space-5);
+  overflow: auto;
+  overscroll-behavior: contain;
+  font-size: var(--fs-base);
+}
+
+.desk .window__title {
+  font-size: var(--fs-base);
+}
+
+/* inactive chrome: with JS every desk window that is not the active one dims its bar */
+.has-desk .desk > .window:not(.is-active) .window__bar {
+  background: var(--chrome-inactive);
+  color: var(--bar-ink-inactive);
+}
+
+.has-desk .desk > .window:not(.is-active) .window__title {
+  text-shadow: none;
+}
+
+/* --- desktop mode --- */
+
+@media (min-width: 48rem) and (min-height: 32rem) {
+  .desk {
+    /* icon columns for 9 icons at 96 px rows: 3 in a short desk, 2 from 552 px, 1 from 936 px */
+    --desk-cols: 3;
+  }
+
+  .desk__icons {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+  .desk__icons ul {
+    height: 100%;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(auto-fill, var(--icon-cell-h));
+    grid-auto-columns: var(--icon-cell-w);
+  }
+
+  .desk__icons li {
+    height: var(--icon-cell-h);
+  }
+
+  .desk-icon {
+    height: 100%;
+  }
+
+  /* cascade: first window clear of the icon columns, each next +28/+28.
+     --x0/--y0 are the cascade slot and size the window; --x/--y are where it
+     sits, and desktop.js overrides those two (inline, in px) when the window
+     is dragged or clamped, so a drag never changes the width or max height. */
+  .desk > .window {
+    --x0: calc(var(--desk-cols) * var(--icon-cell-w) + 24px + var(--n, 0) * 28px);
+    --y0: calc(16px + var(--n, 0) * 28px);
+    --x: var(--x0);
+    --y: var(--y0);
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: min(var(--w, 30rem), calc(100% - var(--x0) - 16px));
+    max-height: calc(100% - var(--y0) - 16px);
+  }
+
+  /* the title bar is the drag handle (JS only: the windows are plain sections without it) */
+  .has-desk .desk > .window .window__bar {
+    cursor: var(--cursor-move), grab;
+    touch-action: none;
+  }
+
+  .has-desk .desk > .window.is-dragging .window__bar {
+    cursor: var(--cursor-move), grabbing;
+  }
+
+  /* maximised: the whole desk, above the taskbar (not the legacy 8px 8px 60px) */
+  .desk > .window.is-max {
+    left: 0;
+    top: 0;
+    right: auto; /* the legacy .is-max rule insets 8px 8px 60px */
+    bottom: auto;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    border-radius: 0;
+  }
+
+  .has-desk .desk > .window.is-max .window__bar {
+    cursor: var(--cursor-arrow), auto;
+  }
+
+  .desk > [data-app='inicio'] {
+    --n: 0;
+    --w: 34rem;
+  }
+
+  .desk > [data-app='contacto'] {
+    --n: 1;
+    --w: 26rem;
+  }
+
+  .desk > [data-app='cv'] {
+    --n: 2;
+    --w: 30rem;
+  }
+
+  .desk > [data-app='proyectos'] {
+    --n: 3;
+    --w: 34rem;
+  }
+
+  .desk > [data-app='blog'] {
+    --n: 4;
+    --w: 40rem;
+  }
+
+  .desk > [data-app='pantalla'] {
+    --n: 5;
+    --w: 24rem;
+  }
+
+  .desk > [data-app='leeme'] {
+    --n: 6;
+    --w: 30rem;
+  }
+
+  .desk > [data-app='papelera'] {
+    --n: 7;
+    --w: 22rem;
+  }
+}
+
+@media (min-width: 48rem) and (min-height: 34.5rem) {
+  .desk {
+    --desk-cols: 2;
+  }
+}
+
+@media (min-width: 48rem) and (min-height: 58.5rem) {
+  .desk {
+    --desk-cols: 1;
+  }
+}
+
+/* --- phone mode: one window at a time, a full-screen sheet --- */
+
+@media not all and (min-width: 48rem) and (min-height: 32rem) {
+  .desk {
+    overflow: auto;
+  }
+
+  .desk__icons ul {
+    grid-template-columns: repeat(auto-fill, minmax(max(5.5rem, 25%), 1fr));
+  }
+
+  .desk-icon {
+    height: 100%;
+  }
+
+  /* the grid is the resting state: no default window, so close returns to it
+     (with no JS the Hero sheet would otherwise cover the icons for good) */
+  html:not(.has-desk) .desk > .window[data-app='inicio']:not(:target) {
+    display: none;
+  }
+
+  .desk > .window {
+    position: fixed;
+    inset: 0 0 var(--taskbar-h) 0;
+    width: auto;
+    max-height: none;
+    border-radius: 0;
+  }
+
+  .desk .window [data-win='min'],
+  .desk .window [data-win='max'] {
+    display: none;
+  }
 }

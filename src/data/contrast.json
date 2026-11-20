@@ -43,8 +43,8 @@
       "bg": "#c6d9e5",
       "ratio": "10.13",
       "aa": "pass",
-      "min": "4.5:1",
-      "note": "peor stop del cromo"
+      "min": "7:1",
+      "note": "peor stop del cromo, AAA"
     },
     {
       "pair": "Aero · Botón de ventana",
@@ -200,6 +200,51 @@
       "note": "enlaces dentro de burbujas"
     },
     {
+      "pair": "Aero · Escritorio · etiqueta",
+      "fg": "#ffffff",
+      "bg": "#28463a",
+      "ratio": "10.36",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "chip de la etiqueta compuesto sobre el fondo y pasto"
+    },
+    {
+      "pair": "Aero · Escritorio · seleccionado",
+      "fg": "#ffffff",
+      "bg": "#0b4f78",
+      "ratio": "8.74",
+      "aa": "pass",
+      "min": "7:1",
+      "note": "icono seleccionado, AAA"
+    },
+    {
+      "pair": "Aero · Barra inactiva",
+      "fg": "#3d5565",
+      "bg": "#d3dfe7",
+      "ratio": "5.76",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "peor stop del cromo apagado"
+    },
+    {
+      "pair": "Aero · Tarea",
+      "fg": "#ffffff",
+      "bg": "#1f6a94",
+      "ratio": "5.92",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "botón de ventana en la barra de tareas"
+    },
+    {
+      "pair": "Aero · Tarea · activa",
+      "fg": "#062b3d",
+      "bg": "#a9dcf5",
+      "ratio": "10.03",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "botón de la ventana activa"
+    },
+    {
       "pair": "Aero · Foco · panel",
       "fg": "#0b4a6b",
       "bg": "#f7fcff",
@@ -247,11 +292,11 @@
     {
       "pair": "XP · Barra de ventana",
       "fg": "#ffffff",
-      "bg": "#2a68d6",
-      "ratio": "5.19",
+      "bg": "#2150b8",
+      "ratio": "7.23",
       "aa": "pass",
-      "min": "4.5:1",
-      "note": "peor stop del cromo"
+      "min": "7:1",
+      "note": "peor stop del cromo, AAA"
     },
     {
       "pair": "XP · Botón de ventana",
@@ -407,6 +452,51 @@
       "note": "enlaces dentro de burbujas"
     },
     {
+      "pair": "XP · Escritorio · etiqueta",
+      "fg": "#ffffff",
+      "bg": "#31508a",
+      "ratio": "7.91",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "chip de la etiqueta compuesto sobre el fondo y pasto"
+    },
+    {
+      "pair": "XP · Escritorio · seleccionado",
+      "fg": "#ffffff",
+      "bg": "#1a49b8",
+      "ratio": "7.81",
+      "aa": "pass",
+      "min": "7:1",
+      "note": "icono seleccionado, AAA"
+    },
+    {
+      "pair": "XP · Barra inactiva",
+      "fg": "#0b1f45",
+      "bg": "#8196cb",
+      "ratio": "5.52",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "peor stop del cromo apagado"
+    },
+    {
+      "pair": "XP · Tarea",
+      "fg": "#ffffff",
+      "bg": "#2f6cd8",
+      "ratio": "4.93",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "botón de ventana en la barra de tareas"
+    },
+    {
+      "pair": "XP · Tarea · activa",
+      "fg": "#ffffff",
+      "bg": "#1a47a8",
+      "ratio": "8.36",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "botón de la ventana activa"
+    },
+    {
       "pair": "XP · Foco · panel",
       "fg": "#0a2f8f",
       "bg": "#f6f4e6",
@@ -454,11 +544,11 @@
     {
       "pair": "90s · Barra de ventana",
       "fg": "#ffffff",
-      "bg": "#0a64b0",
-      "ratio": "6.06",
+      "bg": "#0a56a0",
+      "ratio": "7.36",
       "aa": "pass",
-      "min": "4.5:1",
-      "note": "peor stop del cromo"
+      "min": "7:1",
+      "note": "peor stop del cromo, AAA"
     },
     {
       "pair": "90s · Botón de ventana",
@@ -614,6 +704,51 @@
       "note": "enlaces dentro de burbujas"
     },
     {
+      "pair": "90s · Escritorio · etiqueta",
+      "fg": "#ffffff",
+      "bg": "#071f1f",
+      "ratio": "17.07",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "chip de la etiqueta compuesto sobre el fondo y pasto"
+    },
+    {
+      "pair": "90s · Escritorio · seleccionado",
+      "fg": "#ffffff",
+      "bg": "#000080",
+      "ratio": "16.01",
+      "aa": "pass",
+      "min": "7:1",
+      "note": "icono seleccionado, AAA"
+    },
+    {
+      "pair": "90s · Barra inactiva",
+      "fg": "#ffffff",
+      "bg": "#6a6a6a",
+      "ratio": "5.41",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "peor stop del cromo apagado"
+    },
+    {
+      "pair": "90s · Tarea",
+      "fg": "#000000",
+      "bg": "#c0c0c0",
+      "ratio": "11.54",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "botón de ventana en la barra de tareas"
+    },
+    {
+      "pair": "90s · Tarea · activa",
+      "fg": "#000000",
+      "bg": "#a8a8a8",
+      "ratio": "8.83",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "botón de la ventana activa"
+    },
+    {
       "pair": "90s · Foco · panel",
       "fg": "#000080",
       "bg": "#c0c0c0",
@@ -664,8 +799,8 @@
       "bg": "#8fabbb",
       "ratio": "7.76",
       "aa": "pass",
-      "min": "4.5:1",
-      "note": "peor stop del cromo"
+      "min": "7:1",
+      "note": "peor stop del cromo, AAA"
     },
     {
       "pair": "Y2K · Botón de ventana",
@@ -819,6 +954,51 @@
       "aa": "pass",
       "min": "4.5:1",
       "note": "enlaces dentro de burbujas"
+    },
+    {
+      "pair": "Y2K · Escritorio · etiqueta",
+      "fg": "#ffffff",
+      "bg": "#052234",
+      "ratio": "16.34",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "chip de la etiqueta compuesto sobre el fondo y pasto"
+    },
+    {
+      "pair": "Y2K · Escritorio · seleccionado",
+      "fg": "#ffffff",
+      "bg": "#0b4f78",
+      "ratio": "8.74",
+      "aa": "pass",
+      "min": "7:1",
+      "note": "icono seleccionado, AAA"
+    },
+    {
+      "pair": "Y2K · Barra inactiva",
+      "fg": "#3d5565",
+      "bg": "#d3dfe7",
+      "ratio": "5.76",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "peor stop del cromo apagado"
+    },
+    {
+      "pair": "Y2K · Tarea",
+      "fg": "#ffffff",
+      "bg": "#1f6a94",
+      "ratio": "5.92",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "botón de ventana en la barra de tareas"
+    },
+    {
+      "pair": "Y2K · Tarea · activa",
+      "fg": "#062b3d",
+      "bg": "#a9dcf5",
+      "ratio": "10.03",
+      "aa": "pass",
+      "min": "4.5:1",
+      "note": "botón de la ventana activa"
     },
     {
       "pair": "Y2K · Foco · panel",

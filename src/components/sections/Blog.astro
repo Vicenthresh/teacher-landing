@@ -6,7 +6,15 @@ import home from '../../data/home.es.json';
 const { posts } = home;
 ---
 
-<Window id={posts.id} title={posts.windowTitle} icon="px-book" class="blog">
+<Window
+  id={posts.id}
+  title={posts.windowTitle}
+  icon="px-book"
+  class="blog"
+  app="blog"
+  atlasIcon="blog"
+  nojsClose
+>
   <p class="eyebrow">{posts.listLabel}</p>
   <div class="bloggrid">
     {

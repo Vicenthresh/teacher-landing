@@ -10,7 +10,15 @@ const ICONS = new Set(['folder', 'book', 'star', 'floppy', 'apple', 'envelope'])
 const iconHref = (icon: string) => (ICONS.has(icon) ? `#px-${icon}` : '#px-folder');
 ---
 
-<Window id={projects.id} title={projects.windowTitle} icon="px-folder" class="projects">
+<Window
+  id={projects.id}
+  title={projects.windowTitle}
+  icon="px-folder"
+  class="projects"
+  app="proyectos"
+  atlasIcon="proyectos"
+  nojsClose
+>
   <p class="eyebrow">{projects.listLabel}</p>
   <div class="projgrid">
     {

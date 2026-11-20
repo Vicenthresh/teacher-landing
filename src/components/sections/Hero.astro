@@ -24,14 +24,22 @@ const AVATAR = `<svg viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidde
 </svg>`;
 ---
 
-<Window id={hero.id} title={hero.windowTitle} icon="computer" class="hero">
+<Window
+  id={hero.id}
+  title={hero.windowTitle}
+  icon="computer"
+  class="hero"
+  app="inicio"
+  atlasIcon="inicio"
+  nojsClose
+>
   <div class="hero__head">
     <div class="hero__avatar">
       <Fragment set:html={AVATAR} />
     </div>
     <div class="hero__who">
       <p class="eyebrow">{hero.kicker}</p>
-      <h1 class="chrome-text hero__name">{hero.name}</h1>
+      <h2 class="chrome-text hero__name">{hero.name}</h2>
       <Garnish variant="glitter" />
     </div>
   </div>

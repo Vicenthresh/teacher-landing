@@ -4,6 +4,8 @@
   "taskbar": {
     "start": "Inicio",
     "navLabel": "Secciones del sitio",
+    "tasksLabel": "Ventanas abiertas",
+    "taskMinimized": "minimizada",
     "nav": [
       {
         "label": "Inicio",
@@ -32,6 +34,11 @@
     "menuHead": "Miss Javi · borrador",
     "menuStyleguide": "Style guide (fase 0)",
     "menuFoot": "Borrador · contenido de ejemplo"
+  },
+  "window": {
+    "min": "Minimizar ventana",
+    "max": "Maximizar ventana",
+    "close": "Cerrar ventana"
   },
   "boot": {
     "title": "MISS JAVI",

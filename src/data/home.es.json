@@ -1,4 +1,15 @@
 {
+  "desk": {
+    "navLabel": "Iconos del escritorio",
+    "icons": {
+      "inicio": "Inicio",
+      "contacto": "Contacto",
+      "cv": "CV.doc",
+      "proyectos": "Proyectos",
+      "blog": "Blog.txt",
+      "styleguide": "Style guide"
+    }
+  },
   "hero": {
     "id": "inicio",
     "windowTitle": "Miss Javi · inicio.exe",
